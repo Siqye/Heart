@@ -137,10 +137,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="src\utils\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\graphics\window.hpp" />
+    <ClInclude Include="src\utils\file_reader.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shader\basicFrag.glsl" />
+    <None Include="src\shader\basicVert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
