@@ -74,7 +74,7 @@
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\pkali\source\repos\Heart\dependencies\glew\bin;C:\Users\pkali\source\repos\Heart\dependencies\glew\lib;C:\Users\pkali\source\repos\Heart\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>C:\Users\pkali\source\repos\Heart\dependencies\glm;C:\Users\pkali\source\repos\Heart\dependencies\glfw\include;C:\Users\pkali\source\repos\Heart\dependencies\glfw\bin;C:\Users\pkali\source\repos\Heart\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>C:\Users\pkali\source\repos\Heart\dependencies\glfw\include;C:\Users\pkali\source\repos\Heart\dependencies\glfw\bin;C:\Users\pkali\source\repos\Heart\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,13 +137,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="src\maths\mat4.cpp" />
+    <ClCompile Include="src\maths\vec2.cpp" />
+    <ClCompile Include="src\maths\vec3.cpp" />
+    <ClCompile Include="src\maths\vec4.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\renderer.hpp" />
     <ClInclude Include="src\graphics\shader.hpp" />
+    <ClInclude Include="src\graphics\sprite.hpp" />
     <ClInclude Include="src\graphics\window.hpp" />
+    <ClInclude Include="src\maths\mat4.hpp" />
+    <ClInclude Include="src\maths\maths.hpp" />
+    <ClInclude Include="src\maths\vec2.hpp" />
+    <ClInclude Include="src\maths\vec3.hpp" />
+    <ClInclude Include="src\maths\vec4.hpp" />
     <ClInclude Include="src\utils\file_reader.hpp" />
   </ItemGroup>
   <ItemGroup>

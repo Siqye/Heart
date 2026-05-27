@@ -44,7 +44,6 @@ namespace heartCore { namespace graphics {
 			std::cout << "Failed to initialize GLFW" << std::endl;
 			return false;
 		}
-
 		m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
 
 		glfwSetWindowUserPointer(m_window, this);
@@ -67,6 +66,7 @@ namespace heartCore { namespace graphics {
 			std::cout << "Failed to initialize GLEW" << std::endl;
 			return false;
 		}
+		glViewport(0, 0, m_width, m_height);
 		return true;
 	}
 
