@@ -2,7 +2,7 @@
 #include "src/graphics/shader.hpp"
 #include "src/graphics/sprite.hpp"
 #include "src/graphics/renderer.hpp"
-#include "src/utils/image_loader.hpp"
+#include "src/graphics/texture.hpp"
 
 
 using namespace heartCore;
@@ -16,12 +16,14 @@ int main()
 
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
-
+	shader.setUniform1i("tex", 0);
+	
 	Renderer renderer;
+	Sprite sprite(1, 1, 0.5f, 0.5f, maths::vec4(1, 1, 1, 1));
 
-	Sprite sprite(0, 0, 0.5f, 0.5f, maths::vec4(1, 1, 0, 1));
-
-	BYTE* bits = load_image("test/test.png");
+	glActiveTexture(GL_TEXTURE0);
+	Texture tex("test/test.png");
+	tex.bind();
 
 	double x, y;
 	while (window.close()) {
