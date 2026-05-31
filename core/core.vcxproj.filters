@@ -45,6 +45,12 @@
     <ClCompile Include="src\graphics\texture.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\layers\group.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\layers\levellayer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.hpp">
@@ -83,11 +89,19 @@
     <ClInclude Include="src\graphics\texture.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\layers\layer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layers\group.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\layers\levellayer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shader\basicFrag.glsl" />
     <None Include="src\shader\basicVert.glsl" />
-    <None Include="..\dependencies\FreeImage\bin\FreeImage.dll" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png">

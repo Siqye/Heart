@@ -137,6 +137,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\layers\group.cpp" />
+    <ClCompile Include="src\graphics\layers\levellayer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
@@ -148,6 +150,9 @@
     <ClCompile Include="src\utils\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\layers\group.hpp" />
+    <ClInclude Include="src\graphics\layers\layer.hpp" />
+    <ClInclude Include="src\graphics\layers\levellayer.hpp" />
     <ClInclude Include="src\graphics\renderer.hpp" />
     <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\graphics\sprite.hpp" />
@@ -162,7 +167,6 @@
     <ClInclude Include="src\utils\image_loader.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\dependencies\FreeImage\bin\FreeImage.dll" />
     <None Include="src\shader\basicFrag.glsl" />
     <None Include="src\shader\basicVert.glsl" />
   </ItemGroup>

@@ -7,10 +7,12 @@ in DATA {
 	vec2 tc;
 } fs_in;
 
+uniform vec2 ligth_pos;
 uniform sampler2D tex;
 
 void main()
 {
-	color = fs_in.color;
-	color = texture(tex, fs_in.tc);
+	float intensity = 0.3 / length(fs_in.position.xy + ligth_pos);
+	color = fs_in.color * intensity;
+	color += texture(tex, fs_in.tc);
 }
