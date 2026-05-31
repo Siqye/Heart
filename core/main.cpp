@@ -1,3 +1,4 @@
+#include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
 #include "src/graphics/shader.hpp"
 #include "src/graphics/sprite.hpp"
@@ -33,6 +34,10 @@ int main()
 	Texture tex("test/test.png");
 	tex.bind();
 
+	Timer timer;
+	int fps = 0;
+
+
 	double x, y;
 	while (window.close()) {
 		window.clear();
@@ -42,6 +47,14 @@ int main()
 			-x * 4.0f / 800.0f,
 			-3.0f + y * 3.0f / 600.0f
 		));
+
+		fps++;
+
+		if (timer.elapsed() >= 1.0) {
+			std::cout << fps << std::endl;
+			timer.reset();
+			fps = 0;
+		}
 
 		renderer.begin();
 		layer.submit(&renderer);

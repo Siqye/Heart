@@ -98,6 +98,9 @@
     <ClInclude Include="src\graphics\layers\levellayer.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\timer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shader\basicFrag.glsl" />

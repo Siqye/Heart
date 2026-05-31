@@ -165,6 +165,7 @@
     <ClInclude Include="src\maths\vec4.hpp" />
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
+    <ClInclude Include="src\utils\timer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shader\basicFrag.glsl" />
