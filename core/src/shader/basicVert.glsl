@@ -15,8 +15,8 @@ out DATA {
 
 void main()
 {
+    gl_Position = pr_matrix * ml_matrix * vw_matrix * position;
     vs_out.color = color;
     vs_out.position = position;
     vs_out.tc = tc;
-    gl_Position = pr_matrix * ml_matrix * vw_matrix * position;
 }
