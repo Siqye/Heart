@@ -10,6 +10,6 @@ namespace heartCore { namespace graphics {
 
 	void LevelLayer::submit(Renderer* renderer) const {
 		for (Sprite sprite : m_sprites)
-			renderer->submit(&sprite);//sprite.submit(renderer);
+			sprite.submit(renderer);
 	}
 } }

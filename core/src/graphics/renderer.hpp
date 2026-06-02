@@ -1,7 +1,7 @@
 #pragma once
 #include <glew.h>
-#include "sprite.hpp"
 #include <vector>
+#include "../maths/maths.hpp"
 #include <cstddef>
 
 #define MAX_SPRITES		10000
@@ -16,6 +16,9 @@
 ;
 
 namespace heartCore { namespace graphics {
+	class Sprite;
+	struct VertexData;
+	
 	class Renderer {
 	private:
 		std::vector<maths::mat4> m_transformStack;

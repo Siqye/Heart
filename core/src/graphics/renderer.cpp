@@ -1,5 +1,5 @@
 #include "renderer.hpp"
-
+#include "sprite.hpp"
 
 namespace heartCore { 	namespace graphics {
 

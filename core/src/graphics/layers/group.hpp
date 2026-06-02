@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "../renderer.hpp"
+#include "../sprite.hpp"
 #include "../../maths/maths.hpp"
 
 namespace heartCore { namespace graphics {

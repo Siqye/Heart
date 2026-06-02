@@ -1,5 +1,6 @@
 #pragma once
 #include "../maths/maths.hpp"
+#include "renderer.hpp"
 #include <vector>
 #include <glew.h>
 
@@ -20,7 +21,7 @@ namespace heartCore { namespace graphics {
 			m_texCoords.push_back(maths::vec2(1, 0));	
 		}
 	protected:
-		Sprite() {}
+		Sprite() { setTC(); }
 
 		maths::vec2 m_size;
 		maths::vec4 m_color;
@@ -31,7 +32,7 @@ namespace heartCore { namespace graphics {
 			:	m_position(maths::vec3(x,y,0)), m_size(maths::vec2(width,height)), m_color(color)
 		{ setTC(); }
 
-		//virtual const void submit(Renderer* renderer) { renderer->submit(this); }
+		virtual void submit(Renderer* renderer) { renderer->submit(this); }
 
 		inline const maths::vec2& getSize() const { return m_size; }
 		inline const maths::vec3& getPosition() const { return m_position; }
