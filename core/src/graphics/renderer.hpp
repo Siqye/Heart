@@ -12,7 +12,8 @@
 
 #define VERTEX_INDEX		0
 #define TEXTURE_COORD_INDEX 1
-#define COLOR_INDEX			2
+#define TEXTURE_ID_INDEX	2
+#define COLOR_INDEX			3
 ;
 
 namespace heartCore { namespace graphics {
@@ -23,6 +24,8 @@ namespace heartCore { namespace graphics {
 	private:
 		std::vector<maths::mat4> m_transformStack;
 		const maths::mat4* m_transformBack;
+
+		std::vector<GLuint> m_textureSlots;
 
 		GLuint VAO, VBO, IBO;
 		GLsizei m_indexCount;

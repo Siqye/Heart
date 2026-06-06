@@ -9,5 +9,6 @@ namespace heartCore { namespace graphics {
 
 		void add(const Sprite& sprite) override;
 		void submit(Renderer* renderer) const override;
+		void render(Renderer* renderer) override;
 	};
 } }

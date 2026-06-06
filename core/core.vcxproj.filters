@@ -110,5 +110,20 @@
     <Image Include="test\test.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="test\test1.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="test\test2.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="test\test3.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="test\test4.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="test\test5.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>

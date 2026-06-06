@@ -19,5 +19,6 @@ namespace heartCore { namespace graphics {
 
 		inline const unsigned int getWidth() const { return m_width; }
 		inline const unsigned int getHeight() const { return m_height; }
+		inline const GLuint getTID() const { return m_texID; }
 	};
 } }

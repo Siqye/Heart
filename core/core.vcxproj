@@ -74,7 +74,7 @@
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\pkali\source\repos\Heart\dependencies\FreeImage\lib;C:\Users\pkali\source\repos\Heart\dependencies\glew\lib;C:\Users\pkali\source\repos\Heart\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>C:\Users\pkali\source\repos\Heart\dependencies\FreeImage\include;C:\Users\pkali\source\repos\Heart\dependencies\glfw\include;C:\Users\pkali\source\repos\Heart\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>C:\Users\pkali\source\repos\Heart\dependencies\freetype\include;C:\Users\pkali\source\repos\Heart\dependencies\FreeImage\include;C:\Users\pkali\source\repos\Heart\dependencies\glfw\include;C:\Users\pkali\source\repos\Heart\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -173,6 +173,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png" />
+    <Image Include="test\test1.png" />
+    <Image Include="test\test2.png" />
+    <Image Include="test\test3.png" />
+    <Image Include="test\test4.png" />
+    <Image Include="test\test5.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

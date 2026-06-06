@@ -12,5 +12,6 @@ namespace heartCore { namespace graphics {
 		~Layer() {}
 		virtual void add(const Sprite& sprite) {}
 		virtual void submit(Renderer* renderer) const {}
+		virtual void render(Renderer* renderer) {}
 	};
 } }
