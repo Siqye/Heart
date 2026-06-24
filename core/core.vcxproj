@@ -72,9 +72,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\pkali\source\repos\Heart\dependencies\FreeImage\lib;C:\Users\pkali\source\repos\Heart\dependencies\glew\lib;C:\Users\pkali\source\repos\Heart\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>C:\Users\pkali\source\repos\Heart\dependencies\freetype\include;C:\Users\pkali\source\repos\Heart\dependencies\FreeImage\include;C:\Users\pkali\source\repos\Heart\dependencies\glfw\include;C:\Users\pkali\source\repos\Heart\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
