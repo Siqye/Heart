@@ -6,12 +6,12 @@
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
+#include "src/graphics/label.hpp"
 
 using namespace heartCore;
 using namespace graphics;
 
 #define FREEIMAGE_TEST 0
-
 #if !FREEIMAGE_TEST
 
 int main() 
@@ -24,6 +24,8 @@ int main()
 	//maths::mat4 mat = maths::mat4::rotation(45, maths::vec3(0, 0, 1)) * maths::mat4::translation(maths::vec3(2, 1, 0));
 
 	Group button(maths::mat4::translation(maths::vec3(2, 1, 0)));
+
+	Label label("Hello World", 0, 0, maths::vec4(1, 1, 1, 1), "test/fonts/arvo.ttf");
 
 
 	Texture* textures[] = {
