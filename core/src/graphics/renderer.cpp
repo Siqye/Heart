@@ -1,5 +1,8 @@
 #include "renderer.hpp"
 #include "sprite.hpp"
+#include "label.hpp"
+
+
 
 namespace heartCore { 	namespace graphics {
 
@@ -19,7 +22,7 @@ namespace heartCore { 	namespace graphics {
 		glVertexAttribPointer(VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::vertex));
 		glVertexAttribPointer(TEXTURE_COORD_INDEX, 2, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::tc));
 		glVertexAttribPointer(TEXTURE_ID_INDEX, 1, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::tid));
-		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_INT, GL_TRUE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::color));
+		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::color));
 		glEnableVertexAttribArray(VERTEX_INDEX); glEnableVertexAttribArray(TEXTURE_COORD_INDEX); 
 		glEnableVertexAttribArray(TEXTURE_ID_INDEX); glEnableVertexAttribArray(COLOR_INDEX);
 
@@ -138,7 +141,6 @@ namespace heartCore { 	namespace graphics {
 	}
 
 	void Renderer::push(const maths::mat4& matrix, bool override) {
-
 		if (override) m_transformStack.push_back(matrix);
 
 		else m_transformStack.push_back(m_transformStack.back() * matrix);

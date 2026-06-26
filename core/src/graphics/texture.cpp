@@ -11,7 +11,7 @@ namespace heartCore { namespace graphics {
 	GLuint Texture::load() {
 		BYTE* pixels = load_image(m_texturePath, &m_width, &m_height);
 		GLuint result;
-
+		if (pixels == nullptr) return 0;
 		glGenTextures(1, &result);
 		glBindTexture(GL_TEXTURE_2D, result);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

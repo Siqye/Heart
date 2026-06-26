@@ -23,7 +23,7 @@ namespace heartCore { namespace graphics {
 			m_texCoords.push_back(maths::vec2(1, 0));	
 		}
 	protected:
-		Sprite() { setTC(); }
+		Sprite() : m_texture(nullptr) { setTC(); }
 
 		maths::vec2 m_size;
 		maths::vec4 m_color;
@@ -32,7 +32,8 @@ namespace heartCore { namespace graphics {
 		Texture* m_texture;
 	public:
 		Sprite(double x, double y, double width, double height, maths::vec4 color) 
-			:	m_position(maths::vec3(x,y,0)), m_size(maths::vec2(width,height)), m_color(color)
+			:	m_position(maths::vec3(x,y,0)), m_size(maths::vec2(width,height)), m_color(color),
+			m_texture(nullptr)
 		{ setTC(); }
 
 

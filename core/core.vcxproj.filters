@@ -51,6 +51,9 @@
     <ClCompile Include="src\graphics\layers\levellayer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\label.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.hpp">
@@ -101,10 +104,13 @@
     <ClInclude Include="src\utils\timer.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\label.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shader\basicFrag.glsl" />
-    <None Include="src\shader\basicVert.glsl" />
+    <None Include="src\shader\basic.frag" />
+    <None Include="src\shader\basic.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png">
@@ -125,5 +131,11 @@
     <Image Include="test\test5.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Arvo-Bold.ttf" />
+    <Font Include="fonts\Arvo-BoldItalic.ttf" />
+    <Font Include="fonts\Arvo-Italic.ttf" />
+    <Font Include="fonts\Arvo-Regular.ttf" />
   </ItemGroup>
 </Project>

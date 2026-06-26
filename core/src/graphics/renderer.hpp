@@ -18,6 +18,7 @@
 
 namespace heartCore { namespace graphics {
 	class Sprite;
+	class Label;
 	struct VertexData;
 	
 	class Renderer {
