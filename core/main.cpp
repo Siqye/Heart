@@ -11,11 +11,20 @@
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
 #include "src/graphics/label.hpp"
+<<<<<<< HEAD
 
+=======
+>>>>>>> f36fedf030899ced0ea5bd6422810c54baec6fa9
 
 using namespace heartCore;
 using namespace graphics;
 
+<<<<<<< HEAD
+=======
+#define FREEIMAGE_TEST 0
+#if !FREEIMAGE_TEST
+
+>>>>>>> f36fedf030899ced0ea5bd6422810c54baec6fa9
 int main() 
 {
 
@@ -23,7 +32,18 @@ int main()
 	
 	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
 
+<<<<<<< HEAD
     /* Texture* textures[] = {
+=======
+	//maths::mat4 mat = maths::mat4::rotation(45, maths::vec3(0, 0, 1)) * maths::mat4::translation(maths::vec3(2, 1, 0));
+
+	Group button(maths::mat4::translation(maths::vec3(2, 1, 0)));
+
+	Label label("Hello World", 0, 0, maths::vec4(1, 1, 1, 1), "test/fonts/arvo.ttf");
+
+
+	Texture* textures[] = {
+>>>>>>> f36fedf030899ced0ea5bd6422810c54baec6fa9
 		new Texture("test/test1.png"),
 		new Texture("test/test2.png"),
 		new Texture("test/test3.png"),
