@@ -1,3 +1,4 @@
+
 #include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
 #include "src/graphics/shader.hpp"
@@ -25,13 +26,11 @@ int main()
 	Window window(800, 600, "Heart");
 
 	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
-	
-
 	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+
 
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
-	shader.setUniform1iv("textures", 32, texIDs);
 
 	LevelLayer layer;
 
@@ -42,6 +41,7 @@ int main()
 	}
 
 	//layer.add(Sprite(0, 0, 1, 1, textures[1]));
+
 
 	Renderer renderer;
 
@@ -71,7 +71,6 @@ int main()
 		layer.render(&renderer);
 
 		window.update();
-	}
-
+	BYTE* result;
 	return 0;
 }
