@@ -6,28 +6,14 @@
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
-#include "src/graphics/label.hpp"
 
 using namespace heartCore;
 using namespace graphics;
 
-#define FREEIMAGE_TEST 0
-#if !FREEIMAGE_TEST
+
 
 int main() 
 {
-
-	Window window(800, 600, "Heart");
-	
-	Shader shader("src/shader/basicVert.glsl", "src/shader/basicFrag.glsl");
-
-	//maths::mat4 mat = maths::mat4::rotation(45, maths::vec3(0, 0, 1)) * maths::mat4::translation(maths::vec3(2, 1, 0));
-
-	Group button(maths::mat4::translation(maths::vec3(2, 1, 0)));
-
-	Label label("Hello World", 0, 0, maths::vec4(1, 1, 1, 1), "test/fonts/arvo.ttf");
-
-
 	Texture* textures[] = {
 		new Texture("test/test1.png"),
 		new Texture("test/test2.png"),
@@ -36,31 +22,36 @@ int main()
 		new Texture("test/test5.png")
 	};
 
-	LevelLayer layer;
+	Window window(800, 600, "Heart");
 
-	//layer.add(button);
+	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
+	
 
-	for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
-		layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
-	} }
-
-
-	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
+	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
 
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
 
-	//tex->bind();
-	//button.add(new Sprite(0, 0, 0.4f, 0.3f, tex));
-	//button.add(new Sprite(0.1f, 0.15f, 0.2f, 0.15f, tex));
+	LevelLayer layer;
+
+	for (float x = 0; x < 4; x += 0.3f) {
+		for (float y = 0; y < 3; y += 0.3f) {
+			layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
+		}
+	}
+
+	//layer.add(Sprite(0, 0, 1, 1, textures[1]));
 
 	Renderer renderer;
 
+	int index = 0;
+
+	double x, y;
 	Timer timer;
 	int fps = 0;
 
-	double x, y;
+
 	while (window.close()) {
 		window.clear();
 
@@ -84,50 +75,3 @@ int main()
 
 	return 0;
 }
-#else
-
-int main() {
-
-	const char* path = "test/test2.png";
-	int width, height;
-
-	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
-	FIBITMAP* dib = 0;
-
-	BYTE* result;
-
-	fif = FreeImage_GetFileType(path, 0);
-
-	if (fif == FIF_UNKNOWN)
-		fif = FreeImage_GetFIFFromFilename(path);
-
-	if (fif == FIF_UNKNOWN)
-		return 1;
-
-	if (FreeImage_FIFSupportsReading(fif))
-		dib = FreeImage_Load(fif, path);
-	if (!dib)
-		return 1;
-
-	result = FreeImage_GetBits(dib);
-
-	width = FreeImage_GetWidth(dib);
-	height = FreeImage_GetHeight(dib);
-
-	if ((result == 0) || (width == 0) || (height == 0))
-		return 1;
-	unsigned int pitch = FreeImage_GetPitch(dib);
-
-	for (int y = 0; y < height;y++) { 
-		BYTE* pixel = (BYTE*)result;
-		for (int x = 0; x < width; x++) {
-			std::cout << (int)pixel[FI_RGBA_RED] << " " << (int)pixel[FI_RGBA_GREEN] << " " << (int)pixel[FI_RGBA_BLUE] << std::endl;
-			pixel += 3;
-		} 
-		result += pitch;
-	}
-
-	return 0;
-}
-
-#endif

@@ -62,7 +62,7 @@ namespace heartCore { 	namespace graphics {
 			for (int i = 0; i < m_textureSlots.size(); i++)
 			{
 				if (m_textureSlots[i] == texID) {
-					textureSlot = (float)(i+1);
+					textureSlot = (float)(i + 1);
 					found = true;
 					break;
 				}
