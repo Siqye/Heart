@@ -1,4 +1,3 @@
-
 #include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
 #include "src/graphics/shader.hpp"
@@ -11,10 +10,17 @@
 using namespace heartCore;
 using namespace graphics;
 
-
-
 int main() 
 {
+
+	Window window(800, 600, "Heart");
+	
+	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
+
+	//maths::mat4 mat = maths::mat4::rotation(45, maths::vec3(0, 0, 1)) * maths::mat4::translation(maths::vec3(2, 1, 0));
+
+	Group button(maths::mat4::translation(maths::vec3(2, 1, 0)));
+
 	Texture* textures[] = {
 		new Texture("test/test1.png"),
 		new Texture("test/test2.png"),
@@ -23,35 +29,29 @@ int main()
 		new Texture("test/test5.png")
 	};
 
-	Window window(800, 600, "Heart");
+	LevelLayer layer;
 
-	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
-	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+	for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
+		layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
+	} }
 
+
+	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
 
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
+	shader.setUniform1iv("textures", 32, texIDs);
 
-	LevelLayer layer;
-
-	for (float x = 0; x < 4; x += 0.3f) {
-		for (float y = 0; y < 3; y += 0.3f) {
-			layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
-		}
-	}
-
-	//layer.add(Sprite(0, 0, 1, 1, textures[1]));
-
+	//tex->bind();
+	//button.add(new Sprite(0, 0, 0.4f, 0.3f, tex));
+	//button.add(new Sprite(0.1f, 0.15f, 0.2f, 0.15f, tex));
 
 	Renderer renderer;
 
-	int index = 0;
-
-	double x, y;
 	Timer timer;
 	int fps = 0;
 
-
+	double x, y;
 	while (window.close()) {
 		window.clear();
 
@@ -71,6 +71,7 @@ int main()
 		layer.render(&renderer);
 
 		window.update();
-	BYTE* result;
+	}
+
 	return 0;
 }

@@ -72,9 +72,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\freetype\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <OutDir>$(SolutionDir)\builds\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,7 +118,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;FreeImage.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\label.cpp" />
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\levellayer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
@@ -150,6 +152,7 @@
     <ClCompile Include="src\utils\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\label.hpp" />
     <ClInclude Include="src\graphics\layers\group.hpp" />
     <ClInclude Include="src\graphics\layers\layer.hpp" />
     <ClInclude Include="src\graphics\layers\levellayer.hpp" />
