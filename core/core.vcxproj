@@ -72,9 +72,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)\builds\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -118,7 +118,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;FreeImage.lib;freetype.lib;freetype-gl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
