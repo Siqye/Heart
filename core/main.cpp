@@ -1,14 +1,14 @@
-#include "src/utils/timer.hpp"
-#include "src/graphics/window.hpp"
-#include "src/graphics/shader.hpp"
-#include "src/graphics/sprite.hpp"
-#include "src/graphics/renderer.hpp"
-#include "src/graphics/texture.hpp"
-#include "src/graphics/layers/group.hpp"
-#include "src/graphics/layers/levellayer.hpp"
+//#include "src/utils/timer.hpp"
+//#include "src/graphics/window.hpp"
+//#include "src/graphics/shader.hpp"
+//#include "src/graphics/sprite.hpp"
+//#include "src/graphics/renderer.hpp"
+//#include "src/graphics/texture.hpp"
+//#include "src/graphics/layers/group.hpp"
+//#include "src/graphics/layers/levellayer.hpp"
 
-using namespace heartCore;
-using namespace graphics;
+//using namespace heartCore;
+//using namespace graphics;
 #if 0
 int main() 
 {
@@ -330,8 +330,8 @@ print(text_buffer_t* buffer, vec2* pen,
 // ------------------------------------------------------------------- init ---
 void init(void)
 {
-    text_shader = shader_load("shaders/text.vert",
-        "shaders/text.frag");
+    text_shader = shader_load("src/shader/text.vert",
+        "src/shader/text.frag");
 
     font_manager = font_manager_new(512, 512, LCD_FILTERING_OFF);
     buffer = text_buffer_new();
