@@ -257,6 +257,7 @@ ansi_to_markup(char* sequence, size_t length, markup_t* markup)
             code = 0;
         }
     }
+
     markup->underline_color = markup->foreground_color;
     markup->overline_color = markup->foreground_color;
     markup->strikethrough_color = markup->foreground_color;
@@ -449,9 +450,9 @@ void error_callback(int error, const char* description)
 int main(int argc, char** argv)
 {
     GLFWwindow* window;
-    char* screenshot_path = NULL;
+    //char* screenshot_path = NULL;
 
-    if (argc > 1)
+    /*if (argc > 1)
     {
         if (argc == 3 && 0 == strcmp("--screenshot", argv[1]))
             screenshot_path = argv[2];
@@ -460,7 +461,7 @@ int main(int argc, char** argv)
             fprintf(stderr, "Unknown or incomplete parameters given\n");
             exit(EXIT_FAILURE);
         }
-    }
+    }*/
 
     glfwSetErrorCallback(error_callback);
 
@@ -508,12 +509,6 @@ int main(int argc, char** argv)
     {
         display(window);
         glfwPollEvents();
-
-        if (screenshot_path)
-        {
-            screenshot(window, screenshot_path);
-            glfwSetWindowShouldClose(window, 1);
-        }
     }
 
     glDeleteProgram(text_shader);
