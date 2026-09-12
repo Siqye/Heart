@@ -111,6 +111,8 @@
   <ItemGroup>
     <None Include="src\shader\basic.frag" />
     <None Include="src\shader\basic.vert" />
+    <None Include="src\shader\font.vert" />
+    <None Include="src\shader\font.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png">

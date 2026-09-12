@@ -72,9 +72,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\dependencies\freetype-gl\lib;..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\dependencies\freetype-gl\include;..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)\builds\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -173,6 +173,8 @@
   <ItemGroup>
     <None Include="src\shader\basic.frag" />
     <None Include="src\shader\basic.vert" />
+    <None Include="src\shader\font.frag" />
+    <None Include="src\shader\font.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png" />
