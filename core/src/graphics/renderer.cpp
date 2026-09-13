@@ -43,6 +43,9 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
+		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 1);
+		m_FTFont = ftgl::texture_font_new_from_file(m_FTAtlas, 10, "test/fonts/marvel/marvelregular.ttf");
 	}
 
 	Renderer::~Renderer() {}
@@ -149,6 +152,32 @@ namespace heartCore { 	namespace graphics {
 		if (m_transformStack.size() > 1) m_transformStack.pop_back();
 
 		m_transformBack = &m_transformStack.back();
+	}
+
+	void Renderer::drawString(const char* text, maths::vec3 position, maths::vec4 color) {
+		using namespace ftgl;
+
+		float textureSlot = 0.0f;
+		
+		bool found = false;
+		for (int i = 0; i < m_textureSlots.size(); i++)
+		{
+			if (m_textureSlots[i] == m_FTAtlas->id) {
+				textureSlot = (float)(i + 1);
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			if (m_textureSlots.size() >= 32) {
+				end();
+				draw();
+				begin();
+			}
+			m_textureSlots.push_back(m_FTAtlas->id);
+			textureSlot = (float)(m_textureSlots.size());
+		}
+		
 	}
 
 } }

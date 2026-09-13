@@ -3,6 +3,7 @@
 #include <vector>
 #include "../maths/maths.hpp"
 #include <cstddef>
+#include "../../ext/freetype-gl/freetype-gl.h"
 
 #define MAX_SPRITES		10000
 #define VERTEX_SIZE		sizeof(VertexData)
@@ -14,7 +15,6 @@
 #define TEXTURE_COORD_INDEX 1
 #define TEXTURE_ID_INDEX	2
 #define COLOR_INDEX			3
-;
 
 namespace heartCore { namespace graphics {
 	class Sprite;
@@ -30,6 +30,11 @@ namespace heartCore { namespace graphics {
 		GLuint VAO, VBO, IBO;
 		GLsizei m_indexCount;
 		VertexData* m_dataBuffer;
+
+		// FTgl stuff
+		ftgl::texture_atlas_t* m_FTAtlas;
+		ftgl::texture_font_t* m_FTFont;
+
 	public:
 		Renderer();
 		~Renderer();
@@ -39,6 +44,7 @@ namespace heartCore { namespace graphics {
 
 		void submit(const Sprite* sprite);
 		void begin();
+		void drawString(const char* text, maths::vec3 position, maths::vec4 color);
 		void draw();
 		void end();
 
