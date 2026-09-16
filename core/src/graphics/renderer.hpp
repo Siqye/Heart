@@ -19,6 +19,7 @@
 namespace heartCore { namespace graphics {
 	class Sprite;
 	struct VertexData;
+	class Texture;
 	
 	class Renderer {
 	private:
@@ -44,7 +45,7 @@ namespace heartCore { namespace graphics {
 
 		void submit(const Sprite* sprite);
 		void begin();
-		void drawString(const char* text, maths::vec3 position, maths::vec4 color);
+		void drawText(const std::string text, Texture fontTex, texture_font_t* font, maths::vec3 position, maths::vec4 col);
 		void draw();
 		void end();
 

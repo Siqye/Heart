@@ -5,11 +5,25 @@
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
+#include "ext/freetype-gl/freetype-gl.h"
+#include "ext/freetype-gl/texture-atlas.h"
+#include "ext/freetype-gl/texture-font.h"
+
+
 
 using namespace heartCore;
 using namespace graphics;
 int main() 
 {
+
+	texture_atlas_t* atlas = texture_atlas_new(512,512,1);
+	texture_font_t* font = texture_font_new_from_file(atlas, 20, "test/fonts/marvel/marvelregular.ttf");
+	Texture fontT(atlas->id);
+
+
+
+
+	glClearColor(1, 1, 1, 1);
 
 	Window window(800, 600, "Heart");
 	
@@ -66,7 +80,12 @@ int main()
 			fps = 0;
 		}
 
-		layer.render(&renderer);
+
+		renderer.begin();
+		renderer.drawText("bbc", fontT, font, maths::vec3(1, 1, 0), maths::vec4(1, 1, 1, 1));
+		renderer.end();
+		renderer.draw();
+		//layer.render(&renderer);
 
 		window.update();
 	}

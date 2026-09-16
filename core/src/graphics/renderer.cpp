@@ -1,5 +1,7 @@
 #include "renderer.hpp"
 #include "sprite.hpp"
+#include "texture.hpp"
+#include <string>
 
 namespace heartCore { 	namespace graphics {
 
@@ -43,9 +45,6 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
-
-		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 1);
-		m_FTFont = ftgl::texture_font_new_from_file(m_FTAtlas, 10, "test/fonts/marvel/marvelregular.ttf");
 	}
 
 	Renderer::~Renderer() {}
@@ -153,31 +152,94 @@ namespace heartCore { 	namespace graphics {
 
 		m_transformBack = &m_transformStack.back();
 	}
+	void Renderer::drawText(const std::string text, Texture fontTex, texture_font_t* font, maths::vec3 position, maths::vec4 col) {
+		maths::vec2 scale = maths::vec2(1,2);
 
-	void Renderer::drawString(const char* text, maths::vec3 position, maths::vec4 color) {
-		using namespace ftgl;
+		float x = position.x;
 
-		float textureSlot = 0.0f;
-		
-		bool found = false;
-		for (int i = 0; i < m_textureSlots.size(); i++)
+		int r = col.x * 255;
+		int g = col.y * 255;
+		int b = col.z * 255;
+		int a = col.w * 255;
+
+		unsigned int color = a << 24 | b << 16 | g << 8 | r;
+
+
+		float ts = 0.0f;
+		for (int i = 0; i < text.length(); i++)
 		{
-			if (m_textureSlots[i] == m_FTAtlas->id) {
-				textureSlot = (float)(i + 1);
-				found = true;
-				break;
+			
+			bool found = false;
+			for (int i = 0; i < m_textureSlots.size(); i++)
+			{
+				if (m_textureSlots[i] == fontTex.getTID())
+				{
+					ts = (float)(i + 1);
+					found = true;
+					break;
+				}
 			}
-		}
-		if (!found) {
-			if (m_textureSlots.size() >= 32) {
-				end();
-				draw();
-				begin();
-			}
-			m_textureSlots.push_back(m_FTAtlas->id);
-			textureSlot = (float)(m_textureSlots.size());
-		}
-		
-	}
 
+			if (!found)
+			{
+				if (m_textureSlots.size() >= 10000)
+				{
+					end();
+					draw();
+					begin();
+				}
+				m_textureSlots.push_back(fontTex.getTID());
+				ts = (float)(m_textureSlots.size());
+			}
+
+			char c = text[i];
+			texture_glyph_t* glyph = texture_font_get_glyph(font, &c);
+			if (glyph)
+			{
+				if (i > 0)
+				{
+					float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
+					x += kerning / scale.x;
+				}
+
+				float x0 = x + glyph->offset_x / scale.x;
+				float y0 = position.y + glyph->offset_y / scale.y;
+				float x1 = x0 + glyph->width / scale.x;
+				float y1 = y0 - glyph->height / scale.y;
+
+				float u0 = glyph->s0;
+				float v0 = glyph->t0;
+				float u1 = glyph->s1;
+				float v1 = glyph->t1;
+
+				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x0, y0, 0);
+				m_dataBuffer->tc = maths::vec2(u0, v0);
+				m_dataBuffer->tid = ts;
+				m_dataBuffer->color = color;
+				m_dataBuffer++;
+
+				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x0, y1, 0);
+				m_dataBuffer->tc = maths::vec2(u0, v1);
+				m_dataBuffer->tid = ts;
+				m_dataBuffer->color = color;
+				m_dataBuffer++;
+
+				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x1, y1, 0);
+				m_dataBuffer->tc = maths::vec2(u1, v1);
+				m_dataBuffer->tid = ts;
+				m_dataBuffer->color = color;
+				m_dataBuffer++;
+
+				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x1, y0, 0);
+				m_dataBuffer->tc = maths::vec2(u1, v0);
+				m_dataBuffer->tid = ts;
+				m_dataBuffer->color = color;
+				m_dataBuffer++;
+
+				m_indexCount += 6;
+
+				x += glyph->advance_x / scale.x;
+			}
+		}
+	}
 } }

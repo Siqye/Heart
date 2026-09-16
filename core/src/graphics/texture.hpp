@@ -11,11 +11,13 @@ namespace heartCore { namespace graphics {
 
 		GLuint load();
 	public:
+		Texture(GLuint data);
 		Texture(const char* texturePath);
 		~Texture();
 
 		void bind() const;
 		void unbind() const;
+	
 
 		inline const unsigned int getWidth() const { return m_width; }
 		inline const unsigned int getHeight() const { return m_height; }
