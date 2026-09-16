@@ -4,6 +4,7 @@
 #include "../maths/maths.hpp"
 #include <cstddef>
 #include "../../ext/freetype-gl/freetype-gl.h"
+#include "../utils/char_loader.h"
 
 #define MAX_SPRITES		10000
 #define VERTEX_SIZE		sizeof(VertexData)
@@ -35,6 +36,7 @@ namespace heartCore { namespace graphics {
 		// FTgl stuff
 		ftgl::texture_atlas_t* m_FTAtlas;
 		ftgl::texture_font_t* m_FTFont;
+		ftgl::texture_glyph_t* m_FTGlyph;
 
 	public:
 		Renderer();
@@ -45,7 +47,7 @@ namespace heartCore { namespace graphics {
 
 		void submit(const Sprite* sprite);
 		void begin();
-		void drawText(const std::string text, Texture fontTex, texture_font_t* font, maths::vec3 position, maths::vec4 col);
+		void submitText(std::string text, maths::vec3 position, maths::vec4 col);
 		void draw();
 		void end();
 

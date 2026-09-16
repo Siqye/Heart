@@ -15,23 +15,11 @@ using namespace heartCore;
 using namespace graphics;
 int main() 
 {
-
-	texture_atlas_t* atlas = texture_atlas_new(512,512,1);
-	texture_font_t* font = texture_font_new_from_file(atlas, 20, "test/fonts/marvel/marvelregular.ttf");
-	Texture fontT(atlas->id);
-
-
-
-
-	glClearColor(1, 1, 1, 1);
-
 	Window window(800, 600, "Heart");
 	
+	//glClearColor(0, 1, 1, 1);
+
 	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
-
-	//maths::mat4 mat = maths::mat4::rotation(45, maths::vec3(0, 0, 1)) * maths::mat4::translation(maths::vec3(2, 1, 0));
-
-	Group button(maths::mat4::translation(maths::vec3(2, 1, 0)));
 
 	Texture* textures[] = {
 		new Texture("test/test1.png"),
@@ -47,16 +35,12 @@ int main()
 		layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
 	} }
 
-
 	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
 
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
 
-	//tex->bind();
-	//button.add(new Sprite(0, 0, 0.4f, 0.3f, tex));
-	//button.add(new Sprite(0.1f, 0.15f, 0.2f, 0.15f, tex));
 
 	Renderer renderer;
 
@@ -81,11 +65,7 @@ int main()
 		}
 
 
-		renderer.begin();
-		renderer.drawText("bbc", fontT, font, maths::vec3(1, 1, 0), maths::vec4(1, 1, 1, 1));
-		renderer.end();
-		renderer.draw();
-		//layer.render(&renderer);
+		layer.render(&renderer);
 
 		window.update();
 	}

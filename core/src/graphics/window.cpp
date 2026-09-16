@@ -23,11 +23,13 @@ namespace heartCore { namespace graphics {
 
 	void Window::clear() const
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void Window::update() const
 	{
+		glViewport(0, 0, m_width, m_height);
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
@@ -44,21 +46,23 @@ namespace heartCore { namespace graphics {
 			std::cout << "Failed to initialize GLFW" << std::endl;
 			return false;
 		}
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 		m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
+
+		if (!m_window) {
+			std::cout << "Failed to create window" << std::endl;
+			return false;
+		}
 
 		glfwSetWindowUserPointer(m_window, this);
 		glfwSetKeyCallback(m_window, key_callback);
 		glfwSetMouseButtonCallback(m_window, mouse_button_callback);
 		glfwSetCursorPosCallback(m_window, cursor_position_callback);
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-		if (!m_window) {
-			std::cout << "Failed to create window" << std::endl;
-			return false;
-		}
 		
 		glfwMakeContextCurrent(m_window);
 
@@ -66,7 +70,10 @@ namespace heartCore { namespace graphics {
 			std::cout << "Failed to initialize GLEW" << std::endl;
 			return false;
 		}
-		glViewport(0, 0, m_width, m_height);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		return true;
 	}
 

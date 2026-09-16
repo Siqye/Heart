@@ -37,7 +37,7 @@ namespace heartCore { namespace graphics {
 
 
 		Sprite(double x, double y, double width, double height, Texture* texture)
-			: m_position(maths::vec3(x, y, 0)), m_size(maths::vec2(width, height)), m_color(maths::vec4(1,0,1,1)), 
+			: m_position(maths::vec3(x, y, 0)), m_size(maths::vec2(width, height)), m_color(maths::vec4(1,1,1,1)), 
 			m_texture(texture)
 		{ setTC(); }
 

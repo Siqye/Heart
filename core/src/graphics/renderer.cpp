@@ -45,6 +45,9 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
+		m_FTAtlas = texture_atlas_new(512, 512, 1);
+		m_FTFont = texture_font_new_from_file(m_FTAtlas, 32, "RobotoMono.ttf");
 	}
 
 	Renderer::~Renderer() {}
@@ -79,14 +82,14 @@ namespace heartCore { 	namespace graphics {
 				textureSlot = (float)(m_textureSlots.size());
 			}
 		}
-		else {
-			int r = col.x * 255;
-			int g = col.y * 255;
-			int b = col.z * 255;
-			int a = col.w * 255;
 
-			color = a << 24 | b << 16 | g << 8 | r;
-		}
+		int r = col.x * 255;
+		int g = col.y * 255;
+		int b = col.z * 255;
+		int a = col.w * 255;
+
+		color = a << 24 | b << 16 | g << 8 | r;
+		
 		m_dataBuffer->vertex = *m_transformBack * position;
 		m_dataBuffer->tc = tc[0];
 		m_dataBuffer->tid = textureSlot;
@@ -152,10 +155,7 @@ namespace heartCore { 	namespace graphics {
 
 		m_transformBack = &m_transformStack.back();
 	}
-	void Renderer::drawText(const std::string text, Texture fontTex, texture_font_t* font, maths::vec3 position, maths::vec4 col) {
-		maths::vec2 scale = maths::vec2(1,2);
-
-		float x = position.x;
+	void Renderer::submitText(std::string text, maths::vec3 position, maths::vec4 col) {
 
 		int r = col.x * 255;
 		int g = col.y * 255;
@@ -164,81 +164,81 @@ namespace heartCore { 	namespace graphics {
 
 		unsigned int color = a << 24 | b << 16 | g << 8 | r;
 
+		bool found = false;
+		float textureSlot = 0.0f;
 
-		float ts = 0.0f;
-		for (int i = 0; i < text.length(); i++)
+		float x = position.x;
+
+		float scaleX = 100.0f;
+		float scaleY = 100.0f;
+
+		for (int i = 0; i < m_textureSlots.size(); i++)
 		{
-			
-			bool found = false;
-			for (int i = 0; i < m_textureSlots.size(); i++)
-			{
-				if (m_textureSlots[i] == fontTex.getTID())
-				{
-					ts = (float)(i + 1);
-					found = true;
-					break;
-				}
+			if (m_textureSlots[i] == m_FTAtlas->id) {
+				textureSlot = (float)(i + 1);
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			if (m_textureSlots.size() >= 32) {
+				end();
+				draw();
+				begin();
+			}
+			m_textureSlots.push_back(m_FTAtlas->id);
+			textureSlot = (float)(m_textureSlots.size());
+		}
+
+		for (int i = 0; i < text.size();i++) {
+
+			const char* c = &text[i];
+			texture_glyph_t* glyph = texture_font_get_glyph(m_FTFont, c);
+			loadChar(m_FTAtlas);
+
+			if (i > 0) {
+				float kerning = texture_glyph_get_kerning(glyph, &text[i-1]);
+				x += kerning;
 			}
 
-			if (!found)
-			{
-				if (m_textureSlots.size() >= 10000)
-				{
-					end();
-					draw();
-					begin();
-				}
-				m_textureSlots.push_back(fontTex.getTID());
-				ts = (float)(m_textureSlots.size());
-			}
+			if (glyph != NULL) {
+				float x0 = x + glyph->offset_x / scaleX;
+				float y0 = position.y + glyph->offset_y / scaleY;
+				float x1 = x0 + glyph->width / scaleX;
+				float y1 = y0 + glyph->height / scaleY;
 
-			char c = text[i];
-			texture_glyph_t* glyph = texture_font_get_glyph(font, &c);
-			if (glyph)
-			{
-				if (i > 0)
-				{
-					float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
-					x += kerning / scale.x;
-				}
-
-				float x0 = x + glyph->offset_x / scale.x;
-				float y0 = position.y + glyph->offset_y / scale.y;
-				float x1 = x0 + glyph->width / scale.x;
-				float y1 = y0 - glyph->height / scale.y;
-
-				float u0 = glyph->s0;
-				float v0 = glyph->t0;
-				float u1 = glyph->s1;
-				float v1 = glyph->t1;
+				float s0 = glyph->s0;
+				float t0 = glyph->t0;
+				float s1 = glyph->s1;
+				float t1 = glyph->t1;
 
 				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x0, y0, 0);
-				m_dataBuffer->tc = maths::vec2(u0, v0);
-				m_dataBuffer->tid = ts;
+				m_dataBuffer->tc = maths::vec2(s0, t1);
+				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
 				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x0, y1, 0);
-				m_dataBuffer->tc = maths::vec2(u0, v1);
-				m_dataBuffer->tid = ts;
+				m_dataBuffer->tc = maths::vec2(s0, t0);
+				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
 				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x1, y1, 0);
-				m_dataBuffer->tc = maths::vec2(u1, v1);
-				m_dataBuffer->tid = ts;
+				m_dataBuffer->tc = maths::vec2(s1, t0);
+				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
 				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x1, y0, 0);
-				m_dataBuffer->tc = maths::vec2(u1, v0);
-				m_dataBuffer->tid = ts;
+				m_dataBuffer->tc = maths::vec2(s1, t1);
+				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
 				m_indexCount += 6;
 
-				x += glyph->advance_x / scale.x;
+				x += glyph->advance_x / scaleX;
 			}
 		}
 	}
