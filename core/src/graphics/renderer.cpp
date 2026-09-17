@@ -46,8 +46,8 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 
-		m_FTAtlas = texture_atlas_new(512, 512, 1);
-		m_FTFont = texture_font_new_from_file(m_FTAtlas, 32, "RobotoMono.ttf");
+		m_FTAtlas = texture_atlas_new(512, 512, 3);
+		m_FTFont = texture_font_new_from_file(m_FTAtlas, 128, "RobotoMono.ttf");
 	}
 
 	Renderer::~Renderer() {}
@@ -169,8 +169,8 @@ namespace heartCore { 	namespace graphics {
 
 		float x = position.x;
 
-		float scaleX = 100.0f;
-		float scaleY = 100.0f;
+		float scaleX = 300.0f;
+		float scaleY = 300.0f;
 
 		for (int i = 0; i < m_textureSlots.size(); i++)
 		{

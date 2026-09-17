@@ -15,10 +15,10 @@ namespace heartCore { namespace graphics {
 
 	void LevelLayer::render(Renderer* renderer) {
 		renderer->begin();
-		for (int i = 0; i < m_sprites.size(); i++)
-			m_sprites[i].submit(renderer);
+//		for (int i = 0; i < m_sprites.size(); i++)
+//			m_sprites[i].submit(renderer);
 
-		renderer->submitText("heart engine",maths::vec3(0,0,0),maths::vec4(1,1,1,1));
+		renderer->submitText("heart engine",maths::vec3(0,0,0),maths::vec4(1,0,1,1));
 
 		renderer->end();
 		renderer->draw();
