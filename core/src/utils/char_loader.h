@@ -15,8 +15,8 @@ namespace heartCore {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 #       if 1
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, atlas->width, atlas->height,
-            0, GL_BGR, GL_UNSIGNED_BYTE, atlas->data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, atlas->width, atlas->height,
+            0, GL_BGRA, GL_UNSIGNED_BYTE, atlas->data);
 #       else
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, atlas->width, atlas->height,
             0, GL_RED, GL_UNSIGNED_BYTE, atlas->data);

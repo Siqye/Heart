@@ -13,7 +13,7 @@ namespace heartCore {
 			this->x = x;
 			this->y = y;
 			this->z = z;
-			this->z = w;
+			this->w = w;
 		}
 
 		vec4& vec4::add(const vec4& other) {

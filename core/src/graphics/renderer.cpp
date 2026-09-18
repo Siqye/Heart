@@ -21,7 +21,7 @@ namespace heartCore { 	namespace graphics {
 		glVertexAttribPointer(VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::vertex));
 		glVertexAttribPointer(TEXTURE_COORD_INDEX, 2, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::tc));
 		glVertexAttribPointer(TEXTURE_ID_INDEX, 1, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::tid));
-		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_INT, GL_TRUE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::color));
+		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::color));
 		glEnableVertexAttribArray(VERTEX_INDEX); glEnableVertexAttribArray(TEXTURE_COORD_INDEX); 
 		glEnableVertexAttribArray(TEXTURE_ID_INDEX); glEnableVertexAttribArray(COLOR_INDEX);
 
@@ -46,7 +46,7 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 
-		m_FTAtlas = texture_atlas_new(512, 512, 3);
+		m_FTAtlas = texture_atlas_new(512, 512, 4);
 		m_FTFont = texture_font_new_from_file(m_FTAtlas, 128, "RobotoMono.ttf");
 	}
 
@@ -83,10 +83,10 @@ namespace heartCore { 	namespace graphics {
 			}
 		}
 
-		int r = col.x * 255;
-		int g = col.y * 255;
-		int b = col.z * 255;
-		int a = col.w * 255;
+		int r = col.x * 255.0f;
+		int g = col.y * 255.0f;
+		int b = col.z * 255.0f;
+		int a = col.w * 255.0f;
 
 		color = a << 24 | b << 16 | g << 8 | r;
 		
@@ -156,14 +156,6 @@ namespace heartCore { 	namespace graphics {
 		m_transformBack = &m_transformStack.back();
 	}
 	void Renderer::submitText(std::string text, maths::vec3 position, maths::vec4 col) {
-
-		int r = col.x * 255;
-		int g = col.y * 255;
-		int b = col.z * 255;
-		int a = col.w * 255;
-
-		unsigned int color = a << 24 | b << 16 | g << 8 | r;
-
 		bool found = false;
 		float textureSlot = 0.0f;
 
@@ -189,6 +181,13 @@ namespace heartCore { 	namespace graphics {
 			m_textureSlots.push_back(m_FTAtlas->id);
 			textureSlot = (float)(m_textureSlots.size());
 		}
+
+		int r = col.x * 255;
+		int g = col.y * 255;
+		int b = col.z * 255;
+		int a = col.w * 255;
+
+		unsigned int color = a << 24 | b << 16 | g << 8 | r;
 
 		for (int i = 0; i < text.size();i++) {
 

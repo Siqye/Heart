@@ -11,7 +11,6 @@ namespace heartCore { namespace graphics {
 
 		GLuint load();
 	public:
-		Texture(GLuint data);
 		Texture(const char* texturePath);
 		~Texture();
 

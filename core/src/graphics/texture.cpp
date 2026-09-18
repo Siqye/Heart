@@ -24,19 +24,7 @@ namespace heartCore { namespace graphics {
 		return result;
 	}
 
-	Texture::Texture(GLuint data) {
-		glBindTexture(GL_TEXTURE_2D, data);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_BGR, GL_UNSIGNED_BYTE, &data);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
 	Texture::~Texture() { }
-
-
 
 	void Texture::bind() const {
 		glBindTexture(GL_TEXTURE_2D, m_texID);
