@@ -1,16 +1,16 @@
 #pragma once
 #include <vector>
 #include "../renderer.hpp"
-#include "../sprite.hpp"
+#include "../staticsprite.hpp"
 
 namespace heartCore { namespace graphics {
 	class Layer {
 	protected:
-		std::vector<Sprite> m_sprites;
+		std::vector<StaticSprite> m_sprites;
 	public:
 		Layer() {}
 		~Layer() {}
-		virtual void add(const Sprite& sprite) {}
+		virtual void add(const StaticSprite& sprite) {}
 		virtual void submit(Renderer* renderer) const {}
 		virtual void render(Renderer* renderer) {}
 	};

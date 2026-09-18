@@ -1,5 +1,5 @@
 #include "renderer.hpp"
-#include "sprite.hpp"
+#include "staticsprite.hpp"
 #include "texture.hpp"
 #include <string>
 
@@ -52,7 +52,7 @@ namespace heartCore { 	namespace graphics {
 
 	Renderer::~Renderer() {}
 
-	void Renderer::submit(const Sprite* sprite) {
+	void Renderer::submit(const StaticSprite* sprite) {
 		const maths::vec3& position = sprite->getPosition();
 		const maths::vec4& col = sprite->getColor();
 		const maths::vec2& size = sprite->getSize();

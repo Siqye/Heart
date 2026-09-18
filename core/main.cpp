@@ -5,10 +5,7 @@
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
-#include "ext/freetype-gl/freetype-gl.h"
-#include "ext/freetype-gl/texture-atlas.h"
-#include "ext/freetype-gl/texture-font.h"
-
+#include "src/graphics/label.hpp"
 
 
 using namespace heartCore;
@@ -40,7 +37,8 @@ int main()
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
-
+	
+	layer.add(Label("some text", maths::vec3(0, 0, 0), maths::vec4(1, 1, 1, 1)));
 
 	Renderer renderer;
 
@@ -65,7 +63,7 @@ int main()
 		}
 
 
-		layer.render(&renderer);
+		//layer.render(&renderer);
 
 		window.update();
 	}

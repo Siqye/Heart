@@ -18,7 +18,7 @@
 #define COLOR_INDEX			3
 
 namespace heartCore { namespace graphics {
-	class Sprite;
+	class StaticSprite;
 	struct VertexData;
 	class Texture;
 	
@@ -45,7 +45,7 @@ namespace heartCore { namespace graphics {
 		void push(const maths::mat4& matrix, bool override = false);
 		void pop();
 
-		void submit(const Sprite* sprite);
+		void submit(const StaticSprite* sprite);
 		void begin();
 		void submitText(std::string text, maths::vec3 position, maths::vec4 col);
 		void draw();

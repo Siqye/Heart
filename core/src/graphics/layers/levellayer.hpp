@@ -7,7 +7,7 @@ namespace heartCore { namespace graphics {
 		LevelLayer();
 		~LevelLayer();
 
-		void add(const Sprite& sprite) override;
+		void add(const StaticSprite& sprite) override;
 		void submit(Renderer* renderer) const override;
 		void render(Renderer* renderer) override;
 	};
