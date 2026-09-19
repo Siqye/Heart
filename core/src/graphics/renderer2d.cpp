@@ -45,9 +45,6 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
-
-		m_FTAtlas = texture_atlas_new(512, 512, 4);
-		m_FTFont = texture_font_new_from_file(m_FTAtlas, 128, "RobotoMono.ttf");
 	}
 
 	Renderer2d::~Renderer2d() {}
@@ -144,18 +141,19 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void Renderer2d::submitText(std::string text, maths::vec3 position, maths::vec4 col) {
+	void Renderer2d::submitText(std::string text, int scale, maths::vec3 position, maths::vec4 col, Font font) {
+		texture_atlas_t* textAtlas = font.getAtlas();
+		texture_font_t* textFont = font.getFont();
+		
 		bool found = false;
 		float textureSlot = 0.0f;
-
 		float x = position.x;
-
-		float scaleX = 300.0f;
-		float scaleY = 300.0f;
+		float scaleX = WINDOW_WIDTH / scale;
+		float scaleY = WINDOW_HEIGHT / scale;
 
 		for (int i = 0; i < m_textureSlots.size(); i++)
 		{
-			if (m_textureSlots[i] == m_FTAtlas->id) {
+			if (m_textureSlots[i] == textAtlas->id) {
 				textureSlot = (float)(i + 1);
 				found = true;
 				break;
@@ -167,7 +165,7 @@ namespace heartCore { 	namespace graphics {
 				draw();
 				begin();
 			}
-			m_textureSlots.push_back(m_FTAtlas->id);
+			m_textureSlots.push_back(textAtlas->id);
 			textureSlot = (float)(m_textureSlots.size());
 		}
 
@@ -181,8 +179,8 @@ namespace heartCore { 	namespace graphics {
 		for (int i = 0; i < text.size();i++) {
 
 			const char* c = &text[i];
-			texture_glyph_t* glyph = texture_font_get_glyph(m_FTFont, c);
-			loadChar(m_FTAtlas);
+			texture_glyph_t* glyph = texture_font_get_glyph(textFont, c);
+			loadChar(textAtlas);
 
 			
 

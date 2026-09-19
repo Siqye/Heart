@@ -20,18 +20,13 @@ namespace heartCore { namespace graphics {
 		GLsizei m_indexCount;
 		VertexData* m_dataBuffer;
 
-		// FTgl stuff
-		ftgl::texture_atlas_t* m_FTAtlas;
-		ftgl::texture_font_t* m_FTFont;
-		ftgl::texture_glyph_t* m_FTGlyph;
-
 	public:
 		Renderer2d();
 		~Renderer2d();
 
 		void submit(const StaticSprite* sprite) override;
 		void begin() override;
-		void submitText(std::string text, maths::vec3 position, maths::vec4 col);
+		void submitText(std::string text, int scale, maths::vec3 position, maths::vec4 col, Font font);
 		void draw()	override;
 		void end() override;
 

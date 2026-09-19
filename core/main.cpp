@@ -7,13 +7,14 @@
 #include "src/graphics/layers/levellayer.hpp"
 #include "src/graphics/renderer2d.hpp"
 #include "src/graphics/label.hpp"
+#include "src/config.h"
 #include <memory>
 
 using namespace heartCore;
 using namespace graphics;
 int main() 
 {
-	Window window(800, 600, "Heart");
+	Window window(WINDOW_WIDTH, WINDOW_HEIGHT, "Heart");
 	
 	//glClearColor(0, 1, 1, 1);
 
@@ -41,6 +42,8 @@ int main()
 
 	Renderer2d renderer;
 
+	Font font("arial.ttf");
+
 	Timer timer;
 	int fps = 0;
 	std::string labelFPS = "0 fps";
@@ -64,7 +67,7 @@ int main()
 			fps = 0;
 		}
 
-		layer.add(std::make_unique<Label>(labelFPS, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1)));
+		layer.add(std::make_unique<Label>(labelFPS, 3, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1), font));
 		layer.render(&renderer);
 		layer.pop();
 

@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\graphics\label.cpp" />
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\levellayer.cpp" />
@@ -168,6 +169,8 @@
     <ClInclude Include="ext\freetype-gl\texture-font.h" />
     <ClInclude Include="ext\freetype-gl\vec234.h" />
     <ClInclude Include="ext\freetype-gl\vector.h" />
+    <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\graphics\font.hpp" />
     <ClInclude Include="src\graphics\label.hpp" />
     <ClInclude Include="src\graphics\layers\group.hpp" />
     <ClInclude Include="src\graphics\layers\layer.hpp" />

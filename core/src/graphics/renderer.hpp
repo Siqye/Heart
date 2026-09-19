@@ -3,8 +3,9 @@
 #include <vector>
 #include "../maths/maths.hpp"
 #include <cstddef>
-#include "../../ext/freetype-gl/freetype-gl.h"
+#include "font.hpp"
 #include "../utils/char_loader.h"
+#include "../config.h"
 
 namespace heartCore { namespace graphics { 
 	class StaticSprite;
@@ -36,7 +37,7 @@ namespace heartCore { namespace graphics {
 
 		virtual void begin() {}
 		virtual void submit(const StaticSprite* sprite) = 0;
-		virtual void submitText(std::string text, maths::vec3 position, maths::vec4 col) = 0;
+		virtual void submitText(std::string text, int scale, maths::vec3 position, maths::vec4 col, Font font) = 0;
 		virtual void end() {}
 		virtual void draw() = 0;
 	};
