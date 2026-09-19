@@ -141,7 +141,6 @@ namespace heartCore { 	namespace graphics {
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-
 	void Renderer2d::push(const maths::mat4& matrix, bool override) {
 
 		if (override) m_transformStack.push_back(matrix);
@@ -194,14 +193,16 @@ namespace heartCore { 	namespace graphics {
 			texture_glyph_t* glyph = texture_font_get_glyph(m_FTFont, c);
 			loadChar(m_FTAtlas);
 
-			if (i > 0) {
-				float kerning = texture_glyph_get_kerning(glyph, &text[i-1]);
-				x += kerning;
-			}
+			
 
 			if (glyph != NULL) {
+				if (i > 0) {
+					float kerningX = texture_glyph_get_kerning(glyph, &text[i - 1]);
+					x += kerningX / scaleX;
+				}
+
 				float x0 = x + glyph->offset_x / scaleX;
-				float y0 = position.y + glyph->offset_y / scaleY;
+				float y0 = position.y - (glyph->height - glyph->offset_y) / scaleY; //+ //glyph->offset_y / scaleY;
 				float x1 = x0 + glyph->width / scaleX;
 				float y1 = y0 + glyph->height / scaleY;
 

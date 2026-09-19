@@ -40,7 +40,7 @@ int main()
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
 	
-	layer.add(std::make_unique<Label>("bbc", maths::vec3(0, 0, 0), maths::vec4(1, 1, 0, 1)));
+	layer.add(std::make_unique<Label>("kctjHRC", maths::vec3(0.3f, 0.3f, 0), maths::vec4(1, 1, 0, 1)));
 
 	Renderer2d renderer;
 
