@@ -9,7 +9,6 @@
 #include "src/graphics/label.hpp"
 #include <memory>
 
-
 using namespace heartCore;
 using namespace graphics;
 int main() 
@@ -30,22 +29,21 @@ int main()
 
 	LevelLayer layer;
 
-	//for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
-	//	layer.add(std::make_unique<Sprite>(x, y, 0.25, 0.25, textures[rand() % 5]));
-	//} }
+	for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
+		layer.add(std::make_unique<Sprite>(x, y, 0.25, 0.25, textures[rand() % 5]));
+	} }
 
 	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
 
 	shader.bind();
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
-	
-	layer.add(std::make_unique<Label>("kctjHRC", maths::vec3(0.3f, 0.3f, 0), maths::vec4(1, 1, 0, 1)));
 
 	Renderer2d renderer;
 
 	Timer timer;
 	int fps = 0;
+	std::string labelFPS = "bbc";
 
 	double x, y;
 	while (window.close()) {
@@ -60,12 +58,16 @@ int main()
 		fps++;
 		if (timer.elapsed() >= 1.0) {
 			std::cout << fps << std::endl;
+			labelFPS = std::to_string(fps);
 			timer.reset();
 			fps = 0;
 		}
 
+		
 
+		layer.add(std::make_unique<Label>(labelFPS, maths::vec3(0.3f, 0.3f, 0), maths::vec4(1, 1, 0, 1)));
 		layer.render(&renderer);
+		layer.pop();
 
 		window.update();
 	}

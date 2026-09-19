@@ -16,9 +16,6 @@ namespace heartCore { namespace graphics {
 	
 	class Renderer2d : public Renderer {
 	private:
-		std::vector<maths::mat4> m_transformStack;
-		const maths::mat4* m_transformBack;
-
 		std::vector<GLuint> m_textureSlots;
 		GLsizei m_indexCount;
 		VertexData* m_dataBuffer;
@@ -31,9 +28,6 @@ namespace heartCore { namespace graphics {
 	public:
 		Renderer2d();
 		~Renderer2d();
-
-		void push(const maths::mat4& matrix, bool override = false) override;
-		void pop() override;
 
 		void submit(const StaticSprite* sprite) override;
 		void begin() override;

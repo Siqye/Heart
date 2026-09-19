@@ -121,6 +121,7 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		m_dataBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
+
 	void Renderer2d::draw() {
 		for (int i = 0; i < m_textureSlots.size();i++) {
 			glActiveTexture(GL_TEXTURE0 + i);
@@ -137,22 +138,12 @@ namespace heartCore { 	namespace graphics {
 
 		m_indexCount = 0;
 	}
+
 	void Renderer2d::end() {
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-	void Renderer2d::push(const maths::mat4& matrix, bool override) {
 
-		if (override) m_transformStack.push_back(matrix);
-
-		else m_transformStack.push_back(m_transformStack.back() * matrix);
-
-		m_transformBack = &m_transformStack.back();
-	}
-	void Renderer2d::pop() {
-		if (m_transformStack.size() > 1) m_transformStack.pop_back();
-		m_transformBack = &m_transformStack.back();
-	}
 	void Renderer2d::submitText(std::string text, maths::vec3 position, maths::vec4 col) {
 		bool found = false;
 		float textureSlot = 0.0f;

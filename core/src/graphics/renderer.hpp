@@ -14,12 +14,25 @@ namespace heartCore { namespace graphics {
 	class Renderer {
 	protected:
 		GLuint VAO, VBO, IBO;
+
+		std::vector<maths::mat4> m_transformStack;
+		const maths::mat4* m_transformBack;
 	public:
 		Renderer() {}
 		~Renderer() {}
 
-		virtual void push(const maths::mat4& matrix, bool override = false) {}
-		virtual void pop() {}
+		virtual inline void push(const maths::mat4& matrix, bool override = false) {
+			if (override) m_transformStack.push_back(matrix);
+
+			else m_transformStack.push_back(m_transformStack.back() * matrix);
+
+			m_transformBack = &m_transformStack.back();
+		}
+
+		virtual inline void pop() {
+			if (m_transformStack.size() > 1) m_transformStack.pop_back();
+			m_transformBack = &m_transformStack.back();
+		}
 
 		virtual void begin() {}
 		virtual void submit(const StaticSprite* sprite) = 0;

@@ -11,5 +11,7 @@ namespace heartCore { namespace graphics {
 		virtual ~Layer() = default;
 		virtual void add(std::unique_ptr<StaticSprite> sprite) {}
 		virtual void render(Renderer* renderer) {}
+
+		virtual void pop() { m_sprites.pop_back(); }
 	};
 } }
