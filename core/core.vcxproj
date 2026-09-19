@@ -74,8 +74,12 @@
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>..\dependencies\freetype-gl\lib;..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>..\dependencies\freetype-gl\include;..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)\builds\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\dependencies\freetype-gl\lib;..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -127,13 +131,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;FreeImage.lib;freetype.lib;freetype-gl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -154,7 +159,9 @@
     <ClCompile Include="src\utils\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ext\freetype-gl\freetype-gl-errdef.h" />
     <ClInclude Include="ext\freetype-gl\freetype-gl.h" />
+    <ClInclude Include="ext\freetype-gl\ftgl-utils.h" />
     <ClInclude Include="ext\freetype-gl\opengl.h" />
     <ClInclude Include="ext\freetype-gl\platform.h" />
     <ClInclude Include="ext\freetype-gl\texture-atlas.h" />
@@ -195,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />
+    <Font Include="RobotoMono.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

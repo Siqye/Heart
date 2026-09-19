@@ -27,9 +27,6 @@
     <ClCompile Include="src\utils\file_reader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\renderer.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\maths\mat4.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -58,6 +55,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\layers\levellayer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\renderer2d.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,6 +137,15 @@
     <ClInclude Include="src\graphics\layers\levellayer.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\renderer2d.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\ftgl-utils.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\freetype-gl\freetype-gl-errdef.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shader\basic.frag" />
@@ -164,5 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />
+    <Font Include="RobotoMono.ttf" />
   </ItemGroup>
 </Project>

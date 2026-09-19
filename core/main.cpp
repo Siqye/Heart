@@ -43,7 +43,7 @@ int main()
 
 	Timer timer;
 	int fps = 0;
-	std::string labelFPS = "bbc";
+	std::string labelFPS = "0 fps";
 
 	double x, y;
 	while (window.close()) {
@@ -59,13 +59,12 @@ int main()
 		if (timer.elapsed() >= 1.0) {
 			std::cout << fps << std::endl;
 			labelFPS = std::to_string(fps);
+			labelFPS += " fps";
 			timer.reset();
 			fps = 0;
 		}
 
-		
-
-		layer.add(std::make_unique<Label>(labelFPS, maths::vec3(0.3f, 0.3f, 0), maths::vec4(1, 1, 0, 1)));
+		layer.add(std::make_unique<Label>(labelFPS, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1)));
 		layer.render(&renderer);
 		layer.pop();
 

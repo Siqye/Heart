@@ -1,5 +1,5 @@
 #pragma once
-#include <freetype-gl.h>
+#include "../../ext/freetype-gl/freetype-gl.h"
 
 namespace heartCore {
 	inline void loadChar(texture_atlas_t* atlas) {
