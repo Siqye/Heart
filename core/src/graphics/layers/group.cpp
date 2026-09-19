@@ -12,6 +12,7 @@ namespace heartCore { namespace graphics {
 		for (const StaticSprite* sprite : m_sprites)
 			renderer->submit(sprite);
 		renderer->pop();
+
 	}
 	void Group::add(const StaticSprite* sprite) {
 		m_sprites.push_back(sprite);

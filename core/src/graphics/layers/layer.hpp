@@ -6,12 +6,10 @@
 namespace heartCore { namespace graphics {
 	class Layer {
 	protected:
-		std::vector<StaticSprite> m_sprites;
+		std::vector<std::unique_ptr<StaticSprite>> m_sprites;
 	public:
-		Layer() {}
-		~Layer() {}
-		virtual void add(const StaticSprite& sprite) {}
-		virtual void submit(Renderer* renderer) const {}
+		virtual ~Layer() = default;
+		virtual void add(std::unique_ptr<StaticSprite> sprite) {}
 		virtual void render(Renderer* renderer) {}
 	};
 } }

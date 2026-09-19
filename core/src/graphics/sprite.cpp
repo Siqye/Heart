@@ -7,7 +7,5 @@ namespace heartCore { namespace graphics {
 
 	Sprite::Sprite(double x, double y, double width, double height, Texture* texture)
 		: StaticSprite(x, y, width, height, texture)
-	{ }//
-
-	void Sprite::submit(Renderer* renderer) const { renderer->submit(this); }
+	{ }
 } }

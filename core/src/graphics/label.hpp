@@ -10,6 +10,6 @@ namespace heartCore { namespace graphics {
 
 	public:
 		Label(std::string labelText, maths::vec3 position, maths::vec4 color);
-		void submit(Renderer* renderer) const override;
+		void submit(Renderer* renderer) override;
 	};
 } }

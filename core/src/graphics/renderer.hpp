@@ -6,50 +6,25 @@
 #include "../../ext/freetype-gl/freetype-gl.h"
 #include "../utils/char_loader.h"
 
-#define MAX_SPRITES		10000
-#define VERTEX_SIZE		sizeof(VertexData)
-#define SPRITE_SIZE		VERTEX_SIZE * 4
-#define BUFFER_SIZE		MAX_SPRITES * SPRITE_SIZE
-#define INDICIES_SIZE	MAX_SPRITES * 6
-
-#define VERTEX_INDEX		0
-#define TEXTURE_COORD_INDEX 1
-#define TEXTURE_ID_INDEX	2
-#define COLOR_INDEX			3
-
-namespace heartCore { namespace graphics {
+namespace heartCore { namespace graphics { 
 	class StaticSprite;
 	struct VertexData;
 	class Texture;
-	
+
 	class Renderer {
-	private:
-		std::vector<maths::mat4> m_transformStack;
-		const maths::mat4* m_transformBack;
-
-		std::vector<GLuint> m_textureSlots;
-
+	protected:
 		GLuint VAO, VBO, IBO;
-		GLsizei m_indexCount;
-		VertexData* m_dataBuffer;
-
-		// FTgl stuff
-		ftgl::texture_atlas_t* m_FTAtlas;
-		ftgl::texture_font_t* m_FTFont;
-		ftgl::texture_glyph_t* m_FTGlyph;
-
 	public:
-		Renderer();
-		~Renderer();
+		Renderer() {}
+		~Renderer() {}
 
-		void push(const maths::mat4& matrix, bool override = false);
-		void pop();
+		virtual void push(const maths::mat4& matrix, bool override = false) {}
+		virtual void pop() {}
 
-		void submit(const StaticSprite* sprite);
-		void begin();
-		void submitText(std::string text, maths::vec3 position, maths::vec4 col);
-		void draw();
-		void end();
-
+		virtual void begin() {}
+		virtual void submit(const StaticSprite* sprite) = 0;
+		virtual void submitText(std::string text, maths::vec3 position, maths::vec4 col) = 0;
+		virtual void end() {}
+		virtual void draw() = 0;
 	};
 } }

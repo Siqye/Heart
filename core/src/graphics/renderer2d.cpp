@@ -1,11 +1,11 @@
-#include "renderer.hpp"
+#include "renderer2d.hpp"
 #include "staticsprite.hpp"
 #include "texture.hpp"
 #include <string>
 
 namespace heartCore { 	namespace graphics {
 
-	Renderer::Renderer() {
+	Renderer2d::Renderer2d() {
 		m_transformStack.push_back(maths::mat4::identity());
 		m_transformBack = &m_transformStack.back();
 
@@ -50,9 +50,9 @@ namespace heartCore { 	namespace graphics {
 		m_FTFont = texture_font_new_from_file(m_FTAtlas, 128, "RobotoMono.ttf");
 	}
 
-	Renderer::~Renderer() {}
+	Renderer2d::~Renderer2d() {}
 
-	void Renderer::submit(const StaticSprite* sprite) {
+	void Renderer2d::submit(const StaticSprite* sprite) {
 		const maths::vec3& position = sprite->getPosition();
 		const maths::vec4& col = sprite->getColor();
 		const maths::vec2& size = sprite->getSize();
@@ -117,11 +117,11 @@ namespace heartCore { 	namespace graphics {
 		m_indexCount += 6;
 	}
 
-	void Renderer::begin() {
+	void Renderer2d::begin() {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		m_dataBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
-	void Renderer::draw() {
+	void Renderer2d::draw() {
 		for (int i = 0; i < m_textureSlots.size();i++) {
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, m_textureSlots[i]);
@@ -137,12 +137,12 @@ namespace heartCore { 	namespace graphics {
 
 		m_indexCount = 0;
 	}
-	void Renderer::end() {
+	void Renderer2d::end() {
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void Renderer::push(const maths::mat4& matrix, bool override) {
+	void Renderer2d::push(const maths::mat4& matrix, bool override) {
 
 		if (override) m_transformStack.push_back(matrix);
 
@@ -150,12 +150,11 @@ namespace heartCore { 	namespace graphics {
 
 		m_transformBack = &m_transformStack.back();
 	}
-	void Renderer::pop() {
+	void Renderer2d::pop() {
 		if (m_transformStack.size() > 1) m_transformStack.pop_back();
-
 		m_transformBack = &m_transformStack.back();
 	}
-	void Renderer::submitText(std::string text, maths::vec3 position, maths::vec4 col) {
+	void Renderer2d::submitText(std::string text, maths::vec3 position, maths::vec4 col) {
 		bool found = false;
 		float textureSlot = 0.0f;
 

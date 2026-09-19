@@ -40,7 +40,7 @@ namespace heartCore {
 				m_texture(texture)
 			{ setTC(); }
 		
-			virtual void submit(Renderer* renderer) const = 0;
+			virtual void submit(Renderer* renderer) { renderer->submit(this); }
 		
 			inline const maths::vec2& getSize() const { return m_size; }
 			inline const maths::vec3& getPosition() const { return m_position; }

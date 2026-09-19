@@ -5,7 +5,9 @@
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
+#include "src/graphics/renderer2d.hpp"
 #include "src/graphics/label.hpp"
+#include <memory>
 
 
 using namespace heartCore;
@@ -28,9 +30,9 @@ int main()
 
 	LevelLayer layer;
 
-	for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
-		layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
-	} }
+	//for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
+	//	layer.add(std::make_unique<Sprite>(x, y, 0.25, 0.25, textures[rand() % 5]));
+	//} }
 
 	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
 
@@ -38,9 +40,9 @@ int main()
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
 	
-	layer.add(Label("some text", maths::vec3(0, 0, 0), maths::vec4(1, 1, 1, 1)));
+	layer.add(std::make_unique<Label>("bbc", maths::vec3(0, 0, 0), maths::vec4(1, 1, 0, 1)));
 
-	Renderer renderer;
+	Renderer2d renderer;
 
 	Timer timer;
 	int fps = 0;
@@ -63,7 +65,7 @@ int main()
 		}
 
 
-		//layer.render(&renderer);
+		layer.render(&renderer);
 
 		window.update();
 	}
