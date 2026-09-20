@@ -40,7 +40,7 @@ int main()
 
 	Renderer2d renderer;
 
-	Font font("arial.ttf");
+	Font font("RobotoMono.ttf");
 
 	Timer timer;
 	int fps = 0;

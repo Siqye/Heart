@@ -10,7 +10,6 @@ namespace heartCore { namespace graphics {
 		~FontManager();
 
 		Font loadFontFromFile(const char* fontPath);
-
 		Font loadFontFolder(const char* folderPath);
 
 	};
