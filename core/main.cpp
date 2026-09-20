@@ -8,6 +8,7 @@
 #include "src/graphics/renderer2d.hpp"
 #include "src/graphics/label.hpp"
 #include "src/config.h"
+#include "src/graphics/fontmanager.hpp"
 #include <memory>
 
 using namespace heartCore;
@@ -38,6 +39,8 @@ int main()
 	shader.setUniformMat4f("pr_matrix", maths::mat4::orthographic(0,4,3,0,1,0));
 	shader.setUniform1iv("textures", 32, texIDs);
 
+	FontManager fm("abc");
+
 	Renderer2d renderer;
 
 	Font font("RobotoMono.ttf");
@@ -58,7 +61,7 @@ int main()
 
 		fps++;
 		if (timer.elapsed() >= 1.0) {
-			std::cout << fps << std::endl;
+			//std::cout << fps << std::endl;
 			labelFPS = std::to_string(fps);
 			labelFPS += " fps";
 			timer.reset();

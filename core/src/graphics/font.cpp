@@ -6,7 +6,9 @@ namespace heartCore {namespace graphics {
 		m_font = texture_font_new_from_file(m_atlas, 128, fontPath);
 	}
 	
+	Font::~Font() {}
+
 	texture_atlas_t* Font::getAtlas() { return m_atlas; }
 	texture_font_t* Font::getFont() { return m_font; }
-	const char* Font::getName() { return m_fontName;  }
+	//std::string Font::getName() { return m_fontName;  }
 } }
