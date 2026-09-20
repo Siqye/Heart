@@ -14,9 +14,7 @@ using namespace heartCore;
 using namespace graphics;
 int main() 
 {
-	Window window(WINDOW_WIDTH, WINDOW_HEIGHT, "Heart");
-	
-	//glClearColor(0, 1, 1, 1);
+	Window window(800, 600, "Heart");
 
 	Shader shader("src/shader/basic.vert", "src/shader/basic.frag");
 
