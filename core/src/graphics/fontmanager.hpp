@@ -10,8 +10,8 @@ namespace heartCore { namespace graphics {
 	class FontManager {
 	private:
 		std::vector<Font> m_fontsLib;
-		const char* get_file_extention(std::string file);
-		const char* get_file_name(std::string path);
+		std::string get_file_extention(std::string file);
+		std::string get_file_name(std::string path);
 	public:
 		FontManager();
 		FontManager(const char* fontFolder);
