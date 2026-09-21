@@ -1,9 +1,9 @@
 #include "font.hpp"
 
 namespace heartCore {namespace graphics {
-	Font::Font(std::string fontPath) {
+	Font::Font(const char* fontPath) {
 		m_atlas = texture_atlas_new(512,512,4);
-		m_font = texture_font_new_from_file(m_atlas, 128, fontPath.c_str());
+		m_font = texture_font_new_from_file(m_atlas, 128, fontPath);
 	}
 	
 	Font::~Font() {}
