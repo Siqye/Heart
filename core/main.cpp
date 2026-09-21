@@ -61,20 +61,25 @@ int main()
 			-3.0f + y * 3.0f / 600.0f
 		));
 
-		fps++;
-		if (timer.elapsed() >= 1.0) {
-			//std::cout << fps << std::endl;
-			labelFPS = std::to_string(fps);
-			labelFPS += " fps";
-			timer.reset();
-			fps = 0;
-		}
 
 		layer.add(std::make_unique<Label>(labelFPS, 3, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1), font));
 		layer.render(&renderer);
 		layer.pop();
 
 		window.update();
+
+		fps++;
+		/*if (timer.elapsed() >= 1.0) {
+			//std::cout << fps << std::endl;
+			labelFPS = std::to_string(fps);
+			labelFPS += " fps";
+			timer.reset();
+			fps = 0;
+		}*/
+		std::cout << timer.elapsed() << std::endl;
+		timer.reset();
+
+
 	}
 
 	return 0;
