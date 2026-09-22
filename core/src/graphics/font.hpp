@@ -7,8 +7,11 @@ namespace heartCore { namespace graphics {
 	private:
 		texture_atlas_t* m_atlas;
 		texture_font_t* m_font;
+		bool m_isBold, m_isItalic, m_isUnderscored;
+		const char* m_name;
 	public:
-		Font(const char* fontPath);
+		Font(const char* fontPath, const char* m_name);
+		Font(const char* fontPath, const char* name, bool is_bold, bool is_italic, bool is_underscored);
 		~Font();
 
 		texture_atlas_t* getAtlas();

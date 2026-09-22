@@ -9,7 +9,7 @@ namespace heartCore { namespace graphics {
 		for (const auto& entry : std::filesystem::directory_iterator(fontFolder)) {
 			std::cout << entry.path() << std::endl;
 			
-			Font font = Font("RobotoMono.ttf");
+			Font font = Font("RobotoMono.ttf", "robotomono");
 
 			std::filesystem::path fileName = entry.path().filename();
 			std::filesystem::path fileExtention = entry.path().extension();
@@ -17,7 +17,7 @@ namespace heartCore { namespace graphics {
 			std::cout << fileExtention << std::endl;
 
 			if (fileExtention == ".ttf") {
-				font = Font(entry.path().string().c_str());
+				font = Font(entry.path().string().c_str(), entry.path().filename().string().c_str());
 				m_fontsLib.push_back(font);
 			}
 		}
@@ -26,14 +26,14 @@ namespace heartCore { namespace graphics {
 	FontManager::~FontManager() {}
 
 	void FontManager::loadFontFromFile(const char* fontPath) {
-		m_fontsLib.push_back(Font(fontPath));
+		m_fontsLib.push_back(Font(fontPath, fontPath));
 	}
 
 	void FontManager::loadFontsFolder(const char* folderPath) {
 		for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
 			std::cout << entry.path() << std::endl;
 
-			Font font = Font("RobotoMono.ttf");
+			Font font = Font("RobotoMono.ttf", "robotomono");
 
 			std::filesystem::path fileName = entry.path().filename();
 			std::filesystem::path fileExtention = entry.path().extension();
@@ -41,17 +41,18 @@ namespace heartCore { namespace graphics {
 			std::cout << fileExtention << std::endl;
 
 			if (fileExtention == ".ttf") {
-				font = Font(entry.path().string().c_str());
+				font = Font(entry.path().string().c_str(), entry.path().filename().string().c_str());
 				m_fontsLib.push_back(font);
 			}
 		}
 	}
 
 	Font FontManager::getFontbyName(const char* fontName) {
-		return Font("RobotoMono.ttf");
+		return Font("RobotoMono.ttf", "");
 	}
 
 	Font FontManager::getFontbyID(int fontID) {
-		return Font("RobotoMono.ttf");
+		if (fontID <= 0 || fontID > m_fontsLib.size()) return Font("RobotoMobo.ttf", "");
+		return m_fontsLib[fontID];
 	}
 } }

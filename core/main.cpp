@@ -43,7 +43,7 @@ int main()
 
 	Renderer2d renderer;
 
-	Font font("RobotoMono.ttf");
+	Font font("RobotoMono.ttf", "robotomono");
 
 	//layer.add(std::make_unique<Label>("abcdifg", 3, maths::vec3(0.3f, 0.3f, 0), maths::vec4(1, 1, 1, 1), font));
 
