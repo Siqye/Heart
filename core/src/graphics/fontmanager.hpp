@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <filesystem>
+#include <memory>
 
 namespace heartCore { namespace graphics {
 	class FontManager {
@@ -18,7 +19,6 @@ namespace heartCore { namespace graphics {
 		void loadFontFromFile(const char* fontPath);
 		void loadFontsFolder(const char* folderPath);
 
-		Font getFontbyName(const char* fontName);
 		Font getFontbyID(int fontID);
 	};
 } }

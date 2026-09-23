@@ -1,15 +1,11 @@
 #include "fontmanager.hpp"
 
 namespace heartCore { namespace graphics {
-	FontManager::FontManager() {
-		
-	}
+	FontManager::FontManager() {}
 	
 	FontManager::FontManager(const char* fontFolder) {
 		for (const auto& entry : std::filesystem::directory_iterator(fontFolder)) {
 			std::cout << entry.path() << std::endl;
-			
-			Font font = Font("RobotoMono.ttf", "robotomono");
 
 			std::filesystem::path fileName = entry.path().filename();
 			std::filesystem::path fileExtention = entry.path().extension();
@@ -17,8 +13,7 @@ namespace heartCore { namespace graphics {
 			std::cout << fileExtention << std::endl;
 
 			if (fileExtention == ".ttf") {
-				font = Font(entry.path().string().c_str(), entry.path().filename().string().c_str());
-				m_fontsLib.push_back(font);
+				m_fontsLib.push_back(Font(entry.path().string().c_str()));
 			}
 		}
 	}
@@ -26,14 +21,14 @@ namespace heartCore { namespace graphics {
 	FontManager::~FontManager() {}
 
 	void FontManager::loadFontFromFile(const char* fontPath) {
-		m_fontsLib.push_back(Font(fontPath, fontPath));
+		m_fontsLib.push_back(Font(fontPath));
 	}
 
 	void FontManager::loadFontsFolder(const char* folderPath) {
 		for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
 			std::cout << entry.path() << std::endl;
 
-			Font font = Font("RobotoMono.ttf", "robotomono");
+			//Font font = Font("test/fonts/RobotoMobo.ttf");
 
 			std::filesystem::path fileName = entry.path().filename();
 			std::filesystem::path fileExtention = entry.path().extension();
@@ -41,18 +36,14 @@ namespace heartCore { namespace graphics {
 			std::cout << fileExtention << std::endl;
 
 			if (fileExtention == ".ttf") {
-				font = Font(entry.path().string().c_str(), entry.path().filename().string().c_str());
+				Font font = Font(entry.path().string().c_str());
 				m_fontsLib.push_back(font);
 			}
 		}
 	}
 
-	Font FontManager::getFontbyName(const char* fontName) {
-		return Font("RobotoMono.ttf", "");
-	}
-
 	Font FontManager::getFontbyID(int fontID) {
-		if (fontID <= 0 || fontID > m_fontsLib.size()) return Font("RobotoMobo.ttf", "");
+		if (fontID < 0 || fontID >= m_fontsLib.size()) return Font("test/fonts/RobotoMobo.ttf");
 		return m_fontsLib[fontID];
 	}
 } }

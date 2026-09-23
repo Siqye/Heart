@@ -206,8 +206,8 @@
     <Image Include="test\test5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="arial.ttf" />
-    <Font Include="RobotoMono.ttf" />
+    <Font Include="test\fonts\arial.ttf" />
+    <Font Include="test\RobotoMono.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
