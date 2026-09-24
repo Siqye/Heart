@@ -30,7 +30,7 @@ int main()
 	LevelLayer layer;
 
 	for (float x = 0; x < 4; x += 0.3f) { for (float y = 0; y < 3; y += 0.3f) {
-		layer.add(Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
+		layer.add(new Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
 	} }
 
 	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
@@ -52,6 +52,7 @@ int main()
 	std::string labelFPS = "0 fps";
 
 	Label labelfps(labelFPS, 3, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1), fm.getFontbyID(0));
+	Label* lfps = &labelfps;
 
 	double x, y;
 	while (window.close()) {
@@ -64,8 +65,8 @@ int main()
 		));
 
 
-		labelfps = Label(labelFPS, 3, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1), fm.getFontbyID(0));
-		layer.add(labelfps);
+		lfps = new Label(labelFPS, 3, maths::vec3(0.3f, 2.3f, 0), maths::vec4(1, 0, 1, 1), fm.getFontbyID(0));
+		layer.add(lfps);
 		layer.render(&renderer);
 
 		window.update();
