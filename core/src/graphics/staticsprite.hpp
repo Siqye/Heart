@@ -39,6 +39,8 @@ namespace heartCore {
 				: m_position(maths::vec3(x, y, 0)), m_size(maths::vec2(width, height)), m_color(maths::vec4(1, 1, 1, 1)),
 				m_texture(texture)
 			{ setTC(); }
+
+			virtual ~StaticSprite() = default;
 		
 			virtual void submit(Renderer* renderer) { renderer->submit(this); }
 		

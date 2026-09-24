@@ -37,7 +37,7 @@ namespace heartCore { namespace graphics {
 
 		virtual void begin() {}
 		virtual void submit(const StaticSprite* sprite) = 0;
-		virtual void submitText(std::string text, int scale, maths::vec3 position, maths::vec4 col, Font font) = 0;
+		virtual void submitText(std::string text, float scale, maths::vec3 position, maths::vec4 col, Font font) = 0;
 		virtual void end() {}
 		virtual void draw() = 0;
 	};

@@ -63,7 +63,7 @@
     <ClCompile Include="src\graphics\font.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\API\fontmanager.cpp">
+    <ClCompile Include="src\graphics\fontmanager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,7 +158,7 @@
     <ClInclude Include="src\config.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\API\fontmanager.hpp">
+    <ClInclude Include="src\graphics\fontmanager.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -187,7 +187,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="arial.ttf" />
-    <Font Include="RobotoMono.ttf" />
+    <Font Include="test\fonts\arial.ttf" />
+    <Font Include="test\RobotoMono.ttf" />
   </ItemGroup>
 </Project>

@@ -7,8 +7,9 @@ namespace heartCore { namespace graphics {
 	private:
 		texture_atlas_t* m_atlas;
 		texture_font_t* m_font;
+		
 	public:
-		Font(std::string fontPath);
+		Font(const char* fontPath);
 		~Font();
 
 		texture_atlas_t* getAtlas();

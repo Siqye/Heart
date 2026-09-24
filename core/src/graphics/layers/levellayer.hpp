@@ -7,7 +7,7 @@ namespace heartCore { namespace graphics {
 		LevelLayer() = default;
 		~LevelLayer() override = default;
 
-		void add(std::unique_ptr<StaticSprite> sprite) override;
+		void add(StaticSprite sprite) override;
 		void render(Renderer* renderer) override;
 	};
 } }

@@ -141,7 +141,7 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void Renderer2d::submitText(std::string text, int scale, maths::vec3 position, maths::vec4 col, Font font) {
+	void Renderer2d::submitText(std::string text, float scale, maths::vec3 position, maths::vec4 col, Font font) {
 		texture_atlas_t* textAtlas = font.getAtlas();
 		texture_font_t* textFont = font.getFont();
 		
@@ -181,8 +181,6 @@ namespace heartCore { 	namespace graphics {
 			const char* c = &text[i];
 			texture_glyph_t* glyph = texture_font_get_glyph(textFont, c);
 			loadChar(textAtlas);
-
-			
 
 			if (glyph != NULL) {
 				if (i > 0) {
