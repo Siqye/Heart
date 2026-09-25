@@ -11,6 +11,7 @@
 
 using namespace heartCore;
 using namespace graphics;
+
 int main()
 {
 	Window window(800, 600, "Heart");
@@ -24,7 +25,6 @@ int main()
 		new Texture("test/test4.png"),
 		new Texture("test/test5.png")
 	};
-
 
 	int texIDs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 };
 
@@ -44,9 +44,9 @@ int main()
 	int fps = 0;
 	std::string labelFPS = "0 fps";
 
-	Label labelfps(labelFPS, 3, 0.3f, 2.3f, maths::vec4(1, 0, 1, 1), fm.getFontbyID(0));
+	maths::vec4 textColor = maths::vec4(1, 1, 1, 1);
+	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
 	Label* lfps = &labelfps;
-
 
 	layer.add(lfps);
 
@@ -55,6 +55,7 @@ int main()
 		window.clear();
 
 		window.getMousePosition(x, y);
+		shader.bind();
 		shader.setUniform2f("ligth_pos", maths::vec2(
 			-x * 4.0f / 800.0f,
 			-3.0f + y * 3.0f / 600.0f
@@ -62,7 +63,7 @@ int main()
 
 		layer.render();
 
-		labelfps = Label(labelFPS, 3, 0.3f, 2.3f,  maths::vec4(1, 0, 1, 1), fm.getFontbyID(0));
+		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
 
 		window.update();
 
