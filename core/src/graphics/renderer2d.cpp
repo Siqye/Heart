@@ -52,7 +52,7 @@ namespace heartCore { 	namespace graphics {
 	void Renderer2d::submit(const StaticSprite* sprite) {
 		const maths::vec3& position = sprite->getPosition();
 		const maths::vec4& col = sprite->getColor();
-		const maths::vec2& size = sprite->getSize();
+		const maths::vec3& size = sprite->getSize();
 		const std::vector<maths::vec2>& tc = sprite->getTC();
 		const GLuint texID = sprite->getTID();
 

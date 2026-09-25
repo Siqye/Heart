@@ -1,19 +1,8 @@
 #include "levellayer.hpp"
+#include "../renderer2d.hpp"
 
 namespace heartCore { namespace graphics {
-	LevelLayer::LevelLayer() : Layer() {}
-	LevelLayer::~LevelLayer() {}
-
-	void LevelLayer::add(StaticSprite* sprite) {
-		m_sprites.push_back(sprite);
-	}
-
-	void LevelLayer::render(Renderer* renderer) {
-		renderer->begin();
-		for (StaticSprite* sprite : m_sprites)
-			sprite->submit(renderer);
-
-		renderer->end();
-		renderer->draw();
-	}
+	LevelLayer::LevelLayer(Shader* shader) 
+		: Layer(shader, new Renderer2d, maths::mat4::orthographic(0,4,3,0,1,0))
+	{}
 } }

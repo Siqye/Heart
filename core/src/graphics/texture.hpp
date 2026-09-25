@@ -10,7 +10,7 @@ namespace heartCore { namespace graphics {
 		GLuint m_texID;
 
 		GLuint load();
-	public:
+	public://
 		Texture(const char* texturePath);
 		~Texture();
 

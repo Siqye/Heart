@@ -147,11 +147,11 @@
     <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\graphics\label.cpp" />
     <ClCompile Include="src\graphics\layers\group.cpp" />
+    <ClCompile Include="src\graphics\layers\layer.cpp" />
     <ClCompile Include="src\graphics\layers\levellayer.cpp" />
     <ClCompile Include="src\graphics\renderer2d.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
-    <ClCompile Include="src\graphics\staticsprite.hpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
@@ -181,6 +181,7 @@
     <ClInclude Include="src\graphics\renderer2d.hpp" />
     <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\graphics\sprite.hpp" />
+    <ClInclude Include="src\graphics\staticsprite.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\graphics\window.hpp" />
     <ClInclude Include="src\maths\mat4.hpp" />
@@ -194,8 +195,8 @@
     <ClInclude Include="src\utils\timer.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shader\basic.frag" />
-    <None Include="src\shader\basic.vert" />
+    <None Include="src\utils\shader\basic.frag" />
+    <None Include="src\utils\shader\basic.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png" />
