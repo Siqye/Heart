@@ -4,7 +4,26 @@
 #include <al.h>
 #include <alc.h>
 
-ALCdevice* device;
+#include <stdio.h>
+
+int main() {
+	ALCdevice* device; // device pointer
+	ALCcontext* context; // context like in windows
+
+	device = alcOpenDevice(NULL); // defualt device
+	if (!device) { // error check
+		printf("Failed to open device\n");
+		return -1;
+	}
+	// default context procedure
+	context = alcCreateContext(device, NULL);
+	if (!alcMakeContextCurrent(context)) { 
+		printf("Failed to make context current\n");
+		return -1;
+	}
+
+
+}
 
 
 #else
