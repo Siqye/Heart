@@ -1,3 +1,14 @@
+#define OPENAL_TEST
+#if defined(OPENAL_TEST)
+
+#include <al.h>
+#include <alc.h>
+
+ALCdevice* device;
+
+
+#else
+
 #include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
 #include "src/graphics/shader.hpp"
@@ -78,3 +89,5 @@ int main()
 
 	return 0;
 }
+
+#endif
