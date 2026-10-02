@@ -66,6 +66,9 @@
     <ClCompile Include="src\graphics\layers\layer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\timer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.hpp">
@@ -164,10 +167,9 @@
     <ClInclude Include="src\graphics\staticsprite.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\utils\shader\basic.frag" />
-    <None Include="src\utils\shader\basic.vert" />
+    <ClInclude Include="src\utils\wav_file_reader.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png">

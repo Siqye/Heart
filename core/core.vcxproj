@@ -131,7 +131,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;AL_API;ALC_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -159,6 +159,7 @@
     <ClCompile Include="src\maths\vec3.cpp" />
     <ClCompile Include="src\maths\vec4.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
+    <ClCompile Include="src\utils\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext\freetype-gl\freetype-gl-errdef.h" />
@@ -193,10 +194,7 @@
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
     <ClInclude Include="src\utils\timer.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\utils\shader\basic.frag" />
-    <None Include="src\utils\shader\basic.vert" />
+    <ClInclude Include="src\utils\wav_file_reader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png" />

@@ -3,12 +3,20 @@
 
 #include <al.h>
 #include <alc.h>
-
+#include "src/utils/wav_file_reader.hpp"
 #include <stdio.h>
+
+using namespace heartCore;
 
 int main() {
 	ALCdevice* device; // device pointer
 	ALCcontext* context; // context like in windows
+	ALboolean b_EAX_support; // EAX 2.0
+	ALuint buffer;
+	ALuint source;
+	ALboolean loop = true;
+	ALenum error;
+
 
 	device = alcOpenDevice(NULL); // defualt device
 	if (!device) { // error check
@@ -22,7 +30,19 @@ int main() {
 		return -1;
 	}
 
+	b_EAX_support = alIsExtensionPresent("EAX2.0"); // check if eax supports
 
+	alGetError(); // clear error buffer
+
+	loadWAVFile("sound.wav", buffer, source, loop);
+	if ((error = alGetError()) != AL_NO_ERROR)
+	{
+		alDeleteBuffers(0, &buffer);
+		
+		return -1;
+	}
+
+	return 0;
 }
 
 
@@ -105,7 +125,6 @@ int main()
 			fps = 0;
 		}
 	}
-
 	return 0;
 }
 
