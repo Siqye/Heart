@@ -12,6 +12,10 @@ int main() {
 	ALCdevice* device; // device pointer
 	ALCcontext* context; // context like in windows
 	ALboolean b_EAX_support; // EAX 2.0
+	ALCchar channels;
+	ALCint frequence;
+	ALCubyte bits;
+	ALCsizei size;
 	ALuint buffer;
 	ALuint source;
 	ALboolean loop = true;
@@ -34,12 +38,23 @@ int main() {
 
 	alGetError(); // clear error buffer
 
-	loadWAVFile("sound.wav", buffer, source, loop);
-	if ((error = alGetError()) != AL_NO_ERROR)
-	{
-		alDeleteBuffers(0, &buffer);
-		
-		return -1;
+	loadWAVFile("sound.wav", channels, frequence, bits, size);
+
+	alGenSources( 1, &source);
+	alGenBuffers(1, &buffer);
+	alSourcef( source, AL_PITCH, 1);
+	alSourcef( source, AL_GAIN, 1.0f);
+	alSource3f( source, AL_POSITION, 0, 0, 0);
+	alSource3f( source, AL_VELOCITY, 0, 0, 0);
+	alSourcei( source, AL_LOOPING, AL_FALSE);
+	alSourcei( source, AL_BUFFER, buffer);
+
+	alSourcePlay(source);
+
+	ALCint state = AL_PLAYING;
+
+	while (state == AL_PLAYING) {
+		alGetSourcei (source, AL_SOURCE_STATE, & state);
 	}
 
 	return 0;

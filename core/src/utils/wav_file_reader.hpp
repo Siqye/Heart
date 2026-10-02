@@ -9,67 +9,158 @@
 #include <fstream>
 #include <vector>
 #include <cstdint>
+#include <bit>
+
+using std::endian;
 
 namespace heartCore {
-    struct WAVHeader {
-        char riff[4];        //RIFF
-        uint32_t chunkSize;
-        char wave[4];        //WAVE
-        char fmt[4];         //fmt
-        uint32_t subchunk1Size;
-        uint16_t audioFormat; //PCM always 1
-        uint16_t numChannels;
-        uint32_t sampleRate;
-        uint32_t byteRate;
-        uint16_t blockAlign;
-        uint16_t bitsPerSample;
-        char dataHeader[4];  //data
-        uint32_t dataSize;
-    };
-
+    inline ALCint convert_to_int(char* buffer, std::size_t len) {
+        std::int32_t a = 0;
+        if (std::endian::native == std::endian::little)
+            std::memcpy(&a, buffer, len);
+        else
+            for (std::size_t i = 0; i < len; ++i)
+                reinterpret_cast<char*>(&a)[3 - i] = buffer[i];
+        return a;
+    }
 
     inline bool 
-    loadWAVFile(const std::string& filename, ALuint& buffer, ALuint& source, bool loop) {
-        std::ifstream file(filename, std::ios::binary);
-        if (!file) {
-            std::cerr << "Error: Cannot open file " << filename << "\n";
+    loadWAVFile(const char* filepath,
+        ALCchar& channels,
+        ALCint& sampleRate,
+        ALCubyte& bitsPerSample,
+        ALCsizei& size)
+    {
+        char buffer[4];
+        std::ifstream file(filepath, std::ios::binary);
+
+
+        if (!file)
+            return false;
+
+        // the RIFF
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read RIFF" << std::endl;
+            return false;
+        }
+        if (std::strncmp(buffer, "RIFF", 4) != 0)
+        {
+            std::cerr << "ERROR: file is not a valid WAVE file (header doesn't begin with RIFF)" << std::endl;
             return false;
         }
 
-        WAVHeader header{};
-        file.read(reinterpret_cast<char*>(&header), sizeof(WAVHeader));
-
-        if (std::string(header.riff, 4) != "RIFF" || std::string(header.wave, 4) != "WAVE") {
-            std::cerr << "Error: Invalid WAV file format.\n";
-            return false;
-        }
-        if (header.audioFormat != 1) { // PCM only
-            std::cerr << "Error: Unsupported WAV format (only PCM supported).\n";
+        // the size of the file
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read size of file" << std::endl;
             return false;
         }
 
-        std::vector<char> data(header.dataSize);
-        file.read(data.data(), header.dataSize);
-
-        ALenum format;
-        if (header.numChannels == 1) {
-            format = (header.bitsPerSample == 8) ? AL_FORMAT_MONO8 : AL_FORMAT_MONO16;
+        // the WAVE
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read WAVE" << std::endl;
+            return false;
         }
-        else if (header.numChannels == 2) {
-            format = (header.bitsPerSample == 8) ? AL_FORMAT_STEREO8 : AL_FORMAT_STEREO16;
-        }
-        else {
-            std::cerr << "Error: Unsupported channel count.\n";
+        if (std::strncmp(buffer, "WAVE", 4) != 0)
+        {
+            std::cerr << "ERROR: file is not a valid WAVE file (header doesn't contain WAVE)" << std::endl;
             return false;
         }
 
-        alGenBuffers(1, &buffer);
-        alBufferData(buffer, format, data.data(), static_cast<ALsizei>(data.size()), header.sampleRate);
+        // "fmt/0"
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read fmt/0" << std::endl;
+            return false;
+        }
 
-        alGenSources(1, &source);
-        alSourcei(source, AL_BUFFER, buffer);
-        alSourcei(source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
+        // this is always 16, the size of the fmt data chunk
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read the 16" << std::endl;
+            return false;
+        }
+
+        // PCM should be 1?
+        if (!file.read(buffer, 2))
+        {
+            std::cerr << "ERROR: could not read PCM" << std::endl;
+            return false;
+        }
+
+        // the number of channels
+        if (!file.read(buffer, 2))
+        {
+            std::cerr << "ERROR: could not read number of channels" << std::endl;
+            return false;
+        }
+        channels = convert_to_int(buffer, 2);
+
+        // sample rate
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read sample rate" << std::endl;
+            return false;
+        }
+        sampleRate = convert_to_int(buffer, 4);
+
+        // (sampleRate * bitsPerSample * channels) / 8
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read (sampleRate * bitsPerSample * channels) / 8" << std::endl;
+            return false;
+        }
+
+        // ?? dafaq
+        if (!file.read(buffer, 2))
+        {
+            std::cerr << "ERROR: could not read dafaq" << std::endl;
+            return false;
+        }
+
+        // bitsPerSample
+        if (!file.read(buffer, 2))
+        {
+            std::cerr << "ERROR: could not read bits per sample" << std::endl;
+            return false;
+        }
+        bitsPerSample = convert_to_int(buffer, 2);
+
+        // data chunk header "data"
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read data chunk header" << std::endl;
+            return false;
+        }
+        if (std::strncmp(buffer, "data", 4) != 0)
+        {
+            std::cerr << "ERROR: file is not a valid WAVE file (doesn't have 'data' tag)" << std::endl;
+            return false;
+        }
+
+        // size of data
+        if (!file.read(buffer, 4))
+        {
+            std::cerr << "ERROR: could not read data size" << std::endl;
+            return false;
+        }
+        size = convert_to_int(buffer, 4);
+
+        /* cannot be at the end of file */
+        if (file.eof())
+        {
+            std::cerr << "ERROR: reached EOF on the file" << std::endl;
+            return false;
+        }
+        if (file.fail())
+        {
+            std::cerr << "ERROR: fail state set on the file" << std::endl;
+            return false;
+        }
 
         return true;
     }
+
 }
