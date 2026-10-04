@@ -5,33 +5,34 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../config.h"
 
 namespace heartCore {
     struct WavFile {
-        std::vector<std::uint8_t> data;
-        std::uint16_t channels = 0;
-        std::uint32_t sampleRate = 0;
-        std::uint16_t bitsPerSample = 0;
-        std::uint16_t audioFormat = 0;
+        std::vector<uint8> data;
+        uint16 channels = 0;
+        uint32 sampleRate = 0;
+        uint16 bitsPerSample = 0;
+        uint16 audioFormat = 0;
     };
 
-    inline bool readU16(std::ifstream& file, std::uint16_t& value) {
-        std::uint8_t bytes[2];
-        if (!file.read(reinterpret_cast<char*>(bytes), sizeof(bytes)))
+    inline bool readU16(std::ifstream& file, uint16& value) {
+        uint8 bytes[2];
+        if (!file.read(reinterpret_cast<int8*>(bytes), sizeof(bytes)))
             return false;
-        value = static_cast<std::uint16_t>(bytes[0]) |
-                (static_cast<std::uint16_t>(bytes[1]) << 8);
+        value = (uint16)bytes[0] |
+                (uint16)bytes[1] << 8;
         return true;
     }
 
-    inline bool readU32(std::ifstream& file, std::uint32_t& value) {
-        std::uint8_t bytes[4];
-        if (!file.read(reinterpret_cast<char*>(bytes), sizeof(bytes)))
+    inline bool readU32(std::ifstream& file, uint32& value) {
+        uint8 bytes[4];
+        if (!file.read(reinterpret_cast<int8*>(bytes), sizeof(bytes)))
             return false;
-        value = (std::uint32_t)bytes[0] |
-                (std::uint32_t)bytes[1] << 8 |
-                (std::uint32_t)bytes[2] << 16 |
-                (std::uint32_t)bytes[3] << 24;
+        value = (uint32)bytes[0] |
+                (uint32)bytes[1] << 8 |
+                (uint32)bytes[2] << 16 |
+                (uint32)bytes[3] << 24;
         return true;
     }
 
@@ -47,7 +48,7 @@ namespace heartCore {
         if (!file)
             return false;
 
-        std::uint32_t riffSize = 0;
+        uint32 riffSize = 0;
         if (!readTag(file, "RIFF") || !readU32(file, riffSize) ||
             !readTag(file, "WAVE")) {
             std::cerr << "ERROR: invalid WAV RIFF header\n";
@@ -56,7 +57,7 @@ namespace heartCore {
 
         bool hasFormat = false;
         bool hasData = false;
-        std::uint32_t chunkSize = 0;
+        uint32 chunkSize = 0;
 
         while (file && (!hasFormat || !hasData)) {
             char chunkId[4];
@@ -73,8 +74,8 @@ namespace heartCore {
                     !readU16(file, wav.channels) || !readU32(file, wav.sampleRate))
                     return false;
 
-                std::uint32_t byteRate = 0;
-                std::uint16_t blockAlign = 0;
+                uint32 byteRate = 0;
+                uint16 blockAlign = 0;
                 if (!readU32(file, byteRate) || !readU16(file, blockAlign) ||
                     !readU16(file, wav.bitsPerSample))
                     return false;
