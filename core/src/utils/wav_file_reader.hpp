@@ -1,166 +1,109 @@
-#if defined(_MSC_VER)
-#pragma disable(warning:4996)
-#endif 
+#pragma once
 
-#include <string>
-#include <al.h>
-#include <alc.h>
-#include <iostream>
-#include <fstream>
-#include <vector>
 #include <cstdint>
-#include <bit>
-
-using std::endian;
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
 namespace heartCore {
-    inline ALCint convert_to_int(char* buffer, std::size_t len) {
-        std::int32_t a = 0;
-        if (std::endian::native == std::endian::little)
-            std::memcpy(&a, buffer, len);
-        else
-            for (std::size_t i = 0; i < len; ++i)
-                reinterpret_cast<char*>(&a)[3 - i] = buffer[i];
-        return a;
+    struct WavFile {
+        std::vector<std::uint8_t> data;
+        std::uint16_t channels = 0;
+        std::uint32_t sampleRate = 0;
+        std::uint16_t bitsPerSample = 0;
+        std::uint16_t audioFormat = 0;
+    };
+
+    inline bool readU16(std::ifstream& file, std::uint16_t& value) {
+        std::uint8_t bytes[2];
+        if (!file.read(reinterpret_cast<char*>(bytes), sizeof(bytes)))
+            return false;
+        value = static_cast<std::uint16_t>(bytes[0]) |
+                (static_cast<std::uint16_t>(bytes[1]) << 8);
+        return true;
     }
 
-    inline bool 
-    loadWAVFile(const char* filepath,
-        ALCchar& channels,
-        ALCint& sampleRate,
-        ALCubyte& bitsPerSample,
-        ALCsizei& size)
-    {
-        char buffer[4];
+    inline bool readU32(std::ifstream& file, std::uint32_t& value) {
+        std::uint8_t bytes[4];
+        if (!file.read(reinterpret_cast<char*>(bytes), sizeof(bytes)))
+            return false;
+        value = (std::uint32_t)bytes[0] |
+                (std::uint32_t)bytes[1] << 8 |
+                (std::uint32_t)bytes[2] << 16 |
+                (std::uint32_t)bytes[3] << 24;
+        return true;
+    }
+
+    inline bool readTag(std::ifstream& file, const char* expected) {
+        char tag[4];
+        return file.read(tag, sizeof(tag)) &&
+               tag[0] == expected[0] && tag[1] == expected[1] &&
+               tag[2] == expected[2] && tag[3] == expected[3];
+    }
+
+    inline bool loadWAVFile(const char* filepath, WavFile& wav) {
         std::ifstream file(filepath, std::ios::binary);
-
-
         if (!file)
             return false;
 
-        // the RIFF
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read RIFF" << std::endl;
-            return false;
-        }
-        if (std::strncmp(buffer, "RIFF", 4) != 0)
-        {
-            std::cerr << "ERROR: file is not a valid WAVE file (header doesn't begin with RIFF)" << std::endl;
+        std::uint32_t riffSize = 0;
+        if (!readTag(file, "RIFF") || !readU32(file, riffSize) ||
+            !readTag(file, "WAVE")) {
+            std::cerr << "ERROR: invalid WAV RIFF header\n";
             return false;
         }
 
-        // the size of the file
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read size of file" << std::endl;
-            return false;
+        bool hasFormat = false;
+        bool hasData = false;
+        std::uint32_t chunkSize = 0;
+
+        while (file && (!hasFormat || !hasData)) {
+            char chunkId[4];
+            if (!file.read(chunkId, sizeof(chunkId)) || !readU32(file, chunkSize))
+                break;
+
+            const bool isFormat = chunkId[0] == 'f' && chunkId[1] == 'm' &&
+                                  chunkId[2] == 't' && chunkId[3] == ' ';
+            const bool isData = chunkId[0] == 'd' && chunkId[1] == 'a' &&
+                                chunkId[2] == 't' && chunkId[3] == 'a';
+
+            if (isFormat) {
+                if (chunkSize < 16 || !readU16(file, wav.audioFormat) ||
+                    !readU16(file, wav.channels) || !readU32(file, wav.sampleRate))
+                    return false;
+
+                std::uint32_t byteRate = 0;
+                std::uint16_t blockAlign = 0;
+                if (!readU32(file, byteRate) || !readU16(file, blockAlign) ||
+                    !readU16(file, wav.bitsPerSample))
+                    return false;
+
+                const std::streamoff remaining = static_cast<std::streamoff>(chunkSize) - 16;
+                if (remaining > 0)
+                    file.seekg(remaining, std::ios::cur);
+                hasFormat = true;
+            } else if (isData) {
+                wav.data.resize(chunkSize);
+                if (!file.read(reinterpret_cast<char*>(wav.data.data()), chunkSize))
+                    return false;
+                hasData = true;
+            } else {
+                file.seekg(chunkSize, std::ios::cur);
+            }
+
+            if (chunkSize & 1)
+                file.seekg(1, std::ios::cur);
         }
 
-        // the WAVE
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read WAVE" << std::endl;
-            return false;
-        }
-        if (std::strncmp(buffer, "WAVE", 4) != 0)
-        {
-            std::cerr << "ERROR: file is not a valid WAVE file (header doesn't contain WAVE)" << std::endl;
-            return false;
-        }
-
-        // "fmt/0"
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read fmt/0" << std::endl;
-            return false;
-        }
-
-        // this is always 16, the size of the fmt data chunk
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read the 16" << std::endl;
-            return false;
-        }
-
-        // PCM should be 1?
-        if (!file.read(buffer, 2))
-        {
-            std::cerr << "ERROR: could not read PCM" << std::endl;
-            return false;
-        }
-
-        // the number of channels
-        if (!file.read(buffer, 2))
-        {
-            std::cerr << "ERROR: could not read number of channels" << std::endl;
-            return false;
-        }
-        channels = convert_to_int(buffer, 2);
-
-        // sample rate
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read sample rate" << std::endl;
-            return false;
-        }
-        sampleRate = convert_to_int(buffer, 4);
-
-        // (sampleRate * bitsPerSample * channels) / 8
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read (sampleRate * bitsPerSample * channels) / 8" << std::endl;
-            return false;
-        }
-
-        // ?? dafaq
-        if (!file.read(buffer, 2))
-        {
-            std::cerr << "ERROR: could not read dafaq" << std::endl;
-            return false;
-        }
-
-        // bitsPerSample
-        if (!file.read(buffer, 2))
-        {
-            std::cerr << "ERROR: could not read bits per sample" << std::endl;
-            return false;
-        }
-        bitsPerSample = convert_to_int(buffer, 2);
-
-        // data chunk header "data"
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read data chunk header" << std::endl;
-            return false;
-        }
-        if (std::strncmp(buffer, "data", 4) != 0)
-        {
-            std::cerr << "ERROR: file is not a valid WAVE file (doesn't have 'data' tag)" << std::endl;
-            return false;
-        }
-
-        // size of data
-        if (!file.read(buffer, 4))
-        {
-            std::cerr << "ERROR: could not read data size" << std::endl;
-            return false;
-        }
-        size = convert_to_int(buffer, 4);
-
-        /* cannot be at the end of file */
-        if (file.eof())
-        {
-            std::cerr << "ERROR: reached EOF on the file" << std::endl;
-            return false;
-        }
-        if (file.fail())
-        {
-            std::cerr << "ERROR: fail state set on the file" << std::endl;
+        if (!hasFormat || !hasData || wav.audioFormat != 1 ||
+            (wav.channels != 1 && wav.channels != 2) ||
+            (wav.bitsPerSample != 8 && wav.bitsPerSample != 16) ||
+            wav.data.empty()) {
+            std::cerr << "ERROR: only mono/stereo PCM WAV (8 or 16 bit) is supported\n";
             return false;
         }
 
         return true;
     }
-
 }

@@ -4,59 +4,72 @@
 #include <al.h>
 #include <alc.h>
 #include "src/utils/wav_file_reader.hpp"
-#include <stdio.h>
+#include <chrono>
+#include <iostream>
+#include <thread>
 
 using namespace heartCore;
 
 int main() {
-	ALCdevice* device; // device pointer
-	ALCcontext* context; // context like in windows
-	ALboolean b_EAX_support; // EAX 2.0
-	ALCchar channels;
-	ALCint frequence;
-	ALCubyte bits;
-	ALCsizei size;
-	ALuint buffer;
-	ALuint source;
-	ALboolean loop = true;
-	ALenum error;
-
-
-	device = alcOpenDevice(NULL); // defualt device
-	if (!device) { // error check
-		printf("Failed to open device\n");
-		return -1;
-	}
-	// default context procedure
-	context = alcCreateContext(device, NULL);
-	if (!alcMakeContextCurrent(context)) { 
-		printf("Failed to make context current\n");
+	ALCdevice* device = alcOpenDevice(nullptr);
+	if (!device) {
+		std::cerr << "Failed to open default OpenAL device\n";
 		return -1;
 	}
 
-	b_EAX_support = alIsExtensionPresent("EAX2.0"); // check if eax supports
+	ALCcontext* context = alcCreateContext(device, nullptr);
+	if (!context || !alcMakeContextCurrent(context)) {
+		std::cerr << "Failed to create OpenAL context\n";
+		if (context)
+			alcDestroyContext(context);
+		alcCloseDevice(device);
+		return -1;
+	}
 
-	alGetError(); // clear error buffer
+	WavFile wav;
+	if (!loadWAVFile("sound.wav", wav)) {
+		alcMakeContextCurrent(nullptr);
+		alcDestroyContext(context);
+		alcCloseDevice(device);
+		return -1;
+	}
 
-	loadWAVFile("sound.wav", channels, frequence, bits, size);
+	ALenum format = 0;
+	if (wav.channels == 1 && wav.bitsPerSample == 8)
+		format = AL_FORMAT_MONO8;
+	else if (wav.channels == 1 && wav.bitsPerSample == 16)
+		format = AL_FORMAT_MONO16;
+	else if (wav.channels == 2 && wav.bitsPerSample == 8)
+		format = AL_FORMAT_STEREO8;
+	else if (wav.channels == 2 && wav.bitsPerSample == 16)
+		format = AL_FORMAT_STEREO16;
 
-	alGenSources( 1, &source);
+	ALuint buffer = 0;
+	ALuint source = 0;
 	alGenBuffers(1, &buffer);
-	alSourcef( source, AL_PITCH, 1);
-	alSourcef( source, AL_GAIN, 1.0f);
-	alSource3f( source, AL_POSITION, 0, 0, 0);
-	alSource3f( source, AL_VELOCITY, 0, 0, 0);
-	alSourcei( source, AL_LOOPING, AL_FALSE);
-	alSourcei( source, AL_BUFFER, buffer);
+	alBufferData(buffer, format, wav.data.data(), static_cast<ALsizei>(wav.data.size()),
+		static_cast<ALsizei>(wav.sampleRate));
+	alGenSources(1, &source);
+	alSourcef(source, AL_PITCH, 1.0f);
+	alSourcef(source, AL_GAIN, 1.0f);
+	alSource3f(source, AL_POSITION, 0.0f, 0.0f, 0.0f);
+	alSource3f(source, AL_VELOCITY, 0.0f, 0.0f, 0.0f);
+	alSourcei(source, AL_LOOPING, AL_FALSE);
+	alSourcei(source, AL_BUFFER, static_cast<ALint>(buffer));
 
 	alSourcePlay(source);
 
-	ALCint state = AL_PLAYING;
-
+	ALint state = AL_PLAYING;
 	while (state == AL_PLAYING) {
-		alGetSourcei (source, AL_SOURCE_STATE, & state);
+		alGetSourcei(source, AL_SOURCE_STATE, &state);
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 
+	alDeleteSources(1, &source);
+	alDeleteBuffers(1, &buffer);
+	alcMakeContextCurrent(nullptr);
+	alcDestroyContext(context);
+	alcCloseDevice(device);
 	return 0;
 }
 
