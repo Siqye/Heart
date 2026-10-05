@@ -143,6 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\audio\sound.cpp" />
+    <ClCompile Include="src\audio\speaker.cpp" />
     <ClCompile Include="src\graphics\fontmanager.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\graphics\label.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="ext\freetype-gl\texture-font.h" />
     <ClInclude Include="ext\freetype-gl\vec234.h" />
     <ClInclude Include="ext\freetype-gl\vector.h" />
+    <ClInclude Include="src\audio\sound.hpp" />
+    <ClInclude Include="src\audio\speaker.hpp" />
     <ClInclude Include="src\config.h" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
     <ClInclude Include="src\graphics\font.hpp" />
