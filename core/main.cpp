@@ -1,81 +1,3 @@
-#define OPENAL_TEST
-#if defined(OPENAL_TEST)
-
-#include <al.h>
-#include <alc.h>
-#include "src/utils/wav_file_reader.hpp"
-#include <chrono>
-#include <iostream>
-#include <thread>
-
-using namespace heartCore;
-
-int main() {
-	ALCdevice* device = alcOpenDevice(nullptr);
-	if (!device) {
-		std::cerr << "Failed to open default OpenAL device\n";
-		return -1;
-	}
-
-	ALCcontext* context = alcCreateContext(device, nullptr);
-	if (!context || !alcMakeContextCurrent(context)) {
-		std::cerr << "Failed to create OpenAL context\n";
-		if (context)
-			alcDestroyContext(context);
-		alcCloseDevice(device);
-		return -1;
-	}
-
-	WavFile wav;
-	if (!loadWAVFile("sound.wav", wav)) {
-		alcMakeContextCurrent(nullptr);
-		alcDestroyContext(context);
-		alcCloseDevice(device);
-		return -1;
-	}
-
-	ALenum format = 0;
-	if (wav.channels == 1 && wav.bitsPerSample == 8)
-		format = AL_FORMAT_MONO8;
-	else if (wav.channels == 1 && wav.bitsPerSample == 16)
-		format = AL_FORMAT_MONO16;
-	else if (wav.channels == 2 && wav.bitsPerSample == 8)
-		format = AL_FORMAT_STEREO8;
-	else if (wav.channels == 2 && wav.bitsPerSample == 16)
-		format = AL_FORMAT_STEREO16;
-
-	ALuint buffer = 0;
-	ALuint source = 0;
-	alGenBuffers(1, &buffer);
-	alBufferData(buffer, format, wav.data.data(), static_cast<ALsizei>(wav.data.size()),
-		static_cast<ALsizei>(wav.sampleRate));
-	alGenSources(1, &source);
-	alSourcef(source, AL_PITCH, 1.0f);
-	alSourcef(source, AL_GAIN, 1.0f);
-	alSource3f(source, AL_POSITION, 0.0f, 0.0f, 0.0f);
-	alSource3f(source, AL_VELOCITY, 0.0f, 0.0f, 0.0f);
-	alSourcei(source, AL_LOOPING, AL_FALSE);
-	alSourcei(source, AL_BUFFER, static_cast<ALint>(buffer));
-
-	alSourcePlay(source);
-
-	ALint state = AL_PLAYING;
-	while (state == AL_PLAYING) {
-		alGetSourcei(source, AL_SOURCE_STATE, &state);
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	}
-
-	alDeleteSources(1, &source);
-	alDeleteBuffers(1, &buffer);
-	alcMakeContextCurrent(nullptr);
-	alcDestroyContext(context);
-	alcCloseDevice(device);
-	return 0;
-}
-
-
-#else
-
 #include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
 #include "src/graphics/shader.hpp"
@@ -86,9 +8,12 @@ int main() {
 #include "src/graphics/renderer2d.hpp"
 #include "src/graphics/label.hpp"
 #include "src/graphics/fontmanager.hpp"
+#include "src/audio/sound.hpp"
+#include "src/audio/speaker.hpp"
 
 using namespace heartCore;
 using namespace graphics;
+using namespace audio;
 
 int main()
 {
@@ -122,6 +47,10 @@ int main()
 	int fps = 0;
 	std::string labelFPS = "0 fps";
 
+	Speaker speaker;
+
+	Sound sound("sound.wav");
+
 	maths::vec4 textColor = maths::vec4(1, 1, 1, 1);
 	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
 	Label* lfps = &labelfps;
@@ -129,6 +58,7 @@ int main()
 	layer.add(lfps);
 
 	double x, y;
+	speaker.playSound(&sound);
 	while (window.close()) {
 		window.clear();
 
@@ -140,7 +70,7 @@ int main()
 		));
 
 		layer.render();
-
+		
 		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
 
 		window.update();
@@ -155,5 +85,3 @@ int main()
 	}
 	return 0;
 }
-
-#endif
