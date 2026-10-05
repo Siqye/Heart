@@ -212,6 +212,10 @@
     <Font Include="test\fonts\arial.ttf" />
     <Font Include="test\RobotoMono.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="radecky.wav" />
+    <Media Include="sound.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

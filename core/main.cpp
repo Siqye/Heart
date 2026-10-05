@@ -49,7 +49,7 @@ int main()
 
 	Speaker speaker;
 
-	Sound sound("sound.wav");
+	Sound sound("radecky.wav");
 
 	maths::vec4 textColor = maths::vec4(1, 1, 1, 1);
 	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
