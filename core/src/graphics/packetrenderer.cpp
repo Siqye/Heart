@@ -1,11 +1,11 @@
-#include "renderer2d.hpp"
+#include "packetrenderer.hpp"
 #include "staticsprite.hpp"
 #include "texture.hpp"
 #include <string>
 
 namespace heartCore { 	namespace graphics {
 
-	Renderer2d::Renderer2d() {
+	PacketRenderer::PacketRenderer() {
 		m_transformStack.push_back(maths::mat4::identity());
 		m_transformBack = &m_transformStack.back();
 
@@ -47,9 +47,9 @@ namespace heartCore { 	namespace graphics {
 		glBindVertexArray(0);
 	}
 
-	Renderer2d::~Renderer2d() {}
+	PacketRenderer::~PacketRenderer() {}
 
-	void Renderer2d::submit(const StaticSprite* sprite) {
+	void PacketRenderer::submit(const StaticSprite* sprite) {
 		const maths::vec3& position = sprite->getPosition();
 		const maths::vec4& col = sprite->getColor();
 		const maths::vec3& size = sprite->getSize();
@@ -114,12 +114,12 @@ namespace heartCore { 	namespace graphics {
 		m_indexCount += 6;
 	}
 
-	void Renderer2d::begin() {
+	void PacketRenderer::begin() {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		m_dataBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-	void Renderer2d::draw() {
+	void PacketRenderer::draw() {
 		for (int i = 0; i < m_textureSlots.size();i++) {
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, m_textureSlots[i]);
@@ -136,12 +136,12 @@ namespace heartCore { 	namespace graphics {
 		m_indexCount = 0;
 	}
 
-	void Renderer2d::end() {
+	void PacketRenderer::end() {
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void Renderer2d::submitText(std::string text, float scale, maths::vec3 position, maths::vec4 col, Font font) {
+	void PacketRenderer::submitText(std::string text, float scale, maths::vec3 position, maths::vec4 col, Font font) {
 		texture_atlas_t* textAtlas = font.getAtlas();
 		texture_font_t* textFont = font.getFont();
 		

@@ -14,15 +14,15 @@
 
 namespace heartCore { namespace graphics {
 	
-	class Renderer2d : public Renderer {
+	class PacketRenderer : public Renderer {
 	private:
 		std::vector<GLuint> m_textureSlots;
 		GLsizei m_indexCount;
 		VertexData* m_dataBuffer;
 
 	public:
-		Renderer2d();
-		~Renderer2d();
+		PacketRenderer();
+		~PacketRenderer();
 
 		void submit(const StaticSprite* sprite) override;
 		void begin() override;
