@@ -9,6 +9,7 @@
 #include "src/graphics/label.hpp"
 #include "src/graphics/fontmanager.hpp"
 #include "src/audio/sound.hpp"
+#include "src/audio/wavfile.hpp"
 #include "src/audio/speaker.hpp"
 
 using namespace heartCore;
@@ -36,6 +37,8 @@ int main()
 
 	FontManager fm("test\\fonts");
 
+	Speaker speaker;
+
 	LevelLayer layer(&shader);
 	//SceneLayer layer3d(&shader);
 
@@ -48,9 +51,9 @@ int main()
 	int fps = 0;
 	std::string labelFPS = "0 fps";
 
-	Speaker speaker;
 
-	Sound sound("sound.wav");
+	WAVData* soundData = new WAVData("sound.wav");
+	Sound sound(soundData);
 
 	maths::vec4 textColor = maths::vec4(1, 1, 1, 1);
 	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, *fm.getFontbyID(0));
@@ -59,7 +62,7 @@ int main()
 	layer.add(lfps);
 
 	double x, y;
-	//speaker.playSound(&sound);
+
 	sound.Play(false);
 	while (window.close()) {
 		window.clear();
@@ -73,7 +76,7 @@ int main()
 
 		layer.render();
 		
-		if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
+		//if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
 
 		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, *fm.getFontbyID(0));
 

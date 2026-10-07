@@ -145,6 +145,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\audio\sound.cpp" />
     <ClCompile Include="src\audio\speaker.cpp" />
+    <ClCompile Include="src\audio\wavfile.cpp" />
     <ClCompile Include="src\graphics\fontmanager.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\graphics\label.cpp" />
@@ -175,7 +176,9 @@
     <ClInclude Include="ext\freetype-gl\vec234.h" />
     <ClInclude Include="ext\freetype-gl\vector.h" />
     <ClInclude Include="src\audio\sound.hpp" />
+    <ClInclude Include="src\audio\soundfile.hpp" />
     <ClInclude Include="src\audio\speaker.hpp" />
+    <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
     <ClInclude Include="src\graphics\font.hpp" />
@@ -200,7 +203,7 @@
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
     <ClInclude Include="src\utils\timer.hpp" />
-    <ClInclude Include="src\utils\wav_file_reader.hpp" />
+    <ClInclude Include="src\utils\sound_data_reader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test\test.png" />
