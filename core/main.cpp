@@ -1,14 +1,15 @@
 #include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
-#include "src/graphics/shader.hpp"
 #include "src/graphics/sprite.hpp"
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
+#include "src/graphics/layers/scenelayer.hpp"
 #include "src/graphics/packetrenderer.hpp"
 #include "src/graphics/label.hpp"
 #include "src/graphics/fontmanager.hpp"
 #include "src/audio/sound.hpp"
+#include "src/audio/wavfile.hpp"
 #include "src/audio/speaker.hpp"
 
 using namespace heartCore;
@@ -36,7 +37,10 @@ int main()
 
 	FontManager fm("test\\fonts");
 
+	Speaker speaker;
+
 	LevelLayer layer(&shader);
+	//SceneLayer layer3d(&shader);
 
 	for (float x = 0; x < 4; x += 0.3f) {
 		for (float y = 0; y < 3; y += 0.3f) {
@@ -47,18 +51,19 @@ int main()
 	int fps = 0;
 	std::string labelFPS = "0 fps";
 
-	Speaker speaker;
 
-	Sound sound("radecky.wav");
+	WAVData* soundData = new WAVData("sound.wav");
+	Sound sound(soundData);
 
 	maths::vec4 textColor = maths::vec4(1, 1, 1, 1);
-	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
+	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, *fm.getFontbyID(0));
 	Label* lfps = &labelfps;
 
 	layer.add(lfps);
 
 	double x, y;
-	speaker.playSound(&sound);
+
+	sound.Play(false);
 	while (window.close()) {
 		window.clear();
 
@@ -71,7 +76,9 @@ int main()
 
 		layer.render();
 		
-		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
+		//if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
+
+		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, *fm.getFontbyID(0));
 
 		window.update();
 

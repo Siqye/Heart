@@ -18,6 +18,7 @@ namespace heartCore { namespace graphics {
 
 	Window::~Window()
 	{
+		glfwDestroyWindow(m_window);
 		glfwTerminate();
 	}
 

@@ -10,12 +10,8 @@ namespace heartCore { namespace audio {
 	private:
 		ALCdevice* m_device;
 		ALCcontext* m_context;
-		ALuint m_buffer;
-		ALuint m_source;
 	public:
 		Speaker();
 		~Speaker();
-
-		void playSound(Sound* sound);
 	};
 } }
