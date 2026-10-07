@@ -28,7 +28,17 @@ namespace heartCore { namespace audio {
             tag[0] == expected[0] && tag[1] == expected[1] &&
             tag[2] == expected[2] && tag[3] == expected[3];
     }
-
+    
+    ALenum setFormat(const uint16& channels, const uint16& bitsPerSample) {
+        if (channels == 1 && bitsPerSample == 8)
+            return AL_FORMAT_MONO8;
+        else if (channels == 1 && bitsPerSample == 16)
+            return AL_FORMAT_MONO16;
+        else if (channels == 2 && bitsPerSample == 8)
+            return AL_FORMAT_STEREO8;
+        else if (channels == 2 && bitsPerSample == 16)
+            return AL_FORMAT_STEREO16;
+    }
 
 	Sound::Sound(const char* filepath) {
         std::ifstream file(filepath, std::ios::binary);
@@ -73,8 +83,8 @@ namespace heartCore { namespace audio {
                 hasFormat = true;
             }
             else if (isData) {
-                m_buffer.resize(chunkSize);
-                if (!file.read(reinterpret_cast<char*>(m_buffer.data()), chunkSize))
+                m_dataBuffer.resize(chunkSize);
+                if (!file.read(reinterpret_cast<char*>(m_dataBuffer.data()), chunkSize))
                     return;
                 hasData = true;
             }
@@ -89,10 +99,17 @@ namespace heartCore { namespace audio {
         if (!hasFormat || !hasData || m_audioFormat != 1 ||
             (m_channels != 1 && m_channels != 2) ||
             (m_bitsPerSample != 8 && m_bitsPerSample != 16) ||
-            m_buffer.empty()) {
+            m_dataBuffer.empty()) {
             std::cerr << "ERROR: only mono/stereo PCM WAV (8 or 16 bit) is supported\n";
             return;
         }
+        m_format = setFormat(m_channels, m_bitsPerSample);
+        
+        m_buffer = 0;
+        m_source = 0;
+
+        alGenBuffers(1, &m_buffer);
+        alGenSources(1, &m_source);
 
         return;
 	}
@@ -100,4 +117,23 @@ namespace heartCore { namespace audio {
 	Sound::~Sound() {
 
 	}
+
+    void Sound::Play(bool looping, float x, float y, float z) {
+        alBufferData(m_buffer, m_format, m_dataBuffer.data(), (ALsizei)m_dataBuffer.size(),
+            (ALsizei)m_sampleRate);
+        alSourcef(m_source, AL_PITCH, 1.0f);
+        alSourcef(m_source, AL_GAIN, 1.0f);
+        alSource3f(m_source, AL_POSITION, x, y, z);
+        alSource3f(m_source, AL_VELOCITY, 0.0f, 0.0f, 0.0f);
+        // AL_LOOPING is false by default
+        if (looping) alSourcei(m_source, AL_LOOPING, AL_TRUE);
+        alSourcei(m_source, AL_BUFFER, (ALint)m_buffer);
+
+        alSourcePlay(m_source);
+    }
+    void Sound::Stop() {
+        alDeleteBuffers(1, &m_buffer);
+        alDeleteSources(1, &m_source);
+    }
+
 } }

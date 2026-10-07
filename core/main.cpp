@@ -1,10 +1,10 @@
 #include "src/utils/timer.hpp"
 #include "src/graphics/window.hpp"
-#include "src/graphics/shader.hpp"
 #include "src/graphics/sprite.hpp"
 #include "src/graphics/texture.hpp"
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
+#include "src/graphics/layers/scenelayer.hpp"
 #include "src/graphics/packetrenderer.hpp"
 #include "src/graphics/label.hpp"
 #include "src/graphics/fontmanager.hpp"
@@ -37,6 +37,7 @@ int main()
 	FontManager fm("test\\fonts");
 
 	LevelLayer layer(&shader);
+	//SceneLayer layer3d(&shader);
 
 	for (float x = 0; x < 4; x += 0.3f) {
 		for (float y = 0; y < 3; y += 0.3f) {
@@ -58,7 +59,8 @@ int main()
 	layer.add(lfps);
 
 	double x, y;
-	speaker.playSound(&sound);
+	//speaker.playSound(&sound);
+	sound.Play(false);
 	while (window.close()) {
 		window.clear();
 
@@ -71,6 +73,8 @@ int main()
 
 		layer.render();
 		
+		if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
+
 		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
 
 		window.update();

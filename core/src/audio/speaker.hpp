@@ -16,6 +16,6 @@ namespace heartCore { namespace audio {
 		Speaker();
 		~Speaker();
 
-		void playSound(Sound* sound);
+		void playSound(Sound* sound, bool looping = false, float x = 0, float y = 0, float z = 0);
 	};
 } }
