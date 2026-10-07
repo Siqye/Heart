@@ -7,12 +7,7 @@ namespace heartCore { namespace graphics {
 		for (const auto& entry : std::filesystem::directory_iterator(fontFolder)) {
 			std::cout << entry.path() << std::endl;
 
-			std::filesystem::path fileName = entry.path().filename();
-			std::filesystem::path fileExtention = entry.path().extension();
-			std::cout << fileName << std::endl;
-			std::cout << fileExtention << std::endl;
-
-			if (fileExtention == ".ttf") {
+			if (entry.path().extension() == ".ttf") {
 				m_fontsLib.push_back(Font(entry.path().string().c_str()));
 			}
 		}

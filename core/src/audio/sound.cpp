@@ -7,7 +7,7 @@ namespace heartCore { namespace audio {
         if (!file.read(reinterpret_cast<int8*>(bytes), sizeof(bytes)))
             return false;
         value = (uint16)bytes[0] |
-            (uint16)bytes[1] << 8;
+                (uint16)bytes[1] << 8;
         return true;
     }
 
@@ -16,9 +16,9 @@ namespace heartCore { namespace audio {
         if (!file.read(reinterpret_cast<int8*>(bytes), sizeof(bytes)))
             return false;
         value = (uint32)bytes[0] |
-            (uint32)bytes[1] << 8 |
-            (uint32)bytes[2] << 16 |
-            (uint32)bytes[3] << 24;
+                (uint32)bytes[1] << 8 |
+                (uint32)bytes[2] << 16 |
+                (uint32)bytes[3] << 24;
         return true;
     }
 
@@ -115,7 +115,8 @@ namespace heartCore { namespace audio {
 	}
 
 	Sound::~Sound() {
-
+        alDeleteBuffers(1, &m_buffer);
+        alDeleteSources(1, &m_source);
 	}
 
     void Sound::Play(bool looping, float x, float y, float z) {
