@@ -4,9 +4,7 @@ namespace heartCore { namespace graphics {
 
 	Texture::Texture(const char* texturePath) 
 		: m_texturePath(texturePath) 
-	{
-		m_texID = load();
-	}
+	{ m_texID = load(); }
 
 	GLuint Texture::load() {
 		BYTE* pixels = load_image(m_texturePath, &m_width, &m_height);
@@ -24,7 +22,10 @@ namespace heartCore { namespace graphics {
 		return result;
 	}
 
-	Texture::~Texture() { }
+	Texture::~Texture() { 
+		delete m_texturePath;
+		glDeleteTextures(1, &m_texID);
+	}
 
 	void Texture::bind() const {
 		glBindTexture(GL_TEXTURE_2D, m_texID);

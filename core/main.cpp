@@ -53,7 +53,7 @@ int main()
 	Sound sound("sound.wav");
 
 	maths::vec4 textColor = maths::vec4(1, 1, 1, 1);
-	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
+	Label labelfps(labelFPS, 3, 0.3f, 2.3f, textColor, *fm.getFontbyID(0));
 	Label* lfps = &labelfps;
 
 	layer.add(lfps);
@@ -75,7 +75,7 @@ int main()
 		
 		if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
 
-		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, fm.getFontbyID(0));
+		labelfps = Label(labelFPS, 3, 0.3f, 2.3f, textColor, *fm.getFontbyID(0));
 
 		window.update();
 

@@ -5,11 +5,11 @@ namespace heartCore {namespace graphics {
 		: m_shader(shader), m_renderer(renderer), m_projectionMatrix(projectionMatrix)
 	{}
 	Layer::~Layer() {
-//		delete m_renderer;
-//		delete m_shader;
+		for (int i = 0; i < m_sprites.size();i++)
+			delete m_sprites[i];
 
-//		for (int i = 0; i < m_sprites.size();i++)
-//			delete m_sprites[i];
+		delete m_renderer;
+		delete m_shader;
 	} /*TODO: FIX LAYER DESCTRUCTOR*/
 
 	void Layer::add(StaticSprite* sprite) {

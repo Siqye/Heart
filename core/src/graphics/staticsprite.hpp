@@ -44,7 +44,7 @@ namespace heartCore {
 			{
 				delete m_texture;
 			}
-
+			
 			virtual void submit(Renderer* renderer) const { renderer->submit(this); }
 
 			inline const maths::vec3& getSize() const { return m_size; }
