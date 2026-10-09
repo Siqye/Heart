@@ -10,7 +10,6 @@ namespace heartCore {
 		Timer();
 
 		void reset();
-
 		float elapsed();
 	};
 

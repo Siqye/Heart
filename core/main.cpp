@@ -40,17 +40,16 @@ int main()
 	Speaker speaker;
 
 	LevelLayer layer(&shader);
-	//SceneLayer layer3d(&shader);
+	SceneLayer layer3d(&shader);
 
 	for (float x = 0; x < 4; x += 0.3f) {
 		for (float y = 0; y < 3; y += 0.3f) {
-			layer.add(new Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
+			layer3d.add(new Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
 		}
 	}
 	Timer timer;
 	int fps = 0;
 	std::string labelFPS = "0 fps";
-
 
 	WAVData* soundData = new WAVData("sound.wav");
 	Sound sound(soundData);
@@ -75,6 +74,7 @@ int main()
 		));
 
 		layer.render();
+		layer3d.render();
 		
 		//if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
 
