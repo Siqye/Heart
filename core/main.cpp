@@ -5,7 +5,7 @@
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
 #include "src/graphics/layers/scenelayer.hpp"
-#include "src/graphics/packetrenderer.hpp"
+#include "src/graphics/packetrenderer2d.hpp"
 #include "src/graphics/label.hpp"
 #include "src/graphics/fontmanager.hpp"
 #include "src/audio/sound.hpp"
