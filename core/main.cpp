@@ -5,7 +5,7 @@
 #include "src/graphics/layers/group.hpp"
 #include "src/graphics/layers/levellayer.hpp"
 #include "src/graphics/layers/scenelayer.hpp"
-#include "src/graphics/packetrenderer.hpp"
+#include "src/graphics/packetrenderer2d.hpp"
 #include "src/graphics/label.hpp"
 #include "src/graphics/fontmanager.hpp"
 #include "src/audio/sound.hpp"
@@ -44,7 +44,7 @@ int main()
 
 	for (float x = 0; x < 4; x += 0.3f) {
 		for (float y = 0; y < 3; y += 0.3f) {
-			layer3d.add(new Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
+			layer.add(new Sprite(x, y, 0.25, 0.25, textures[rand() % 5]));
 		}
 	}
 	Timer timer;
@@ -74,7 +74,7 @@ int main()
 		));
 
 		layer.render();
-		layer3d.render();
+		//layer3d.render();
 		
 		//if (window.isKeyPressed(GLFW_KEY_S)) sound.Stop();
 

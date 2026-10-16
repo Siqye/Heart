@@ -7,7 +7,7 @@ namespace heartCore { namespace graphics {
 	{}
 
 	Group::~Group() {}
-	void Group::submit(Renderer* renderer) {
+	void Group::submit(Renderer2D* renderer) {
 		renderer->push(m_projectionMatrix);
 		for (const StaticSprite* sprite : m_sprites)
 			renderer->submit(sprite);

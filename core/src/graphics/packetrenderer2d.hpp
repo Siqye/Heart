@@ -1,5 +1,5 @@
 #pragma once
-#include "renderer.hpp"
+#include "renderer2d.hpp"
 
 #define MAX_SPRITES		10000
 #define VERTEX_SIZE		sizeof(VertexData)
@@ -14,7 +14,7 @@
 
 namespace heartCore { namespace graphics {
 	
-	class PacketRenderer : public Renderer {
+	class PacketRenderer : public Renderer2D {
 	private:
 		std::vector<GLuint> m_textureSlots;
 		GLsizei m_indexCount;
