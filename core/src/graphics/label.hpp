@@ -12,7 +12,7 @@ namespace heartCore { namespace graphics {
 
 	public:
 		Label(std::string labelText, int scale, float x, float y, maths::vec4 color, Font font);
-		void submit(Renderer* renderer) const override;
+		void submit(Renderer2D* renderer) const override;
 
 		void setScale(int scale);
 		void setFont(Font* font);

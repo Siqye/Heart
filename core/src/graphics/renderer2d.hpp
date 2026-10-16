@@ -12,15 +12,15 @@ namespace heartCore { namespace graphics {
 	struct VertexData;
 	class Texture;
 
-	class Renderer {
+	class Renderer2D {
 	protected:
 		GLuint VAO, VBO, IBO;
 
 		std::vector<maths::mat4> m_transformStack;
 		const maths::mat4* m_transformBack;
 	public:
-		Renderer() {}
-		~Renderer() {}
+		Renderer2D() {}
+		~Renderer2D() {}
 
 		virtual inline void push(const maths::mat4& matrix, bool override = false) {
 			if (override) m_transformStack.push_back(matrix);

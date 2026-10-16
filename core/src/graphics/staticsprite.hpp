@@ -1,6 +1,6 @@
 #pragma once
 #include "../maths/maths.hpp"
-#include "renderer.hpp"
+#include "renderer2d.hpp"
 #include "texture.hpp"
 #include <vector>
 #include <glew.h>
@@ -45,7 +45,7 @@ namespace heartCore {
 				delete m_texture;
 			}
 			
-			virtual void submit(Renderer* renderer) const { renderer->submit(this); }
+			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
 
 			inline const maths::vec3& getSize() const { return m_size; }
 			inline const maths::vec3& getPosition() const { return m_position; }

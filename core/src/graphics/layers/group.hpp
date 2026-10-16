@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../renderer.hpp"
+#include "../renderer2d.hpp"
 #include "../staticsprite.hpp"
 #include "../../maths/maths.hpp"
 
@@ -15,7 +15,7 @@ namespace heartCore { namespace graphics {
 		~Group();
 
 		void add(const StaticSprite* sprite);
-		void submit(Renderer* renderer);
+		void submit(Renderer2D* renderer);
 	};
 
 } }

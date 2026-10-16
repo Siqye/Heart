@@ -1,15 +1,15 @@
 #include "layer.hpp"
 
 namespace heartCore {namespace graphics {
-	Layer::Layer(Shader* shader, Renderer* renderer, maths::mat4 projectionMatrix)
+	Layer::Layer(Shader* shader, Renderer2D* renderer, maths::mat4 projectionMatrix)
 		: m_shader(shader), m_renderer(renderer), m_projectionMatrix(projectionMatrix)
 	{}
 	Layer::~Layer() {
-		for (int i = 0; i < m_sprites.size();i++)
-			delete m_sprites[i];
+		//for (int i = 0; i < m_sprites.size();i++)
+		//	delete m_sprites[i];
 
-		delete m_renderer;
-		delete m_shader;
+		//delete m_renderer;
+		//delete m_shader;
 	} /*TODO: FIX LAYER DESCTRUCTOR*/
 
 	void Layer::add(StaticSprite* sprite) {
