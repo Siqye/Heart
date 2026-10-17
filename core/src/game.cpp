@@ -8,7 +8,7 @@ namespace heartCore {
 		m_shader(new Shader("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
 		//m_speaker(Speaker()),
-		m_player(1, 1, 1, 1, new Texture("test/test4.png"))
+		m_player(1, 1, 5, 5, new Texture("test/test5.png"))
 	{
 
 		//m_player = Sprite(0, 0, 0.3, 0.3, new Texture("test/test4.png"));
@@ -16,7 +16,7 @@ namespace heartCore {
 		m_playerSpeed = 0.5f;
 		labelText = "0 fps";
 
-		m_mainGameLayer.add(new Label(labelText, 1, 2.5f, 0.1f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")));
+		m_mainGameLayer.add(new Label(labelText, 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")));
 	}
 
 	// once per second
