@@ -26,10 +26,12 @@ namespace heartCore {
 
 			maths::vec3 m_size;
 			maths::vec4 m_color;
-			std::vector<maths::vec2> m_texCoords;
 			maths::vec3 m_position;
+			std::vector<maths::vec2> m_texCoords;
 			Texture* m_texture;
 		public:
+			maths::vec3* position = &m_position;
+
 			StaticSprite() : m_texture(nullptr) { setTC(); }
 			StaticSprite(maths::vec3 position, maths::vec3 size, maths::vec4 color)
 				: m_position(position), m_size(size), m_color(color), m_texture(nullptr)

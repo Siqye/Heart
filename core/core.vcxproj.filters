@@ -75,16 +75,10 @@
     <ClCompile Include="src\audio\wavfile.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\layers\scenelayer.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\packetrenderer2d.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\mesh.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\renderer3d.cpp">
+    <ClCompile Include="src\game.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -194,19 +188,13 @@
     <ClInclude Include="src\audio\wavfile.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\layers\scenelayer.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="src\graphics\packetrenderer2d.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\sound_data_reader.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\renderer3d.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\mash.hpp">
+    <ClInclude Include="src\game.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -232,7 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="test\fonts\arial.ttf" />
-    <Font Include="test\RobotoMono.ttf" />
+    <Font Include="test\fonts\RobotoMono.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="radecky.wav">
@@ -241,5 +229,9 @@
     <Media Include="sound.wav">
       <Filter>Файлы ресурсов</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shader\basic.frag" />
+    <None Include="src\shader\basic.vert" />
   </ItemGroup>
 </Project>

@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\audio\sound.cpp" />
     <ClCompile Include="src\audio\speaker.cpp" />
     <ClCompile Include="src\audio\wavfile.cpp" />
@@ -152,10 +153,7 @@
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\layer.cpp" />
     <ClCompile Include="src\graphics\layers\levellayer.cpp" />
-    <ClCompile Include="src\graphics\layers\scenelayer.cpp" />
-    <ClCompile Include="src\graphics\mesh.cpp" />
     <ClCompile Include="src\graphics\packetrenderer2d.cpp" />
-    <ClCompile Include="src\graphics\renderer3d.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
@@ -182,17 +180,15 @@
     <ClInclude Include="src\audio\speaker.hpp" />
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
     <ClInclude Include="src\graphics\font.hpp" />
     <ClInclude Include="src\graphics\label.hpp" />
     <ClInclude Include="src\graphics\layers\group.hpp" />
     <ClInclude Include="src\graphics\layers\layer.hpp" />
     <ClInclude Include="src\graphics\layers\levellayer.hpp" />
-    <ClInclude Include="src\graphics\layers\scenelayer.hpp" />
-    <ClInclude Include="src\graphics\mash.hpp" />
     <ClInclude Include="src\graphics\renderer2d.hpp" />
     <ClInclude Include="src\graphics\packetrenderer2d.hpp" />
-    <ClInclude Include="src\graphics\renderer3d.hpp" />
     <ClInclude Include="src\graphics\shader.hpp" />
     <ClInclude Include="src\graphics\sprite.hpp" />
     <ClInclude Include="src\graphics\staticsprite.hpp" />
@@ -219,11 +215,15 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="test\fonts\arial.ttf" />
-    <Font Include="test\RobotoMono.ttf" />
+    <Font Include="test\fonts\RobotoMono.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="radecky.wav" />
     <Media Include="sound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shader\basic.frag" />
+    <None Include="src\shader\basic.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
