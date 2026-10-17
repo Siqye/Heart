@@ -25,10 +25,8 @@ namespace heartCore {
 	}
 	// 60 times per second
 	void Game::update() {
-		if (m_window->isKeyPressed(GLFW_KEY_W)) {
-			std::cout << "up is pressed!" << "\n";
+		if (m_window->isKeyPressed(GLFW_KEY_W)) 
 			m_player.position->y += m_playerSpeed;
-		}
 		else if (m_window->isKeyPressed(GLFW_KEY_S))
 			m_player.position->y -= m_playerSpeed;
 		if (m_window->isKeyPressed(GLFW_KEY_D))
