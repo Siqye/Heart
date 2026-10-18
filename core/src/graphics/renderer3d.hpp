@@ -17,7 +17,7 @@ namespace heartCore { namespace graphics {
 	private:
 		GLuint VBO, VAO, IBO;
 		unsigned int m_indexCount;
-		UnitData3d m_bufferData;
+		UnitData3d* m_bufferData;
 	public:
 		Renderer3d();
 		~Renderer3d();
