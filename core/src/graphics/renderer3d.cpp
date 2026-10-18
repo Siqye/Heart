@@ -5,8 +5,8 @@ namespace heartCore { namespace graphics {
 		glGenBuffers(1, &VBO);
 		glGenVertexArrays(1, &VAO);
 
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBindVertexArray(VAO);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 		glVertexAttribPointer(VERTEX_INDEX, 8, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(UnitData3d, UnitData3d::vertex));
 		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(UnitData3d, UnitData3d::color));
@@ -74,8 +74,10 @@ namespace heartCore { namespace graphics {
 		}
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, INDECIES_SIZE, (const GLvoid*)indecies, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 
-		
 	}
 
 
