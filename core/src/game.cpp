@@ -8,15 +8,16 @@ namespace heartCore {
 		m_shader(new Shader("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
 		//m_speaker(Speaker()),
-		m_player(1, 1, 5, 5, new Texture("test/test5.png"))
+		m_player(1, 1, 5, 5, new Texture("test/test5.png")),
+		fpsLabel(Label("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")))
 	{
 
 		//m_player = Sprite(0, 0, 0.3, 0.3, new Texture("test/test4.png"));
 		m_mainGameLayer.add(&m_player);
 		m_playerSpeed = 0.5f;
-		labelText = "0 fps";
+		fpsLabel_ptr = &fpsLabel;
 
-		m_mainGameLayer.add(new Label(labelText, 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")));
+		m_mainGameLayer.add(fpsLabel_ptr);
 	}
 
 	// once per second
@@ -41,21 +42,23 @@ namespace heartCore {
 
 	void Game::play() {
 		int fps = 0;
+		std::string labelText;
 		while (m_window->close()) {
 			m_window->clear();
 			render();
 
 			fps++;
-			if (m_updatesCount <= 60) {
+			if (m_updatesCount <= 30) {
 				update();
 				m_updatesCount++;
 			}
 
 			if (m_timer.elapsed() >= 1.0f) {
 				tick();
-				labelText = std::to_string(fps);
-				labelText += " fps";
+				labelText = std::to_string(fps) + " fps";
+				fpsLabel = Label(labelText, 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"));
 				m_updatesCount = 0;
+				fps = 0;
 				m_timer.reset();
 			}
 			m_window->update();

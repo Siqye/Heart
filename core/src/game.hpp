@@ -26,7 +26,10 @@ namespace heartCore {
 		//Speaker m_speaker;
 
 		float m_playerSpeed;
-		std::string labelText;
+		std::string* labelText;
+
+		Label fpsLabel;
+		Label* fpsLabel_ptr;
 
 		Sprite m_player;
 
