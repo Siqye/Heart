@@ -28,7 +28,6 @@ int main() {
 	shader.bind();
 	shader.setUniformMat4f("projection", maths::mat4::perspective(90, 4.0f / 3.0f, 0.1f, 50.0f));
 
-	//shader.setUniformMat4f("projection", maths::mat4::orthographic(-40, 40, 30, -30, 10, 0));
 	Renderer3d renderer;
 
 	Object3d object(maths::vec3(-2.5f, -2.5f, -5.0f), maths::vec3(1.0f, 1.0f, 1.0f), maths::vec4(1, 0, 1, 1));
