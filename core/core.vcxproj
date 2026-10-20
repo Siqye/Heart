@@ -161,10 +161,12 @@
     <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
+    <ClCompile Include="src\maths\functions.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\maths\vec2.cpp" />
     <ClCompile Include="src\maths\vec3.cpp" />
     <ClCompile Include="src\maths\vec4.cpp" />
+    <ClCompile Include="src\physics\colidebox.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
     <ClCompile Include="src\utils\read_mash_data.cpp" />
     <ClCompile Include="src\utils\timer.cpp" />
@@ -201,11 +203,13 @@
     <ClInclude Include="src\graphics\staticsprite.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\graphics\window.hpp" />
+    <ClInclude Include="src\maths\functions.hpp" />
     <ClInclude Include="src\maths\mat4.hpp" />
     <ClInclude Include="src\maths\maths.hpp" />
     <ClInclude Include="src\maths\vec2.hpp" />
     <ClInclude Include="src\maths\vec3.hpp" />
     <ClInclude Include="src\maths\vec4.hpp" />
+    <ClInclude Include="src\physics\colidebox.hpp" />
     <ClInclude Include="src\utils\char_loader.h" />
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
