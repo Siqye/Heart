@@ -2,7 +2,7 @@
 #include "../maths/maths.hpp"
 
 namespace heartCore { namespace physics {
-	struct ColideBox {
-
+	struct ColideBox2d {
+		
 	};
 } }
