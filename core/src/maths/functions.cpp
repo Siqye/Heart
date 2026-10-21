@@ -2,9 +2,6 @@
 #include <math.h>
 
 namespace heartCore {namespace maths {
-
-	static float sinTable[360];
-
 	// functions
 	float sin(float degrees) {
 		return sinf(toRadians(degrees));
