@@ -16,6 +16,5 @@ namespace heartCore {
 			void calculateAABB(ColideBox2d* other);
 			void calculateOBB(ColideBox2d* other);
 			bool checkPotential(ColideBox2d* other);
-
 		};
 } }

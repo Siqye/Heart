@@ -48,6 +48,39 @@ namespace heartCore {
 			return *this;
 		}
 
+		void vec4::normalize() {
+			float normalization = sqrt(
+				x * x +
+				y * y +
+				z * z +
+				w * w);
+
+			if (normalization == 0.0f)
+				return;
+
+			x /= normalization;
+			y /= normalization;
+			z /= normalization;
+			w /= normalization;
+		}
+
+		vec4& vec4::normalized(vec4& vector) {
+			float normalization = sqrt(
+				vector.x * vector.x +
+				vector.y * vector.y +
+				vector.z * vector.z +
+				vector.w * vector.w);
+
+			if (normalization == 0) return vector;
+
+			vector.x /= normalization;
+			vector.y /= normalization;
+			vector.z /= normalization;
+			vector.w /= normalization;
+
+			return vector;
+		}
+
 
 		vec4 operator+(vec4 left, const vec4& right) {
 			return left.add(right);

@@ -14,11 +14,19 @@ namespace heartCore { namespace physics {
 
 	void ColideBox2d::calculateAABB(ColideBox2d* other) {
 		if (other->max.x >= this->min.x || other->max.x <= min.x) {
-		
+			float intermidX = other->direction.x;
+			other->direction.x = this->direction.x;
+			this->direction.x = intermidX;
+			//this->speed *= 0.85f;
+			//other->speed *= 0.85f;
 		}
 
 		if (other->min.y >= this->max.y || other->max.y <= min.y) {
-
+			float intermidY = other->direction.y;
+			other->direction.y = this->direction.y;
+			this->direction.y = intermidY;
+			//this->speed *= 0.85f;
+			//other->speed *= 0.85f;
 		}
 	}
 

@@ -12,8 +12,8 @@ namespace heartCore {
 			vec3& substract(const vec3& other);
 			vec3& multiply(const vec3& other);
 			vec3& divide(const vec3& other);
-			static vec3& normalized(vec3& vector);
 			void normalize();
+			static vec3& normalized(vec3& vector);
 
 			friend vec3 operator+(vec3 left, const vec3& right);
 			friend vec3 operator-(vec3 left, const vec3& right);
