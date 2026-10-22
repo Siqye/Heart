@@ -12,10 +12,12 @@
 #include "audio/sound.hpp"
 #include "audio/wavfile.hpp"
 #include "audio/speaker.hpp"
+#include "physics/physics.hpp"
 
 using namespace heartCore;
 using namespace graphics;
 using namespace audio;
+using namespace physics;
 
 namespace heartCore {
 	class Game {
@@ -23,7 +25,7 @@ namespace heartCore {
 		Window* m_window;
 		Shader* m_shader;
 		LevelLayer m_mainGameLayer;
-		//Speaker m_speaker;
+		ColideManager2d m_physManager;
 
 		float m_playerSpeed;
 		std::string* labelText;

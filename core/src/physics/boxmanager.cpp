@@ -10,19 +10,19 @@ namespace heartCore { namespace physics {
 
 	void ColideManager2d::checkPotential() {
 		for (int i = 0; i < layers.size(); i++) {
-			layers[i].checkPotential();
+			layers[i]->checkPotential();
 		}
 	}
 
 	void ColideManager2d::calculatePotential() {
 		for (int i = 0; i < layers.size(); i++) {
-			layers[i].calculatePotential();
+			layers[i]->calculatePotential();
 		}
 	}
 
 	void ColideManager2d::updateObjects() {
 		for (int i = 0; i < layers.size(); i++) {
-			layers[i].update();
+			layers[i]->update();
 		}
 	}
 
@@ -31,4 +31,14 @@ namespace heartCore { namespace physics {
 		updateObjects();
 		calculatePotential();
 	}
+
+
+	void ColideManager2d::addLayer(PhysLayer* layer) {
+		layers.push_back(layer);
+	}
+
+	void ColideManager2d::addBox(ColideBox2d* object, int layerID) {
+		layers[layerID]->addObject(object);
+	}
+
 } }

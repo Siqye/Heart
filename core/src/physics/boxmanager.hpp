@@ -9,15 +9,17 @@
 namespace heartCore { namespace physics {
 	class ColideManager2d {
 	private:
-		std::vector<PhysLayer> layers;
+		std::vector<PhysLayer*> layers;
 
 		void checkPotential();
 		void calculatePotential();
 		void updateObjects();
 	public:
-		ColideManager2d(int reserveLayers);
+		ColideManager2d(int reserveLayers = 0);
 		~ColideManager2d();
 
+		void addLayer(PhysLayer* layer = new PhysLayer);
+		void addBox(ColideBox2d* object, int layerID = 0);
 		void update();
 	};
 } }

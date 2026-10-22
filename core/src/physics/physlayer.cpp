@@ -48,4 +48,8 @@ namespace heartCore { namespace physics {
 		for (int i = 0; i < m_objects.size(); i++)
 			m_objects[i]->update();
 	}
+
+	void PhysLayer::addObject(ColideBox2d* object) {
+		m_objects.push_back(object);
+	}
 } }
