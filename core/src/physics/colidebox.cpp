@@ -1,32 +1,28 @@
 #include "colidebox.hpp"
 
 namespace heartCore { namespace physics {
-	ColideBox2d::ColideBox2d(maths::vec2 position, maths::vec2 size, float weight) 
+	ColideBox2d::ColideBox2d(maths::vec2 position, maths::vec2 size, float weight, float maxSpeed = 0.0f) 
 		: 
 		min(position), 
 		max(size), 
-		speed(0.0f), 
-		direction(maths::vec2(0.0f,0.0f)),
-		weight(weight)
+		speed(maths::vec2(0.0f, 0.0f)),
+		weight(weight),
+		maxSpeed(maxSpeed)
 	{
 		max += min;
 	}
 
 	void ColideBox2d::calculateAABB(ColideBox2d* other) {
 		if (other->max.x >= this->min.x || other->max.x <= min.x) {
-			float intermidX = other->direction.x;
-			other->direction.x = this->direction.x;
-			this->direction.x = intermidX;
-			//this->speed *= 0.85f;
-			//other->speed *= 0.85f;
+			float intermidX = other->speed.x;
+			other->speed.x = this->speed.x;
+			this->speed.x = intermidX;
 		}
 
 		if (other->min.y >= this->max.y || other->max.y <= min.y) {
-			float intermidY = other->direction.y;
-			other->direction.y = this->direction.y;
-			this->direction.y = intermidY;
-			//this->speed *= 0.85f;
-			//other->speed *= 0.85f;
+			float intermidY = other->speed.y;
+			other->speed.y = this->speed.y;
+			this->speed.y = intermidY;
 		}
 	}
 
@@ -41,4 +37,29 @@ namespace heartCore { namespace physics {
 
 		return false;
 	}
+
+	void ColideBox2d::impulse(maths::vec2 direction, float power) {
+		direction.x *= power;
+		direction.y *= power;
+
+		if (direction.x + this->speed.x >= maxSpeed) {
+			direction.x = maxSpeed;
+			this->speed.x = 0.0f;
+		}
+
+		if (direction.y + this->speed.y >= maxSpeed) {
+			direction.y = maxSpeed;
+			this->speed.y = 0.0f;
+		}
+		this->speed += direction;
+	}
+
+	void ColideBox2d::update() {
+		this->min += speed;
+		this->max += speed;
+
+		this->speed.x += (speed.x * -1) / 10;
+		this->speed.y += (speed.y * -1) / 10;
+	}
+
 } }

@@ -15,6 +15,8 @@ namespace heartCore { namespace physics {
 
 		void checkPotential();
 		void calculatePotential();
+
+		void update();
 	};
 
 } }

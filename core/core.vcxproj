@@ -213,6 +213,7 @@
     <ClInclude Include="src\maths\vec4.hpp" />
     <ClInclude Include="src\physics\boxmanager.hpp" />
     <ClInclude Include="src\physics\colidebox.hpp" />
+    <ClInclude Include="src\physics\physics.hpp" />
     <ClInclude Include="src\physics\physlayer.hpp" />
     <ClInclude Include="src\utils\char_loader.h" />
     <ClInclude Include="src\utils\file_reader.hpp" />

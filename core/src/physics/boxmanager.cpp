@@ -20,4 +20,15 @@ namespace heartCore { namespace physics {
 		}
 	}
 
+	void ColideManager2d::updateObjects() {
+		for (int i = 0; i < layers.size(); i++) {
+			layers[i].update();
+		}
+	}
+
+	void ColideManager2d::update() {
+		checkPotential();
+		updateObjects();
+		calculatePotential();
+	}
 } }

@@ -10,7 +10,7 @@ namespace heartCore { namespace physics {
 		for (int i = 0; i < m_objects.size(); i++) {	
 		for (int j = m_objects.size(); j > 0; j--) {
 
-			if (m_objects[i]->checkPotential(m_objects[j])) {
+			if (m_objects[i] != m_objects[j] && m_objects[i]->checkPotential(m_objects[j])) {
 				m_potential.push_back(m_objects[i]);
 				m_potential.push_back(m_objects[j]);
 			}
@@ -32,5 +32,20 @@ namespace heartCore { namespace physics {
 			}
 
 		} }
+	}
+
+	void PhysLayer::calculatePotential() {
+		for (int i = 0; i < m_potential.size(); i++) {
+		for (int j = m_potential.size(); j > 0; j++) {
+
+			if (m_potential[i] != m_potential[j])
+				m_potential[i]->calculateAABB(m_potential[j]);
+		
+		} }
+	}
+
+	void PhysLayer::update() {
+		for (int i = 0; i < m_objects.size(); i++)
+			m_objects[i]->update();
 	}
 } }

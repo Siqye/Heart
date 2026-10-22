@@ -13,6 +13,7 @@ namespace heartCore { namespace physics {
 
 		void checkPotential();
 		void calculatePotential();
+		void updateObjects();
 	public:
 		ColideManager2d(int reserveLayers);
 		~ColideManager2d();
