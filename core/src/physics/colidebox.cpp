@@ -29,7 +29,7 @@ namespace heartCore { namespace physics {
 	void ColideBox2d::calculateOBB(ColideBox2d* other) {}
 
 	bool ColideBox2d::checkPotential(ColideBox2d* other) {
-		// change magic number to variable or contant
+		// change magic number to variable or constant
 		if (this->min.x - 3.0f >= other->max.x || this->max.x + 3.0f >= other->min.x) 
 			return true;
 		if (this->min.y - 3.0f >= other->max.y || this->max.y + 3.0f >= other->min.y) 

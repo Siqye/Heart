@@ -24,12 +24,13 @@ namespace heartCore {
 				m_texCoords.push_back(maths::vec2(1, 0));
 			}
 
+			maths::vec3 m_position;
 			maths::vec3 m_size;
 			maths::vec4 m_color;
-			maths::vec3 m_position;
 			std::vector<maths::vec2> m_texCoords;
 			Texture* m_texture;
 		public:
+			maths::vec3* size = &m_size;
 			maths::vec3* position = &m_position;
 
 			StaticSprite() : m_texture(nullptr) { setTC(); }
@@ -43,9 +44,7 @@ namespace heartCore {
 			{setTC();}
 
 			inline ~StaticSprite() 
-			{
-				delete m_texture;
-			}
+			{ delete m_texture; }
 			
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
 

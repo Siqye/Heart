@@ -7,10 +7,12 @@ namespace heartCore {
 		m_window(new Window(windowWidth, windowHeight, windowTitle)),
 		m_shader(new Shader("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
-		m_physManager(2),
+		m_physManager(1),
 		m_player(1, 1, 5, 5, new Texture("test/test5.png")),
 		fpsLabel(Label("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")))
 	{
+
+		
 
 		m_mainGameLayer.add(&m_player);
 		m_playerSpeed = 0.5f;
