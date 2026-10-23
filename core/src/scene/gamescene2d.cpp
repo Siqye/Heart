@@ -1,7 +1,7 @@
 #include "gamescene2d.hpp"
 
 namespace heartCore {
-	GameScene2d::GameScene2d() : Scene2d()
+	GameScene2d::GameScene2d(graphics::Window* window) : Scene2d(window)
 	{
 		m_graphicLayer.add(m_player->getVisual());
 	}
@@ -11,10 +11,18 @@ namespace heartCore {
 	}
 	
 	void GameScene2d::update() {
-		
+		if (m_window->isKeyPressed(GLFW_KEY_W))
+			m_player->impulse(maths::vec2(1, 0), 1.0f);
+
+		if (m_window->isKeyPressed(GLFW_KEY_S))
+			m_player->impulse(maths::vec2(-1, 0), 1.0f);
+
+		if (m_window->isKeyPressed(GLFW_KEY_A))
+			m_player->impulse(maths::vec2(0, -1), 1.0f);
+
+		if (m_window->isKeyPressed(GLFW_KEY_D))
+			m_player->impulse(maths::vec2(0, 1), 1.0f);
 	}
 	
-	void GameScene2d::tick() {
-
-	}
+	void GameScene2d::tick() {}
 }
