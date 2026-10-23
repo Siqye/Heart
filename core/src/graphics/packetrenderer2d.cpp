@@ -18,10 +18,10 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 		glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
-		glVertexAttribPointer(VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::vertex));
-		glVertexAttribPointer(TEXTURE_COORD_INDEX, 2, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::tc));
-		glVertexAttribPointer(TEXTURE_ID_INDEX, 1, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::tid));
-		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::color));
+		glVertexAttribPointer(VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData2d, VertexData2d::vertex));
+		glVertexAttribPointer(TEXTURE_COORD_INDEX, 2, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData2d, VertexData2d::tc));
+		glVertexAttribPointer(TEXTURE_ID_INDEX, 1, GL_FLOAT, GL_FALSE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData2d, VertexData2d::tid));
+		glVertexAttribPointer(COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, VERTEX_SIZE, (const GLvoid*)offsetof(VertexData2d, VertexData2d::color));
 		glEnableVertexAttribArray(VERTEX_INDEX); glEnableVertexAttribArray(TEXTURE_COORD_INDEX); 
 		glEnableVertexAttribArray(TEXTURE_ID_INDEX); glEnableVertexAttribArray(COLOR_INDEX);
 
@@ -50,9 +50,9 @@ namespace heartCore { 	namespace graphics {
 	PacketRenderer::~PacketRenderer() {}
 
 	void PacketRenderer::submit(const StaticSprite* sprite) {
-		const maths::vec3& position = sprite->getPosition();
+		const maths::vec2& position = sprite->getPosition();
+		const maths::vec2& size = sprite->getSize();
 		const maths::vec4& col = sprite->getColor();
-		const maths::vec3& size = sprite->getSize();
 		const std::vector<maths::vec2>& tc = sprite->getTC();
 		const GLuint texID = sprite->getTID();
 
@@ -93,19 +93,19 @@ namespace heartCore { 	namespace graphics {
 		m_dataBuffer->color = color;
 		m_dataBuffer++;
 
-		m_dataBuffer->vertex = *m_transformBack * maths::vec3(position.x, position.y + size.y, position.z);
+		m_dataBuffer->vertex = *m_transformBack * maths::vec2(position.x, position.y + size.y);
 		m_dataBuffer->tc = tc[1];
 		m_dataBuffer->tid = textureSlot;
 		m_dataBuffer->color = color;
 		m_dataBuffer++;
 
-		m_dataBuffer->vertex = *m_transformBack * maths::vec3(position.x + size.x, position.y + size.y, position.z);
+		m_dataBuffer->vertex = *m_transformBack * maths::vec2(position.x + size.x, position.y + size.y);
 		m_dataBuffer->tc = tc[2];
 		m_dataBuffer->tid = textureSlot;
 		m_dataBuffer->color = color;
 		m_dataBuffer++;
 
-		m_dataBuffer->vertex = *m_transformBack * maths::vec3(position.x + size.x, position.y, position.z);
+		m_dataBuffer->vertex = *m_transformBack * maths::vec2(position.x + size.x, position.y);
 		m_dataBuffer->tc = tc[3];
 		m_dataBuffer->tid = textureSlot;
 		m_dataBuffer->color = color;
@@ -116,7 +116,7 @@ namespace heartCore { 	namespace graphics {
 
 	void PacketRenderer::begin() {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		m_dataBuffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		m_dataBuffer = (VertexData2d*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
 	void PacketRenderer::draw() {
@@ -141,7 +141,7 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void PacketRenderer::submitText(std::string text, float scale, maths::vec3 position, maths::vec4 col, Font font) {
+	void PacketRenderer::submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, Font font) {
 		texture_atlas_t* textAtlas = font.getAtlas();
 		texture_font_t* textFont = font.getFont();
 		
@@ -198,25 +198,25 @@ namespace heartCore { 	namespace graphics {
 				float s1 = glyph->s1;
 				float t1 = glyph->t1;
 
-				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x0, y0, 0);
+				m_dataBuffer->vertex = *m_transformBack * maths::vec2(x0, y0);
 				m_dataBuffer->tc = maths::vec2(s0, t1);
 				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
-				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x0, y1, 0);
+				m_dataBuffer->vertex = *m_transformBack * maths::vec2(x0, y1);
 				m_dataBuffer->tc = maths::vec2(s0, t0);
 				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
-				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x1, y1, 0);
+				m_dataBuffer->vertex = *m_transformBack * maths::vec2(x1, y1);
 				m_dataBuffer->tc = maths::vec2(s1, t0);
 				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;
 				m_dataBuffer++;
 
-				m_dataBuffer->vertex = *m_transformBack * maths::vec3(x1, y0, 0);
+				m_dataBuffer->vertex = *m_transformBack * maths::vec2(x1, y0);
 				m_dataBuffer->tc = maths::vec2(s1, t1);
 				m_dataBuffer->tid = textureSlot;
 				m_dataBuffer->color = color;

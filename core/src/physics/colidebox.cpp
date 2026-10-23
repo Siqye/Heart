@@ -58,8 +58,9 @@ namespace heartCore { namespace physics {
 		this->min += speed;
 		this->max += speed;
 
-		this->speed.x += (speed.x * -1) / 10;
-		this->speed.y += (speed.y * -1) / 10;
+		//	        коеф времени  плотность среды         квадрат скорости	    лобовое сопротивление
+		this->speed.x += 0.008f * MEDIUM_DENSITY_FLOAT * (speed.x * speed.x); // теперь всегда 1
+		this->speed.y += 0.008f * MEDIUM_DENSITY_FLOAT * (speed.y * speed.y);
 	}
 
 } }

@@ -61,6 +61,13 @@ namespace heartCore {
 			);
 		}
 
+		vec2 mat4::multiply(const vec2& other) const {
+			return vec2(
+				columns[0].x * other.x + columns[1].x * other.y + columns[2].x + columns[3].x,
+				columns[0].y * other.x + columns[1].y * other.y + columns[2].y + columns[3].y
+			);
+		}
+
 		mat4 operator*(mat4 right, const mat4& left) {
 			return right.multiply(left);
 		}
@@ -70,6 +77,10 @@ namespace heartCore {
 		}
 
 		vec3 operator*(const mat4& right, const vec3& left) {
+			return right.multiply(left);
+		}
+		
+		vec2 operator*(const mat4& right, const vec2& left) {
 			return right.multiply(left);
 		}
 

@@ -1,7 +1,11 @@
 #include "camera2d.hpp"
 
 namespace heartCore {
-	Camera2d::Camera2d(maths::vec2 initialPosition = maths::vec2()) 
+	Camera2d::Camera2d() 
+		: m_position(maths::vec2())
+	{}
+
+	Camera2d::Camera2d(maths::vec2 initialPosition) 
 		: m_position(initialPosition)
 	{ }
 

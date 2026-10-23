@@ -171,6 +171,8 @@
     <ClCompile Include="src\physics\physlayer.cpp" />
     <ClCompile Include="src\scene\camera2d.cpp" />
     <ClCompile Include="src\scene\entity2d.cpp" />
+    <ClCompile Include="src\scene\gamescene2d.cpp" />
+    <ClCompile Include="src\scene\player2d.cpp" />
     <ClCompile Include="src\scene\scene2d.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
     <ClCompile Include="src\utils\read_mash_data.cpp" />
@@ -220,6 +222,8 @@
     <ClInclude Include="src\physics\physlayer.hpp" />
     <ClInclude Include="src\scene\camera2d.hpp" />
     <ClInclude Include="src\scene\entity2d.hpp" />
+    <ClInclude Include="src\scene\gamescene2d.hpp" />
+    <ClInclude Include="src\scene\player2d.hpp" />
     <ClInclude Include="src\scene\scene2d.hpp" />
     <ClInclude Include="src\utils\char_loader.h" />
     <ClInclude Include="src\utils\file_reader.hpp" />

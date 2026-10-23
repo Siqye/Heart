@@ -2,7 +2,7 @@
 #include "renderer2d.hpp"
 
 #define MAX_SPRITES		10000
-#define VERTEX_SIZE		sizeof(VertexData)
+#define VERTEX_SIZE		sizeof(VertexData2d)
 #define SPRITE_SIZE		VERTEX_SIZE * 4
 #define BUFFER_SIZE		MAX_SPRITES * SPRITE_SIZE
 #define INDICIES_SIZE	MAX_SPRITES * 6
@@ -18,7 +18,7 @@ namespace heartCore { namespace graphics {
 	private:
 		std::vector<GLuint> m_textureSlots;
 		GLsizei m_indexCount;
-		VertexData* m_dataBuffer;
+		VertexData2d* m_dataBuffer;
 
 	public:
 		PacketRenderer();
@@ -26,7 +26,7 @@ namespace heartCore { namespace graphics {
 
 		void submit(const StaticSprite* sprite) override;
 		void begin() override;
-		void submitText(std::string text, float scale, maths::vec3 position, maths::vec4 col, Font font);
+		void submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, Font font);
 		void draw()	override;
 		void end() override;
 	};

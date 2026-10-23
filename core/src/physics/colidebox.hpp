@@ -1,6 +1,9 @@
 #pragma once
 #include "../maths/maths.hpp"
 
+#define MEDIUM_DENSITY_FLOAT 0.15f
+#define MEDIUM_DENSITY_DOUBLE 0.15
+
 namespace heartCore { namespace physics {
 	struct ColideBox2d {
 		maths::vec2& min; // position
