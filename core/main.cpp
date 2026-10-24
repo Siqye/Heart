@@ -1,4 +1,4 @@
-#define TEST3D
+//#define TEST3D
 
 #ifndef TEST3D
 #include "src/game.hpp"

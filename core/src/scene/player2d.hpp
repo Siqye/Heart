@@ -4,7 +4,7 @@
 namespace heartCore {
 	class Player2d : public Entity2d {
 	private:
-		graphics::StaticSprite m_HPSprites;
+		graphics::StaticSprite* m_HPSprites;
 
 		int m_HP;
 		int m_currentScore;

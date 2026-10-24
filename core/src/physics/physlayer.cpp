@@ -1,8 +1,8 @@
 #include "physlayer.hpp"
 
 namespace heartCore { namespace physics {
-	PhysLayer::PhysLayer(float gravityAcceleration = 10.0f, maths::vec2 gravityDirection = maths::vec2()) 
-		: m_gravityAcceleration(gravityAcceleration), m_gravityDirection(gravityDirection)
+	PhysLayer::PhysLayer() 
+		: m_gravityAcceleration(0.0f), m_gravityDirection(maths::vec2())
 	{}
 	PhysLayer::~PhysLayer() {}
 
@@ -26,7 +26,7 @@ namespace heartCore { namespace physics {
 				if (it != m_potential.end())
 					m_potential.erase(it);
 
-				auto it = std::find(m_potential.begin(), m_potential.end(), m_potential[j]);
+				it = std::find(m_potential.begin(), m_potential.end(), m_potential[j]);
 				if (it != m_potential.end())
 					m_potential.erase(it);
 			}

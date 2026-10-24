@@ -19,8 +19,8 @@ namespace heartCore {
 		return result;
 	}
 
-	std::vector<std::string> getPotentialNumbets(std::string line) {
-
+	std::vector<std::string> getPotentialNumbers(std::string line) {
+		return { "huesos" };
 	}
 
 	MashData3d loadMashFile(const char* filepathOBJ) {

@@ -44,7 +44,7 @@ namespace heartCore {
 			{setTC();}
 
 			inline ~StaticSprite() 
-			{ delete m_texture; }
+			{ }
 			
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
 

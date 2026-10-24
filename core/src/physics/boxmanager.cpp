@@ -1,9 +1,7 @@
 #include "boxmanager.hpp"
 
 namespace heartCore { namespace physics {
-	ColideManager2d::ColideManager2d(int reserveLayers = 0) {
-		if (reserveLayers == 0) return;
-		layers.reserve(reserveLayers);
+	ColideManager2d::ColideManager2d() {
 	}
 
 	ColideManager2d::~ColideManager2d() { }

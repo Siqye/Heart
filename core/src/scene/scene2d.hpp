@@ -22,7 +22,7 @@ namespace heartCore {
 		Scene2d(graphics::Window* window);
 
 		void addObject(Entity2d* entity);
-		void addObject(graphics::StaticSprite* visual ,maths::vec2* position, maths::vec2* size, float weight, float maxSpeed);
+	
 
 		virtual void update() = 0;
 		virtual void tick() = 0;

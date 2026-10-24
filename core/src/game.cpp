@@ -7,14 +7,13 @@ namespace heartCore {
 		m_window(new Window(windowWidth, windowHeight, windowTitle)),
 		m_shader(new Shader("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
-		m_physManager(1),
-		m_player(1, 1, 5, 5, new Texture("test/test5.png")),
+		m_physManager(),
+		m_playerSprite(new Sprite(1, 1, 5, 5, new Texture("test/test5.png"))),
+		m_player(m_playerSprite, new physics::ColideBox2d(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
 		fpsLabel(Label("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")))
 	{
 
-		
-
-		m_mainGameLayer.add(&m_player);
+		m_mainGameLayer.add(m_playerSprite);
 		m_playerSpeed = 0.5f;
 		fpsLabel_ptr = &fpsLabel;
 
@@ -27,14 +26,16 @@ namespace heartCore {
 	}
 	// 60 times per second
 	void Game::update() {
-		if (m_window->isKeyPressed(GLFW_KEY_W)) 
-			m_player.position->y += m_playerSpeed;
+		if (m_window->isKeyPressed(GLFW_KEY_W))
+			m_player.impulse(maths::vec2(0, 1), 0.1f);
 		else if (m_window->isKeyPressed(GLFW_KEY_S))
-			m_player.position->y -= m_playerSpeed;
+			m_player.impulse(maths::vec2(0, -1), 0.1f);
 		if (m_window->isKeyPressed(GLFW_KEY_D))
-			m_player.position->x += m_playerSpeed;
+			m_player.impulse(maths::vec2(-1, 0), 0.1f);
 		else if (m_window->isKeyPressed(GLFW_KEY_A))
-			m_player.position->x -= m_playerSpeed;
+			m_player.impulse(maths::vec2(-1, 0), 0.1f);
+
+		m_player.update();
 	}
 	// unlimited per second
 	void Game::render() {

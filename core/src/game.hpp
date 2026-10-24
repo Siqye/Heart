@@ -13,6 +13,8 @@
 #include "audio/wavfile.hpp"
 #include "audio/speaker.hpp"
 #include "physics/physics.hpp"
+#include "scene/entity2d.hpp"
+
 
 using namespace heartCore;
 using namespace graphics;
@@ -33,7 +35,9 @@ namespace heartCore {
 		Label fpsLabel;
 		Label* fpsLabel_ptr;
 
-		Sprite m_player;
+		Sprite* m_playerSprite;
+
+		Entity2d m_player;
 
 		Timer m_timer;
 

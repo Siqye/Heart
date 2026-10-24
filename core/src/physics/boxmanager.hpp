@@ -15,7 +15,7 @@ namespace heartCore { namespace physics {
 		void calculatePotential();
 		void updateObjects();
 	public:
-		ColideManager2d(int reserveLayers = 0);
+		ColideManager2d();
 		~ColideManager2d();
 
 		void addLayer(PhysLayer* layer = new PhysLayer);
