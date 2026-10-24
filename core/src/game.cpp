@@ -31,7 +31,7 @@ namespace heartCore {
 		else if (m_window->isKeyPressed(GLFW_KEY_S))
 			m_player.impulse(maths::vec2(0, -1), 0.1f);
 		if (m_window->isKeyPressed(GLFW_KEY_D))
-			m_player.impulse(maths::vec2(-1, 0), 0.1f);
+			m_player.impulse(maths::vec2(1, 0), 0.1f);
 		else if (m_window->isKeyPressed(GLFW_KEY_A))
 			m_player.impulse(maths::vec2(-1, 0), 0.1f);
 

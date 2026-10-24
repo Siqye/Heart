@@ -60,7 +60,7 @@ namespace heartCore { namespace physics {
 
 		//	        коеф времени  плотность среды         квадрат скорости	    лобовое сопротивление
 		this->speed.x += 0.008f * MEDIUM_DENSITY_FLOAT * (speed.x * speed.x); // теперь всегда 1
-		this->speed.y += 0.008f * MEDIUM_DENSITY_FLOAT * (speed.y * speed.y);
+		this->speed.y += 0.008f * MEDIUM_DENSITY_FLOAT * (speed.y * speed.y); // 1
 	}
 
 } }
