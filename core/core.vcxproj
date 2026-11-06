@@ -174,6 +174,7 @@
     <ClCompile Include="src\scene\gamescene2d.cpp" />
     <ClCompile Include="src\scene\player2d.cpp" />
     <ClCompile Include="src\scene\scene2d.cpp" />
+    <ClCompile Include="src\thread\jobsystem.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
     <ClCompile Include="src\utils\read_mash_data.cpp" />
     <ClCompile Include="src\utils\timer.cpp" />
@@ -225,8 +226,7 @@
     <ClInclude Include="src\scene\gamescene2d.hpp" />
     <ClInclude Include="src\scene\player2d.hpp" />
     <ClInclude Include="src\scene\scene2d.hpp" />
-    <ClInclude Include="src\thread\mainthread.hpp" />
-    <ClInclude Include="src\thread\subthread.hpp" />
+    <ClInclude Include="src\thread\jobsystem.h" />
     <ClInclude Include="src\utils\char_loader.h" />
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
