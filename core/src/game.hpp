@@ -46,7 +46,8 @@ namespace heartCore {
 
 		threads::JobSystem m_jobSystem;
 
-		const float FIXED_TIMESTEP = 1.0f / 60.0f; 
+		// Фиксированный timestep для физики (60 обновлений в секунду)
+		const float FIXED_TIMESTEP = 1.0f / 60.0f;  // ~0.0167 сек
 		float m_accumulator;
 
 		// once per second

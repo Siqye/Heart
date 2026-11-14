@@ -36,16 +36,21 @@ namespace heartCore {
 			StaticSprite() : m_texture(nullptr) { setTC(); }
 			StaticSprite(maths::vec2 position, maths::vec2 size, maths::vec4 color)
 				: m_position(position), m_size(size), m_color(color), m_texture(nullptr)
-			{setTC();}
+			{
+				setTC();
+			}
 
 			StaticSprite(maths::vec2 position, maths::vec2 size, Texture* texture)
 				: m_position(position), m_size(size), m_color(maths::vec4(1, 1, 1, 1)),
 				m_texture(texture)
-			{setTC();}
+			{
+				setTC();
+			}
 
-			inline ~StaticSprite() 
-			{ }
-			
+			inline ~StaticSprite()
+			{
+			}
+
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
 
 			inline const maths::vec2& getSize() const { return m_size; }
