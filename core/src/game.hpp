@@ -14,6 +14,7 @@
 #include "audio/speaker.hpp"
 #include "physics/physics.hpp"
 #include "scene/entity2d.hpp"
+#include "thread/jobsystem.h"
 
 
 using namespace heartCore;
@@ -42,6 +43,12 @@ namespace heartCore {
 		Timer m_timer;
 
 		int m_updatesCount;
+
+		threads::JobSystem m_jobSystem;
+
+		// Фиксированный timestep для физики (60 обновлений в секунду)
+		const float FIXED_TIMESTEP = 1.0f / 60.0f;  // ~0.0167 сек
+		float m_accumulator;
 
 		// once per second
 		void tick();

@@ -10,8 +10,10 @@ namespace heartCore {
 	}
 
 	void Entity2d::update() {
+		// added: updating before sync
 		m_hitBox->update();
-		m_visualisation->position = m_position; // same pointer which hitbox have
+		// added: sync
+		m_visualisation->position = m_position;
 	}
 
 	void Entity2d::tick() {}

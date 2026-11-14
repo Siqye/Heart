@@ -93,9 +93,6 @@
     <ClCompile Include="src\maths\functions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\colidebox.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\utils\read_mash_data.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -118,6 +115,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\player2d.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thread\jobsystem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\colidebox.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -278,10 +281,7 @@
     <ClInclude Include="src\scene\player2d.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\thread\mainthread.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\thread\subthread.hpp">
+    <ClInclude Include="src\thread\jobsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -318,9 +318,9 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shader\basic.frag" />
-    <None Include="src\shader\basic.vert" />
-    <None Include="src\shader\basic3d.frag" />
-    <None Include="src\shader\basic3d.vert" />
+    <None Include="ext\shader\basic.frag" />
+    <None Include="ext\shader\basic.vert" />
+    <None Include="ext\shader\basic3d.frag" />
+    <None Include="ext\shader\basic3d.vert" />
   </ItemGroup>
 </Project>

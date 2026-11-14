@@ -16,6 +16,7 @@ namespace heartCore { namespace threads {
 	
 	public:
 		JobSystem();
+		~JobSystem();
 
 		void run(std::function<void()> job);
 
