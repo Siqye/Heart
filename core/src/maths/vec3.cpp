@@ -1,4 +1,5 @@
 #include "vec3.hpp"
+#include "maths.hpp"
 
 namespace heartCore {
 	namespace maths {
@@ -40,6 +41,35 @@ namespace heartCore {
 			this->y /= other.y;
 			this->z /= other.z;
 			return *this;
+		}
+
+		void vec3::normalize() {
+			float normalization = sqrt(
+				x * x + 
+				y * y + 
+				z * z);
+	
+			if (normalization == 0.0f) 
+				return;
+
+			x /= normalization;
+			y /= normalization;
+			z /= normalization;
+		}
+
+		vec3& vec3::normalized(vec3& vector) {
+			float normalization = sqrt(
+				vector.x * vector.x + 
+				vector.y * vector.y + 
+				vector.z * vector.z);
+
+			if (normalization == 0) return vector;
+
+			vector.x /= normalization;
+			vector.y /= normalization;
+			vector.z /= normalization;
+
+			return vector;
 		}
 
 

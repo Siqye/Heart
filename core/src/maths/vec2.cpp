@@ -37,6 +37,31 @@ namespace heartCore {
 			return *this;
 		}
 
+		void vec2::normalize() {
+			float normalization = sqrt(
+				x * x +
+				y * y);
+
+			if (normalization == 0.0f)
+				return;
+
+			x /= normalization;
+			y /= normalization;
+		}
+
+		vec2& vec2::normalized(vec2& vector) {
+			float normalization = sqrt(
+				vector.x * vector.x +
+				vector.y * vector.y);
+
+			if (normalization == 0) return vector;
+
+			vector.x /= normalization;
+			vector.y /= normalization;
+
+			return vector;
+		}
+
 
 		vec2 operator+(vec2 left, const vec2& right) {
 			return left.add(right);

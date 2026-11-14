@@ -10,9 +10,8 @@ namespace heartCore { namespace graphics {
 	void Group::submit(Renderer2D* renderer) {
 		renderer->push(m_projectionMatrix);
 		for (const StaticSprite* sprite : m_sprites)
-			renderer->submit(sprite);
+			sprite->submit(renderer);
 		renderer->pop();
-
 	}
 	void Group::add(const StaticSprite* sprite) {
 		m_sprites.push_back(sprite);

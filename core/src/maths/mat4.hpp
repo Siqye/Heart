@@ -17,6 +17,7 @@ namespace heartCore {
 			friend mat4 operator*(mat4 right, const mat4& left);
 			friend vec4 operator*(const mat4& right, const vec4& left);
 			friend vec3 operator*(const mat4& right, const vec3& left);
+			friend vec2 operator*(const mat4& right, const vec2& left);
 			mat4& operator*=(const mat4& other);
 
 			static mat4 identity();
@@ -24,6 +25,7 @@ namespace heartCore {
 			mat4& multiply(const mat4& other);
 			vec4 multiply(const vec4& other) const;
 			vec3 multiply(const vec3& other) const;
+			vec2 multiply(const vec2& other) const;
 
 			static mat4 orthographic(float left,float right, float top, float bottom, float far, float near);
 			static mat4 perspective(float fov,float aspectRatio,float near,float far);

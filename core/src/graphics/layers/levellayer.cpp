@@ -3,6 +3,6 @@
 
 namespace heartCore { namespace graphics {
 	LevelLayer::LevelLayer(Shader* shader) 
-		: Layer(shader, new PacketRenderer, maths::mat4::orthographic(0,4,3,0,1,0))
+		: Layer(shader, new PacketRenderer, maths::mat4::orthographic(0,40,30,0,10,0))
 	{}
 } }
