@@ -9,6 +9,6 @@ namespace heartCore {
 		Camera2d();
 		Camera2d(maths::vec2 initalPosition);
 
-		void moveTo(maths::vec2 newPosition);
+		void moveTo(const maths::vec2& newPosition);
 	};
 }

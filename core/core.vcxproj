@@ -170,6 +170,7 @@
     <ClCompile Include="src\physics\boxmanager.cpp" />
     <ClCompile Include="src\physics\colidebox.cpp" />
     <ClCompile Include="src\physics\physlayer.cpp" />
+    <ClCompile Include="src\scene\animatedentity2d.cpp" />
     <ClCompile Include="src\scene\camera2d.cpp" />
     <ClCompile Include="src\scene\entity2d.cpp" />
     <ClCompile Include="src\scene\gamescene2d.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="src\physics\colidebox.hpp" />
     <ClInclude Include="src\physics\physics.hpp" />
     <ClInclude Include="src\physics\physlayer.hpp" />
+    <ClInclude Include="src\scene\animatedentity2d.hpp" />
     <ClInclude Include="src\scene\camera2d.hpp" />
     <ClInclude Include="src\scene\entity2d.hpp" />
     <ClInclude Include="src\scene\gamescene2d.hpp" />

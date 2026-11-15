@@ -9,7 +9,7 @@ namespace heartCore {
 		: m_position(initialPosition)
 	{ }
 
-	void Camera2d::moveTo(maths::vec2 newPosition) {
+	void Camera2d::moveTo(const maths::vec2& newPosition) {
 		m_position = newPosition;
 	}
 }

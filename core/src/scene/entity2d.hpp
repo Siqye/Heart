@@ -5,7 +5,7 @@
 
 namespace heartCore {
 	class Entity2d {
-	private:
+	protected:
 		maths::vec2* m_position;
 		maths::vec2* m_size;
 

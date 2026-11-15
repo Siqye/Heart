@@ -16,9 +16,6 @@
 #include "scene/entity2d.hpp"
 #include "thread/jobsystem.h"
 
-#define FIXED_TIMESTEP 1.0f / 60.0f
-
-
 using namespace heartCore;
 using namespace graphics;
 using namespace audio;
@@ -43,7 +40,7 @@ namespace heartCore {
 		Entity2d m_player;
 
 		Timer m_timer;
-
+		const float FIXED_TIMESTEP = 1.0f / 60.0f;
 		int m_updatesCount;
 
 		threads::JobSystem m_jobSystem;
