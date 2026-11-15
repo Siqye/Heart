@@ -48,8 +48,9 @@ namespace heartCore {
 			}
 
 			inline ~StaticSprite()
-			{
-			}
+			{ }
+
+			virtual void nextSprite() {}
 
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
 

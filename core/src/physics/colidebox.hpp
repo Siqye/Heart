@@ -3,6 +3,7 @@
 
 #define MEDIUM_DENSITY_FLOAT 0.035f
 #define MEDIUM_DENSITY_DOUBLE 0.035
+#define POTENTIAL_LENGHT 3.0f
 
 namespace heartCore { namespace physics {
 	struct ColideBox2d {

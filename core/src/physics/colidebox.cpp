@@ -10,8 +10,7 @@ namespace heartCore { namespace physics {
 		speed(maths::vec2(0.0f, 0.0f)),
 		weight(weight),
 		maxSpeed(maxSpeed)
-	{
-	}
+	{}
 
 	void ColideBox2d::calculateAABB(ColideBox2d* other) {
 		if (other->max.x >= this->min->x || other->max.x <= this->min->x) {
@@ -31,9 +30,9 @@ namespace heartCore { namespace physics {
 
 	bool ColideBox2d::checkPotential(ColideBox2d* other) {
 		// change magic number to variable or constant
-		if (this->min->x - 3.0f >= other->max.x || this->max.x + 3.0f >= other->min->x)
+		if (this->min->x - POTENTIAL_LENGHT >= other->max.x || this->max.x + POTENTIAL_LENGHT >= other->min->x)
 			return true;
-		if (this->min->y - 3.0f >= other->max.y || this->max.y + 3.0f >= other->min->y)
+		if (this->min->y - POTENTIAL_LENGHT >= other->max.y || this->max.y + POTENTIAL_LENGHT >= other->min->y)
 			return true;
 
 		return false;
