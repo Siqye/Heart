@@ -143,7 +143,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\audio\sound.cpp" />
     <ClCompile Include="src\audio\speaker.cpp" />
     <ClCompile Include="src\audio\wavfile.cpp" />
@@ -153,30 +152,19 @@
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\layer.cpp" />
     <ClCompile Include="src\graphics\layers\levellayer.cpp" />
-    <ClCompile Include="src\graphics\mash3d.cpp" />
-    <ClCompile Include="src\graphics\object3d.cpp" />
+    <ClCompile Include="src\graphics\layers\scenelayer.cpp" />
+    <ClCompile Include="src\graphics\mesh.cpp" />
     <ClCompile Include="src\graphics\packetrenderer2d.cpp" />
     <ClCompile Include="src\graphics\renderer3d.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\sprite.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
-    <ClCompile Include="src\maths\functions.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\maths\vec2.cpp" />
     <ClCompile Include="src\maths\vec3.cpp" />
     <ClCompile Include="src\maths\vec4.cpp" />
-    <ClCompile Include="src\physics\boxmanager.cpp" />
-    <ClCompile Include="src\physics\colidebox.cpp" />
-    <ClCompile Include="src\physics\physlayer.cpp" />
-    <ClCompile Include="src\scene\camera2d.cpp" />
-    <ClCompile Include="src\scene\entity2d.cpp" />
-    <ClCompile Include="src\scene\gamescene2d.cpp" />
-    <ClCompile Include="src\scene\player2d.cpp" />
-    <ClCompile Include="src\scene\scene2d.cpp" />
-    <ClCompile Include="src\thread\jobsystem.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
-    <ClCompile Include="src\utils\read_mash_data.cpp" />
     <ClCompile Include="src\utils\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -194,15 +182,14 @@
     <ClInclude Include="src\audio\speaker.hpp" />
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
-    <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
     <ClInclude Include="src\graphics\font.hpp" />
     <ClInclude Include="src\graphics\label.hpp" />
     <ClInclude Include="src\graphics\layers\group.hpp" />
     <ClInclude Include="src\graphics\layers\layer.hpp" />
     <ClInclude Include="src\graphics\layers\levellayer.hpp" />
-    <ClInclude Include="src\graphics\mash3d.hpp" />
-    <ClInclude Include="src\graphics\object3d.hpp" />
+    <ClInclude Include="src\graphics\layers\scenelayer.hpp" />
+    <ClInclude Include="src\graphics\mash.hpp" />
     <ClInclude Include="src\graphics\renderer2d.hpp" />
     <ClInclude Include="src\graphics\packetrenderer2d.hpp" />
     <ClInclude Include="src\graphics\renderer3d.hpp" />
@@ -211,26 +198,14 @@
     <ClInclude Include="src\graphics\staticsprite.hpp" />
     <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\graphics\window.hpp" />
-    <ClInclude Include="src\maths\functions.hpp" />
     <ClInclude Include="src\maths\mat4.hpp" />
     <ClInclude Include="src\maths\maths.hpp" />
     <ClInclude Include="src\maths\vec2.hpp" />
     <ClInclude Include="src\maths\vec3.hpp" />
     <ClInclude Include="src\maths\vec4.hpp" />
-    <ClInclude Include="src\physics\boxmanager.hpp" />
-    <ClInclude Include="src\physics\colidebox.hpp" />
-    <ClInclude Include="src\physics\physics.hpp" />
-    <ClInclude Include="src\physics\physlayer.hpp" />
-    <ClInclude Include="src\scene\camera2d.hpp" />
-    <ClInclude Include="src\scene\entity2d.hpp" />
-    <ClInclude Include="src\scene\gamescene2d.hpp" />
-    <ClInclude Include="src\scene\player2d.hpp" />
-    <ClInclude Include="src\scene\scene2d.hpp" />
-    <ClInclude Include="src\thread\jobsystem.h" />
     <ClInclude Include="src\utils\char_loader.h" />
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
-    <ClInclude Include="src\utils\read_mash_data.hpp" />
     <ClInclude Include="src\utils\timer.hpp" />
     <ClInclude Include="src\utils\sound_data_reader.hpp" />
   </ItemGroup>
@@ -244,17 +219,11 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="test\fonts\arial.ttf" />
-    <Font Include="test\fonts\RobotoMono.ttf" />
+    <Font Include="test\RobotoMono.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="radecky.wav" />
     <Media Include="sound.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ext\shader\basic.frag" />
-    <None Include="ext\shader\basic.vert" />
-    <None Include="ext\shader\basic3d.frag" />
-    <None Include="ext\shader\basic3d.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
