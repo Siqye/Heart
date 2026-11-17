@@ -42,7 +42,7 @@ namespace heartCore {
 			m_player.update();
 		});
 	}
-	// unlimited per second
+	// unlimited per secondw
 	void Game::render() {
 		m_mainGameLayer.render();
 	}
@@ -54,12 +54,15 @@ namespace heartCore {
 
 		while (m_window->close()) {
 			float deltaTime = deltaTimer.elapsed();
-			deltaTimer.reset();
+			//deltaTimer.reset();
 
 			m_accumulator += deltaTime;
-
-			while (m_accumulator >= FIXED_TIMESTEP) {
-				update();
+			
+			if (m_accumulator >= FIXED_TIMESTEP) {
+				//m_jobSystem.run([this]() {
+					update();
+				//});
+				
 				m_accumulator -= FIXED_TIMESTEP;
 			}
 

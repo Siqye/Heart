@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;AL_API;ALC_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +150,7 @@
     <ClCompile Include="src\graphics\animatedsprite.cpp" />
     <ClCompile Include="src\graphics\fontmanager.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
+    <ClCompile Include="src\graphics\frameanimation.cpp" />
     <ClCompile Include="src\graphics\label.cpp" />
     <ClCompile Include="src\graphics\layers\group.cpp" />
     <ClCompile Include="src\graphics\layers\layer.cpp" />
@@ -170,7 +171,6 @@
     <ClCompile Include="src\physics\boxmanager.cpp" />
     <ClCompile Include="src\physics\colidebox.cpp" />
     <ClCompile Include="src\physics\physlayer.cpp" />
-    <ClCompile Include="src\scene\animatedentity2d.cpp" />
     <ClCompile Include="src\scene\camera2d.cpp" />
     <ClCompile Include="src\scene\entity2d.cpp" />
     <ClCompile Include="src\scene\gamescene2d.cpp" />
@@ -197,9 +197,10 @@
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
     <ClInclude Include="src\game.hpp" />
-    <ClInclude Include="src\graphics\animatedspite.hpp" />
+    <ClInclude Include="src\graphics\animatedsprite.hpp" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
     <ClInclude Include="src\graphics\font.hpp" />
+    <ClInclude Include="src\graphics\frameanimation.hpp" />
     <ClInclude Include="src\graphics\label.hpp" />
     <ClInclude Include="src\graphics\layers\group.hpp" />
     <ClInclude Include="src\graphics\layers\layer.hpp" />
@@ -224,7 +225,6 @@
     <ClInclude Include="src\physics\colidebox.hpp" />
     <ClInclude Include="src\physics\physics.hpp" />
     <ClInclude Include="src\physics\physlayer.hpp" />
-    <ClInclude Include="src\scene\animatedentity2d.hpp" />
     <ClInclude Include="src\scene\camera2d.hpp" />
     <ClInclude Include="src\scene\entity2d.hpp" />
     <ClInclude Include="src\scene\gamescene2d.hpp" />

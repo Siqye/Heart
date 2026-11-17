@@ -23,4 +23,14 @@ namespace heartCore {
 	void Entity2d::impulse(maths::vec2 direction, float power) {
 		m_hitBox->impulse(direction, power);
 	}
+
+
+	void Entity2d::startAnimation(float duration, int frameCount, bool loop) {
+		
+	}
+
+	void Entity2d::stopAnimation() {
+	
+	}
+
 }

@@ -48,6 +48,12 @@ namespace heartCore { namespace physics {
 
 		// speed limit
 		float speedMagnitude = std::sqrt(this->speed.x * this->speed.x + this->speed.y * this->speed.y);
+		// change from magic to constant
+		if (speedMagnitude <= 0.01f) {
+			this->speed.x = 0.0f;
+			this->speed.y = 0.0f;
+			return;
+		}
 
 		if (speedMagnitude >= maxSpeed && maxSpeed > 0.0f) {
 			// normalazing speed to max value
