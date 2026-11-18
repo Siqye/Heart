@@ -50,7 +50,13 @@ namespace heartCore {
 			inline ~StaticSprite()
 			{ }
 
-			virtual void nextSprite() {}
+			virtual void startAnimation() {}
+			virtual void stopAnimation() {}
+
+			virtual void tick() {}
+			virtual void update() {}
+			virtual void render() {}
+
 
 			virtual void submit(Renderer2D* renderer) const { renderer->submit(this); }
 

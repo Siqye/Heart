@@ -1,19 +1,18 @@
 #pragma once
-#include "../utils/timer.hpp"
+#include "../utils/cxxtimer.hpp"
 #include "staticsprite.hpp"
 
 namespace heartCore { namespace graphics {
 	class Animation {
 	private:
 		Timer m_deltaTime;
-		float m_timeStep;
 		bool m_isPlaying;
 		bool m_looping;
 
 		int m_frameCount;
 		int m_currentFrame;
 
-		float m_duration;
+		unsigned long long m_duration;
 
 		//float m_uvOffsetX;
 		//float m_uvOffsetY;
@@ -23,7 +22,7 @@ namespace heartCore { namespace graphics {
 		std::vector<Texture*> m_frames;
 
 	public:
-		Animation(std::vector<Texture*> frames, float duration, bool looping);
+		Animation(std::vector<Texture*> frames, unsigned long long duration, bool looping);
 		// бля потом решить как это сделать по человечесик
 		//Animation(Texture* texture, std::vector<maths::vec2> frameStarts, float offsetX, float offsetY, float duration, bool looping = false);
 
@@ -37,5 +36,6 @@ namespace heartCore { namespace graphics {
 		inline const bool& isPlaying() { return m_isPlaying; }
 		inline const bool& isLooping() { return m_looping; }
 		inline Texture* getCurrentTexture() { return m_currentFrameTexture; }
+		inline const unsigned long long getDurationTime() { return m_duration; }
 	};
 } }

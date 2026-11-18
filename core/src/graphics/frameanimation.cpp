@@ -1,29 +1,23 @@
 #include "frameanimation.hpp"
 
 namespace heartCore { namespace graphics{
-	Animation::Animation(std::vector<Texture*> frames, float duration, bool looping) 
+	Animation::Animation(std::vector<Texture*> frames, unsigned long long duration_ms, bool looping)
 		: m_isPlaying(false), m_looping(looping), m_frameCount(frames.size()),
-		m_timeStep(m_frameCount / duration), m_currentFrame(-1), m_duration(duration), m_frames(std::move(frames))
+		 m_currentFrame(-1), m_duration(duration_ms), m_frames(std::move(frames))
 	{ }
 	
 
 	void Animation::play() {
 		if (!m_isPlaying) {
 			m_isPlaying = true;
+			m_deltaTime.start();
 		}
 	}
 
 	void Animation::pause() {
 		if (m_isPlaying) {
 			m_isPlaying = false;
-			m_deltaTime.pause();
-		}
-	}
-
-	void Animation::countinue() {
-		if (!m_isPlaying) {
-			m_isPlaying = false;
-			m_deltaTime.resume();
+			m_deltaTime.stop();
 		}
 	}
 

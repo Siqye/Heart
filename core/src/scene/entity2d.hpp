@@ -33,7 +33,7 @@ namespace heartCore {
 
 		void impulse(maths::vec2 direction, float power);
 
-		void startAnimation(float duration, int frameCount, bool loop = false);
+		void startAnimation();
 		void stopAnimation();
 		bool isAnimationPlaying() const { return m_animState.isPlaying; }
 

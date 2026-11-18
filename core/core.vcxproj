@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -179,7 +179,6 @@
     <ClCompile Include="src\thread\jobsystem.cpp" />
     <ClCompile Include="src\utils\file_reader.cpp" />
     <ClCompile Include="src\utils\read_mash_data.cpp" />
-    <ClCompile Include="src\utils\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext\freetype-gl\freetype-gl-errdef.h" />
@@ -232,10 +231,10 @@
     <ClInclude Include="src\scene\scene2d.hpp" />
     <ClInclude Include="src\thread\jobsystem.h" />
     <ClInclude Include="src\utils\char_loader.h" />
+    <ClInclude Include="src\utils\cxxtimer.hpp" />
     <ClInclude Include="src\utils\file_reader.hpp" />
     <ClInclude Include="src\utils\image_loader.hpp" />
     <ClInclude Include="src\utils\read_mash_data.hpp" />
-    <ClInclude Include="src\utils\timer.hpp" />
     <ClInclude Include="src\utils\sound_data_reader.hpp" />
   </ItemGroup>
   <ItemGroup>

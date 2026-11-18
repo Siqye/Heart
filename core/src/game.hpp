@@ -1,6 +1,6 @@
 #pragma once
 #include "config.h"
-#include "utils/timer.hpp"
+#include "utils/cxxtimer.hpp"
 #include "graphics/window.hpp"
 #include "graphics/sprite.hpp"
 #include "graphics/texture.hpp"
@@ -15,6 +15,8 @@
 #include "physics/physics.hpp"
 #include "scene/entity2d.hpp"
 #include "thread/jobsystem.h"
+#include "graphics/frameanimation.hpp"
+#include "graphics/animatedsprite.hpp"
 
 using namespace heartCore;
 using namespace graphics;
@@ -28,24 +30,23 @@ namespace heartCore {
 		Shader* m_shader;
 		LevelLayer m_mainGameLayer;
 		ColideManager2d m_physManager;
-
-		float m_playerSpeed;
 		std::string* labelText;
 
 		Label fpsLabel;
 		Label* fpsLabel_ptr;
 
-		Sprite* m_playerSprite;
+		AnimatedSprite* m_playerSprite;
 
 		Entity2d m_player;
 
 		Timer m_timer;
-		const float FIXED_TIMESTEP = 1.0f / 60.0f;
+		const unsigned long long FIXED_TIMESTEP = 1000 / 60000;
 		int m_updatesCount;
+		Timer m_deltaTimer;
 
 		threads::JobSystem m_jobSystem;
 
-		float m_accumulator;
+		unsigned long long m_accumulator;
 
 		// once per second
 		void tick();

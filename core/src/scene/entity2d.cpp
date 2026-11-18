@@ -25,8 +25,8 @@ namespace heartCore {
 	}
 
 
-	void Entity2d::startAnimation(float duration, int frameCount, bool loop) {
-		
+	void Entity2d::startAnimation() {
+		m_visualisation->startAnimation();
 	}
 
 	void Entity2d::stopAnimation() {
