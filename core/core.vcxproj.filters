@@ -75,7 +75,7 @@
     <ClCompile Include="src\graphics\packetrenderer2d.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\game.cpp">
+    <ClCompile Include="src\test.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\object3d.cpp">
@@ -236,7 +236,7 @@
     <ClInclude Include="src\utils\sound_data_reader.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\game.hpp">
+    <ClInclude Include="src\test.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\object3d.hpp">

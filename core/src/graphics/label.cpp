@@ -10,7 +10,7 @@ namespace heartCore { namespace graphics {
 		renderer->submitText(m_text, m_scale, m_position, m_color, m_font);
 	}
 
-	void Label::setScale(int scale) { m_scale = scale; }
+	void Label::setScale(int scale) { m_scale = std::move(scale); }
 	void Label::setText(std::string text) { m_text = std::move(text); }
-	void Label::setFont(Font* font) { m_font = *font; }
+	void Label::setFont(Font font) { m_font = std::move(font); }
 } }

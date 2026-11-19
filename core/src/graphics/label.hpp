@@ -16,6 +16,6 @@ namespace heartCore { namespace graphics {
 
 		void setScale(int scale);
 		void setText(std::string text);
-		void setFont(Font* font);
+		void setFont(Font font);
 	};
 } }

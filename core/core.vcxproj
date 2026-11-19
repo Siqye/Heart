@@ -143,7 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\test.cpp" />
     <ClCompile Include="src\audio\sound.cpp" />
     <ClCompile Include="src\audio\speaker.cpp" />
     <ClCompile Include="src\audio\wavfile.cpp" />
@@ -195,7 +195,7 @@
     <ClInclude Include="src\audio\speaker.hpp" />
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
-    <ClInclude Include="src\game.hpp" />
+    <ClInclude Include="src\test.hpp" />
     <ClInclude Include="src\graphics\animatedsprite.hpp" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
     <ClInclude Include="src\graphics\font.hpp" />

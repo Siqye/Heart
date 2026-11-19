@@ -1,7 +1,7 @@
 //#define TEST3D
 
 #ifndef TEST3D
-#include "src/game.hpp"
+#include "src/test.hpp"
 
 int main()
 {
