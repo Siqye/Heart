@@ -1,4 +1,5 @@
 #include "label.hpp"
+#include <utility>
 
 namespace heartCore { namespace graphics {
 	Label::Label(std::string labelText, int scale, float x, float y, maths::vec4 color, Font font)
@@ -10,5 +11,6 @@ namespace heartCore { namespace graphics {
 	}
 
 	void Label::setScale(int scale) { m_scale = scale; }
+	void Label::setText(std::string text) { m_text = std::move(text); }
 	void Label::setFont(Font* font) { m_font = *font; }
 } }

@@ -12,7 +12,7 @@ namespace heartCore {
 	protected:
 		std::vector<Entity2d*> m_objects;
 		Camera2d m_camera;
-		graphics::Shader* m_shader;
+		std::shared_ptr<graphics::Shader> m_shader;
 		graphics::Window* m_window;
 		
 		graphics::LevelLayer m_graphicLayer;

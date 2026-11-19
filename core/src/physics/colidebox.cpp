@@ -2,37 +2,37 @@
 #include <cmath>
 
 namespace heartCore { namespace physics {
-	ColideBox2d::ColideBox2d(maths::vec2* position, maths::vec2* size, float weight, float maxSpeed = 0.0f) 
+	ColideBox2d::ColideBox2d(maths::vec2& position, maths::vec2& size, float weight, float maxSpeed)
 		: 
 		min(position), 
 		size(size),
-		max(*position + *size),
+		max(position + size),
 		speed(maths::vec2(0.0f, 0.0f)),
 		weight(weight),
 		maxSpeed(maxSpeed)
 	{}
 
-	void ColideBox2d::calculateAABB(ColideBox2d* other) {
-		if (other->max.x >= this->min->x || other->max.x <= this->min->x) {
-			float intermidX = other->speed.x;
-			other->speed.x = this->speed.x;
+	void ColideBox2d::calculateAABB(ColideBox2d& other) {
+		if (other.max.x >= this->min.x || other.max.x <= this->min.x) {
+			float intermidX = other.speed.x;
+			other.speed.x = this->speed.x;
 			this->speed.x = intermidX;
 		}
 
-		if (other->min->y >= this->max.y || other->max.y <= this->min->y) {
-			float intermidY = other->speed.y;
-			other->speed.y = this->speed.y;
+		if (other.min.y >= this->max.y || other.max.y <= this->min.y) {
+			float intermidY = other.speed.y;
+			other.speed.y = this->speed.y;
 			this->speed.y = intermidY;
 		}
 	}
 
-	void ColideBox2d::calculateOBB(ColideBox2d* other) {}
+	void ColideBox2d::calculateOBB(ColideBox2d& other) {}
 
-	bool ColideBox2d::checkPotential(ColideBox2d* other) {
+	bool ColideBox2d::checkPotential(ColideBox2d& other) {
 		// change magic number to variable or constant
-		if (this->min->x - POTENTIAL_LENGHT >= other->max.x || this->max.x + POTENTIAL_LENGHT >= other->min->x)
+		if (this->min.x - POTENTIAL_LENGHT >= other.max.x || this->max.x + POTENTIAL_LENGHT >= other.min.x)
 			return true;
-		if (this->min->y - POTENTIAL_LENGHT >= other->max.y || this->max.y + POTENTIAL_LENGHT >= other->min->y)
+		if (this->min.y - POTENTIAL_LENGHT >= other.max.y || this->max.y + POTENTIAL_LENGHT >= other.min.y)
 			return true;
 
 		return false;
@@ -64,9 +64,9 @@ namespace heartCore { namespace physics {
 	}
 
 	void ColideBox2d::update() {
-		*this->min += speed;
+		this->min += speed;
 
-		this->max = *min + *size;
+		this->max = min + size;
 
 		this->speed.x -= MEDIUM_DENSITY_FLOAT * speed.x * std::abs(speed.x);
 		this->speed.y -= MEDIUM_DENSITY_FLOAT * speed.y * std::abs(speed.y);

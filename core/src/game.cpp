@@ -4,21 +4,26 @@
 namespace heartCore {
 	Game::Game(int windowWidth, int windowHeight, const char* windowTitle) 
 		:
-		m_window(new Window(windowWidth, windowHeight, windowTitle)),
-		m_shader(new Shader("src/shader/basic.vert", "src/shader/basic.frag")),
+		m_window(std::make_unique<Window>(windowWidth, windowHeight, windowTitle)),
+		m_shader(std::make_shared<Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
 		m_physManager(),
-		m_playerSprite(new AnimatedSprite(1, 1, 5, 5, {new Texture("test/test1.png"),new Texture("test/test2.png"), new Texture("test/test3.png")})),
-		m_player(m_playerSprite, new physics::ColideBox2d(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
+		m_playerSprite(std::make_shared<AnimatedSprite>(
+			1.0, 1.0, 5.0, 5.0,
+			std::vector<std::shared_ptr<Texture>>{
+				std::make_shared<Texture>("test/test1.png"),
+				std::make_shared<Texture>("test/test2.png"),
+				std::make_shared<Texture>("test/test3.png")
+			}
+		)),
+		m_player(m_playerSprite, std::make_shared<physics::ColideBox2d>(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
 		m_jobSystem(),
 		m_accumulator(0.0f),
-		fpsLabel(Label("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")))
+		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")))
 	{
 
 		m_mainGameLayer.add(m_playerSprite);
-		fpsLabel_ptr = &fpsLabel;
-
-		m_mainGameLayer.add(fpsLabel_ptr);
+		m_mainGameLayer.add(fpsLabel);
 	}
 
 	// once per second
@@ -87,7 +92,7 @@ namespace heartCore {
 			if (m_timer.count<std::chrono::seconds>() >= 1) {
 				tick();
 				labelText = std::to_string(fps) + " fps";
-				fpsLabel = Label(labelText, 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"));
+				fpsLabel->setText(labelText);
 				fps = 0;
 				m_timer.reset();
 				m_timer.start();

@@ -17,6 +17,7 @@
 #include "thread/jobsystem.h"
 #include "graphics/frameanimation.hpp"
 #include "graphics/animatedsprite.hpp"
+#include <memory>
 
 using namespace heartCore;
 using namespace graphics;
@@ -26,16 +27,13 @@ using namespace physics;
 namespace heartCore {
 	class Game {
 	private:
-		Window* m_window;
-		Shader* m_shader;
+		std::unique_ptr<Window> m_window;
+		std::shared_ptr<Shader> m_shader;
 		LevelLayer m_mainGameLayer;
 		ColideManager2d m_physManager;
-		std::string* labelText;
+		std::shared_ptr<Label> fpsLabel;
 
-		Label fpsLabel;
-		Label* fpsLabel_ptr;
-
-		AnimatedSprite* m_playerSprite;
+		std::shared_ptr<AnimatedSprite> m_playerSprite;
 
 		Entity2d m_player;
 

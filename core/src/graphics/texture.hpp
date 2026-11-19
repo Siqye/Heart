@@ -1,11 +1,12 @@
 #pragma once
 #include <glew.h>
 #include "../utils/image_loader.hpp"
+#include <string>
 
 namespace heartCore { namespace graphics {
 	class Texture {
 	private:
-		const char* m_texturePath;
+		std::string m_texturePath;
 		GLsizei m_width, m_height;
 		GLuint m_texID;
 

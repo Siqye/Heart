@@ -1,5 +1,6 @@
 #include "../maths/maths.hpp"
 #include "physlayer.hpp"
+#include <memory>
 
 // matches lenght between vertecies to mark them as potential colide
 #define POTENTIAL_CONSTANT_FLOAT 3.0f
@@ -9,7 +10,7 @@
 namespace heartCore { namespace physics {
 	class ColideManager2d {
 	private:
-		std::vector<PhysLayer*> layers;
+		std::vector<std::shared_ptr<PhysLayer>> layers;
 
 		void checkPotential();
 		void calculatePotential();
@@ -18,8 +19,8 @@ namespace heartCore { namespace physics {
 		ColideManager2d();
 		~ColideManager2d();
 
-		void addLayer(PhysLayer* layer = new PhysLayer);
-		void addBox(ColideBox2d* object, int layerID = 0);
+		void addLayer(std::shared_ptr<PhysLayer> layer = std::make_shared<PhysLayer>());
+		void addBox(std::shared_ptr<ColideBox2d> object, int layerID = 0);
 		void update();
 	};
 } }

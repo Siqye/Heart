@@ -5,7 +5,7 @@ namespace heartCore { namespace graphics {
 		: StaticSprite(maths::vec2(x, y), maths::vec2(width, height), color)
 	{ }
 
-	Sprite::Sprite(double x, double y, double width, double height, Texture* texture)
+	Sprite::Sprite(double x, double y, double width, double height, std::shared_ptr<Texture> texture)
 		: StaticSprite(maths::vec2(x , y), maths::vec2(width, height), texture)
 	{ }
 } }

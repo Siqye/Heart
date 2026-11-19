@@ -1,6 +1,7 @@
 #pragma once
 #include "../utils/cxxtimer.hpp"
 #include "staticsprite.hpp"
+#include <memory>
 
 namespace heartCore { namespace graphics {
 	class Animation {
@@ -18,11 +19,11 @@ namespace heartCore { namespace graphics {
 		//float m_uvOffsetY;
 
 		//std::vector<maths::vec2> m_coords;
-		Texture* m_currentFrameTexture;
-		std::vector<Texture*> m_frames;
+		std::shared_ptr<Texture> m_currentFrameTexture;
+		std::vector<std::shared_ptr<Texture>> m_frames;
 
 	public:
-		Animation(std::vector<Texture*> frames, unsigned long long duration, bool looping);
+		Animation(std::vector<std::shared_ptr<Texture>> frames, unsigned long long duration, bool looping);
 		// бля потом решить как это сделать по человечесик
 		//Animation(Texture* texture, std::vector<maths::vec2> frameStarts, float offsetX, float offsetY, float duration, bool looping = false);
 
@@ -35,7 +36,7 @@ namespace heartCore { namespace graphics {
 		
 		inline const bool& isPlaying() { return m_isPlaying; }
 		inline const bool& isLooping() { return m_looping; }
-		inline Texture* getCurrentTexture() { return m_currentFrameTexture; }
+		inline std::shared_ptr<Texture> getCurrentTexture() { return m_currentFrameTexture; }
 		inline const unsigned long long getDurationTime() { return m_duration; }
 	};
 } }

@@ -1,20 +1,35 @@
 #include "entity2d.hpp"
+#include <stdexcept>
+
+namespace {
+	heartCore::maths::vec2& requirePosition(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
+		if (!visual)
+			throw std::invalid_argument("Entity2d requires a visualisation");
+		return visual->position;
+	}
+
+	heartCore::maths::vec2& requireSize(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
+		if (!visual)
+			throw std::invalid_argument("Entity2d requires a visualisation");
+		return visual->size;
+	}
+}
 
 namespace heartCore {
-	Entity2d::Entity2d(graphics::StaticSprite* visual, physics::ColideBox2d* hitBox)
+	Entity2d::Entity2d(std::shared_ptr<graphics::StaticSprite> visual, std::shared_ptr<physics::ColideBox2d> hitBox)
 		: m_visualisation(visual),
-		m_hitBox(hitBox)
+		m_hitBox(hitBox),
+		m_position(requirePosition(visual)),
+		m_size(requireSize(visual))
 	{ 
-		m_position = m_visualisation->position;
-		m_size = m_visualisation->size;
+		if (!m_hitBox)
+			throw std::invalid_argument("Entity2d requires a hitbox");
 	}
 
 	void Entity2d::update() {
 		// added: updating before sync
 		m_hitBox->update();
 		// added: sync
-		m_visualisation->position = m_position;
-
 		m_visualisation->update();
 	}
 

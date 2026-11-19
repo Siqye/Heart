@@ -10,7 +10,7 @@ namespace heartCore { namespace graphics {
 		Timer m_deltaTimer;
 		unsigned long long m_timeStep;
 	public:
-		AnimatedSprite(double x, double y, double width, double height, std::vector<Texture*> frames);
+		AnimatedSprite(double x, double y, double width, double height, std::vector<std::shared_ptr<Texture>> frames);
 
 		void startAnimation() override;
 		void stopAnimation() override;

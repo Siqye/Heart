@@ -3,7 +3,7 @@
 namespace heartCore {
 	Scene2d::Scene2d(graphics::Window* window)
 		: m_window(window),
-		m_shader(new graphics::Shader("src/shader/basic.vert", "src/shader/basic.frag")),
+		m_shader(std::make_shared<graphics::Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_graphicLayer(m_shader)
 	{}
 

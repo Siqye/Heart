@@ -1,14 +1,14 @@
 #include "frameanimation.hpp"
 
 namespace heartCore { namespace graphics{
-	Animation::Animation(std::vector<Texture*> frames, unsigned long long duration_ms, bool looping)
+	Animation::Animation(std::vector<std::shared_ptr<Texture>> frames, unsigned long long duration_ms, bool looping)
 		: m_isPlaying(false), m_looping(looping), m_frameCount(frames.size()),
-		 m_currentFrame(-1), m_duration(duration_ms), m_frames(std::move(frames))
+		 m_currentFrame(-1), m_duration(duration_ms), m_currentFrameTexture(nullptr), m_frames(std::move(frames))
 	{ }
 	
 
 	void Animation::play() {
-		if (!m_isPlaying) {
+		if (!m_isPlaying && !m_frames.empty()) {
 			m_isPlaying = true;
 			m_deltaTime.start();
 		}
@@ -23,6 +23,11 @@ namespace heartCore { namespace graphics{
 
 
 	void Animation::nextSprite() {
+		if (m_frames.empty()) {
+			reset();
+			return;
+		}
+
 		++m_currentFrame;
 
 		if (m_currentFrame >= m_frameCount) {

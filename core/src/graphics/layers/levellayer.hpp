@@ -4,7 +4,7 @@
 namespace heartCore { namespace graphics {
 	class LevelLayer : public Layer {
 	public:
-		LevelLayer(Shader* shader);
+		LevelLayer(std::shared_ptr<Shader> shader);
 		~LevelLayer() = default;
 	};
 } }

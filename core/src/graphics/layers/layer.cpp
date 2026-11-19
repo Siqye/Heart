@@ -1,9 +1,12 @@
 #include "layer.hpp"
+#include <stdexcept>
 
 namespace heartCore {namespace graphics {
-	Layer::Layer(Shader* shader, Renderer2D* renderer, maths::mat4 projectionMatrix)
+	Layer::Layer(std::shared_ptr<Shader> shader, std::shared_ptr<Renderer2D> renderer, maths::mat4 projectionMatrix)
 		: m_shader(shader), m_renderer(renderer), m_projectionMatrix(projectionMatrix)
 	{
+		if (!m_shader || !m_renderer)
+			throw std::invalid_argument("Layer requires a shader and renderer");
 		shader->bind();
 		int textureIDs[] = {
 			 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -22,17 +25,20 @@ namespace heartCore {namespace graphics {
 		//delete m_shader;
 	} /*TODO: FIX LAYER DESCTRUCTOR*/
 
-	void Layer::add(StaticSprite* sprite) {
-		m_sprites.push_back(sprite);
+	void Layer::add(std::shared_ptr<StaticSprite> sprite) {
+		if (sprite)
+			m_sprites.push_back(std::move(sprite));
 	}
 
 	void Layer::render() {
+		if (!m_shader || !m_renderer)
+			return;
 		m_shader->bind();
 		m_shader->setUniformMat4f("projection", m_projectionMatrix);
 		m_renderer->begin();
 
-		for (const StaticSprite* sprite : m_sprites)
-			sprite->submit(m_renderer);
+		for (const auto& sprite : m_sprites)
+			sprite->submit(m_renderer.get());
 
 		m_renderer->end();
 		m_renderer->draw();

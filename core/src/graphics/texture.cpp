@@ -7,7 +7,7 @@ namespace heartCore { namespace graphics {
 	{ m_texID = load(); }
 
 	GLuint Texture::load() {
-		BYTE* pixels = load_image(m_texturePath, &m_width, &m_height);
+		BYTE* pixels = load_image(m_texturePath.c_str(), &m_width, &m_height);
 		GLuint result;
 
 		glGenTextures(1, &result);
@@ -22,8 +22,7 @@ namespace heartCore { namespace graphics {
 		return result;
 	}
 
-	Texture::~Texture() { 
-		delete m_texturePath;
+	Texture::~Texture() {
 		glDeleteTextures(1, &m_texID);
 	}
 

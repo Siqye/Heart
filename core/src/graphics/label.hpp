@@ -15,6 +15,7 @@ namespace heartCore { namespace graphics {
 		void submit(Renderer2D* renderer) const override;
 
 		void setScale(int scale);
+		void setText(std::string text);
 		void setFont(Font* font);
 	};
 } }

@@ -7,20 +7,20 @@ namespace heartCore { namespace physics {
 	ColideManager2d::~ColideManager2d() { }
 
 	void ColideManager2d::checkPotential() {
-		for (int i = 0; i < layers.size(); i++) {
-			layers[i]->checkPotential();
+		for (const auto& layer : layers) {
+			if (layer) layer->checkPotential();
 		}
 	}
 
 	void ColideManager2d::calculatePotential() {
-		for (int i = 0; i < layers.size(); i++) {
-			layers[i]->calculatePotential();
+		for (const auto& layer : layers) {
+			if (layer) layer->calculatePotential();
 		}
 	}
 
 	void ColideManager2d::updateObjects() {
-		for (int i = 0; i < layers.size(); i++) {
-			layers[i]->update();
+		for (const auto& layer : layers) {
+			if (layer) layer->update();
 		}
 	}
 
@@ -31,12 +31,14 @@ namespace heartCore { namespace physics {
 	}
 
 
-	void ColideManager2d::addLayer(PhysLayer* layer) {
-		layers.push_back(layer);
+	void ColideManager2d::addLayer(std::shared_ptr<PhysLayer> layer) {
+		if (layer) layers.push_back(std::move(layer));
 	}
 
-	void ColideManager2d::addBox(ColideBox2d* object, int layerID) {
-		layers[layerID]->addObject(object);
+	void ColideManager2d::addBox(std::shared_ptr<ColideBox2d> object, int layerID) {
+		if (!object || layerID < 0 || static_cast<size_t>(layerID) >= layers.size() || !layers[layerID])
+			return;
+		layers[layerID]->addObject(std::move(object));
 	}
 
 } }

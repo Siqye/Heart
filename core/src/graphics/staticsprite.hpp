@@ -3,6 +3,7 @@
 #include "renderer2d.hpp"
 #include "texture.hpp"
 #include <vector>
+#include <memory>
 #include <glew.h>
 
 namespace heartCore {
@@ -28,10 +29,10 @@ namespace heartCore {
 			maths::vec2 m_size;
 			maths::vec4 m_color;
 			std::vector<maths::vec2> m_texCoords;
-			Texture* m_texture;
+		std::shared_ptr<Texture> m_texture;
 		public:
-			maths::vec2* size = &m_size;
-			maths::vec2* position = &m_position;
+			maths::vec2& size = m_size;
+			maths::vec2& position = m_position;
 
 			StaticSprite() : m_texture(nullptr) { setTC(); }
 			StaticSprite(maths::vec2 position, maths::vec2 size, maths::vec4 color)
@@ -40,7 +41,7 @@ namespace heartCore {
 				setTC();
 			}
 
-			StaticSprite(maths::vec2 position, maths::vec2 size, Texture* texture)
+			StaticSprite(maths::vec2 position, maths::vec2 size, std::shared_ptr<Texture> texture)
 				: m_position(position), m_size(size), m_color(maths::vec4(1, 1, 1, 1)),
 				m_texture(texture)
 			{
