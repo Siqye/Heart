@@ -16,6 +16,8 @@ namespace heartCore { namespace graphics {
 		void stopAnimation() override;
 
 		void update() override;
+
+		inline const bool& isPlaying() { return m_animation.isPlaying(); }
 	};
 
 } }

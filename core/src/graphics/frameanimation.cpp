@@ -23,18 +23,22 @@ namespace heartCore { namespace graphics{
 
 
 	void Animation::nextSprite() {
-		m_currentFrame++;
-		if (m_currentFrame > m_frameCount) {
-			m_currentFrame = 0;
+		++m_currentFrame;
+
+		if (m_currentFrame >= m_frameCount) {
 			if (!m_looping) {
 				reset();
+				return;
 			}
+
+			m_currentFrame = 0;
 		}
+
 		m_currentFrameTexture = m_frames[m_currentFrame];
 	}
 	
 	void Animation::reset() {
-		m_currentFrameTexture = nullptr;
+		m_currentFrameTexture = m_frames.empty() ? nullptr : m_frames[0];
 		m_currentFrame = -1;
 
 		m_isPlaying = false;

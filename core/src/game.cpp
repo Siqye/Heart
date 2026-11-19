@@ -28,23 +28,26 @@ namespace heartCore {
 	// 60 times per second
 	void Game::update() {
 		if (m_window->isKeyPressed(GLFW_KEY_W)) {
-			m_player.startAnimation();
 			m_player.impulse(maths::vec2(0, 1), 0.05f);
 		}
 		else if (m_window->isKeyPressed(GLFW_KEY_S)) {
-			m_player.startAnimation();
 			m_player.impulse(maths::vec2(0, -1), 0.05f);
 		}
 		if (m_window->isKeyPressed(GLFW_KEY_D)) {
-			m_player.startAnimation();
 			m_player.impulse(maths::vec2(1, 0), 0.05f);
 		}
 		else if (m_window->isKeyPressed(GLFW_KEY_A)) {
-			m_player.startAnimation();
 			m_player.impulse(maths::vec2(-1, 0), 0.05f);
 		}
-		else {
-			//m_player.stopAnimation();
+		
+		if (m_window->isKeyPressed(GLFW_KEY_W) ||
+			m_window->isKeyPressed(GLFW_KEY_S) ||
+			m_window->isKeyPressed(GLFW_KEY_D) ||
+			m_window->isKeyPressed(GLFW_KEY_A)) {
+			if (!m_playerSprite->isPlaying())
+				m_player.startAnimation();
+		} else {
+			m_player.stopAnimation();
 		}
 
 		m_jobSystem.run([this]() {

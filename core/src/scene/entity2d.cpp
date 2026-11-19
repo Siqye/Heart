@@ -14,6 +14,8 @@ namespace heartCore {
 		m_hitBox->update();
 		// added: sync
 		m_visualisation->position = m_position;
+
+		m_visualisation->update();
 	}
 
 	void Entity2d::tick() {}
