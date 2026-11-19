@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\logger\logger.cpp" />
     <ClCompile Include="src\test.cpp" />
     <ClCompile Include="src\audio\sound.cpp" />
     <ClCompile Include="src\audio\speaker.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="src\audio\speaker.hpp" />
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\logger\logger.hpp" />
     <ClInclude Include="src\test.hpp" />
     <ClInclude Include="src\graphics\animatedsprite.hpp" />
     <ClInclude Include="src\graphics\fontmanager.hpp" />
