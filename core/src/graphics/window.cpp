@@ -1,4 +1,5 @@
 #include "window.hpp"
+#include "../logger/logger.hpp"
 
 namespace heartCore { namespace graphics {
 
@@ -44,7 +45,7 @@ namespace heartCore { namespace graphics {
 	{
 		if (!glfwInit()) 
 		{
-			std::cout << "Failed to initialize GLFW" << std::endl;
+			LOG_FATAL("GLFW initialization error");
 			return false;
 		}
 
@@ -55,7 +56,7 @@ namespace heartCore { namespace graphics {
 		m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
 
 		if (!m_window) {
-			std::cout << "Failed to create window" << std::endl;
+			LOG_FATAL("Failed to create window");
 			return false;
 		}
 
@@ -68,7 +69,7 @@ namespace heartCore { namespace graphics {
 		glfwMakeContextCurrent(m_window);
 
 		if (glewInit() != GLEW_OK) {
-			std::cout << "Failed to initialize GLEW" << std::endl;
+			LOG_FATAL("Failed to initalaze GLEW");
 			return false;
 		}
 

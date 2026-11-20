@@ -3,18 +3,17 @@
 #include <fstream>
 #include <string>
 
-#define LOG_DEBUG(msg)      Logger::Log(LogLevel::DEBUG, msg);
-#define LOG_INFO(msg)       Logger::Log(LogLevel::INFO, msg);
-#define LOG_WARNING(msg)    Logger::Log(LogLevel::WARNING, msg);
-#define LOG_ERROR(msg)      Logger::Log(LogLevel::ERROR, msg);
-#define LOG_FATAL(msg)      Logger::Log(LogLevel::FATAL, msg);
+#define LOG_DEBUG(msg)      Logger::Get().log(LogLevel::DEBUG, msg);
+#define LOG_INFO(msg)       Logger::Get().log(LogLevel::INFO, msg);
+#define LOG_WARNING(msg)    Logger::Get().log(LogLevel::WARNING, msg);
+#define LOG_ERROR(msg)      Logger::Get().log(LogLevel::lERROR, msg);
+#define LOG_FATAL(msg)      Logger::Get().log(LogLevel::FATAL, msg);
 
-enum class LogLevel
-{
+enum class LogLevel {
     DEBUG = 0,
     INFO,
     WARNING,
-    ERROR,
+    lERROR,
     FATAL
 };
 

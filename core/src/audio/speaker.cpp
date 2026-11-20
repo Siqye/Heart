@@ -1,18 +1,17 @@
 #include "speaker.hpp"
-#include <stdio.h>
-#include <iostream>
+#include "../logger/logger.hpp"
 
 namespace heartCore { namespace audio {
 	Speaker::Speaker() {
 		m_device = alcOpenDevice(nullptr);
 		if (!m_device) {
-			std::cout << "Failed to open default OpenAL device\n";
+			LOG_ERROR("Failed to open default audio device");
 			return;
 		}
 
 		m_context = alcCreateContext(m_device, nullptr);
 		if (!m_context) {
-			std::cerr << "Failed to create OpenAL context\n";
+			LOG_ERROR("Failed to create OpenAL context");
 			alcCloseDevice(m_device);
 			return;
 		}

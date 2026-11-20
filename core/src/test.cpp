@@ -1,5 +1,5 @@
 #include "test.hpp"
-#include <iostream>
+#include "logger/logger.hpp"
 
 namespace heartCore {
 	Game::Game(int windowWidth, int windowHeight, const char* windowTitle)
@@ -31,6 +31,8 @@ namespace heartCore {
 		m_mainGameLayer.add(fpsLabel);
 		m_mainGameLayer.add(m_huesosSprite);
 		m_mainGameLayer.add(upsLabel);
+
+		LOG_INFO("Engine succefuly started!");
 	}
 
 	// once per second

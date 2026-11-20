@@ -50,7 +50,7 @@ const char* Logger::levelToString(LogLevel level) const
     case LogLevel::DEBUG:   return "DEBUG";
     case LogLevel::INFO:    return "INFO";
     case LogLevel::WARNING: return "WARNING";
-    case LogLevel::ERROR:   return "ERROR";
+    case LogLevel::lERROR:   return "ERROR";
     case LogLevel::FATAL:   return "FATAL";
     default:               return "UNKNOWN";
     }
