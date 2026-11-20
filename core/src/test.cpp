@@ -17,12 +17,14 @@ namespace heartCore {
 				std::make_shared<Texture>("test/test3.png")
 			}
 		)),
-		m_huesosSprite(std::make_shared<Sprite>(10.0, 10.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
-		m_player(m_playerSprite, std::make_shared<physics::ColideBox2d>(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
+		m_huesosSprite(std::make_shared<Sprite>(6.0, 6.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
+		m_huesosBox(std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f)),
+		m_playerBox(std::make_shared<ColideBox2d>(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
+		m_player(m_playerSprite, m_playerBox),
 		m_jobSystem(),
 		m_accumulator(0.0f),
 		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"))),
-		m_huesos(m_huesosSprite, std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f))
+		m_huesos(m_huesosSprite, m_huesosBox)
 	{
 
 		m_mainGameLayer.add(m_playerSprite);
@@ -61,6 +63,7 @@ namespace heartCore {
 
 		m_jobSystem.run([this]() {
 			m_player.update();
+			m_playerBox->calculateAABB(*m_huesosBox);
 			m_huesos.update();
 		});
 	}

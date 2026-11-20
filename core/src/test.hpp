@@ -36,6 +36,9 @@ namespace heartCore {
 		std::shared_ptr<AnimatedSprite> m_playerSprite;
 		std::shared_ptr<Sprite> m_huesosSprite;
 
+		std::shared_ptr<ColideBox2d> m_huesosBox;
+		std::shared_ptr<ColideBox2d> m_playerBox;
+
 		Entity2d m_player;
 		Entity2d m_huesos;
 

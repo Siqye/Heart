@@ -12,17 +12,18 @@ namespace heartCore { namespace physics {
 		maxSpeed(maxSpeed)
 	{}
 
+	// todo переделать эту залупу
 	void ColideBox2d::calculateAABB(ColideBox2d& other) {
-		if (other.max.x >= this->min.x || other.max.x <= this->min.x) {
-			float intermidX = other.speed.x;
+		if (other.max.x <= this->min.x || other.max.x >= this->min.x) {
+			float tempX = other.speed.x;
 			other.speed.x = this->speed.x;
-			this->speed.x = intermidX;
+			this->speed.x = tempX;
 		}
 
-		if (other.min.y >= this->max.y || other.max.y <= this->min.y) {
-			float intermidY = other.speed.y;
+		if (other.min.y <= this->max.y || other.max.y >= this->min.y) {
+			float tempY = other.speed.y;
 			other.speed.y = this->speed.y;
-			this->speed.y = intermidY;
+			this->speed.y = tempY;
 		}
 	}
 
