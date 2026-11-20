@@ -45,7 +45,7 @@ namespace heartCore {
 		std::shared_ptr<Label> upsLabel;
 
 		Timer m_timer;
-		const unsigned long long FIXED_TIMESTEP = 1000 / 60;
+		const unsigned long long FIXED_TIMESTEP = 1000000 / 60;
 		Timer m_deltaTimer;
 
 		threads::JobSystem m_jobSystem;

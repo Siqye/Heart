@@ -12,7 +12,6 @@ namespace heartCore { namespace physics {
 		maxSpeed(maxSpeed)
 	{}
 
-	// todo переделать эту залупу
 	void ColideBox2d::calculateAABB(ColideBox2d& other) {
 		if (this->min.x < other.max.x && this->max.x > other.min.x &&
 			this->min.y < other.max.y && this->max.y > other.min.y) {

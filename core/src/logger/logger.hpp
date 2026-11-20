@@ -1,46 +1,39 @@
 #pragma once
-#include <string>
-#include <format>
+
 #include <fstream>
-#include <mutex>
-#include <queue>
-#include <string_view>
-#include <condition_variable>
+#include <string>
 
-namespace heartCore {
-    enum class LogLevel {
-        Trace,
-        Debug,
-        Info,
-        Warn,
-        Error,
-        Fatal
-    };
+#define LOG_DEBUG(msg)      Logger::Log(LogLevel::DEBUG, msg);
+#define LOG_INFO(msg)       Logger::Log(LogLevel::INFO, msg);
+#define LOG_WARNING(msg)    Logger::Log(LogLevel::WARNING, msg);
+#define LOG_ERROR(msg)      Logger::Log(LogLevel::ERROR, msg);
+#define LOG_FATAL(msg)      Logger::Log(LogLevel::FATAL, msg);
 
-    struct LogEntry {
-        LogLevel level;
-        std::string message;
-    };
+enum class LogLevel
+{
+    DEBUG = 0,
+    INFO,
+    WARNING,
+    ERROR,
+    FATAL
+};
 
-	class Logger {
-    private:
-        std::string m_stringBuffer;
-        LogLevel m_minLevel;
-        const char* m_filePath;
-        std::condition_variable m_condtionVar;
-        std::mutex m_mutex;
-        std::queue<LogEntry> m_logQueue;
+class Logger
+{
+public:
+    static Logger& Get();
 
-    public:
-        Logger(const char* logFilePath, LogLevel minLevel = LogLevel::Trace);
-        ~Logger();
+    void setMinLevel(LogLevel level);
 
-        void init();
+    void log(LogLevel level, const std::string& message);
 
-        void log(LogEntry entry);
-        void flush();
+private:
+    Logger();
+    ~Logger();
 
-    private:
-        std::string levelToString(LogLevel level);
-	};
-}
+    const char* levelToString(LogLevel level) const;
+
+private:
+    std::ofstream m_File;
+    LogLevel m_MinLevel = LogLevel::DEBUG;
+};

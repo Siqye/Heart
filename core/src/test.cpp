@@ -85,7 +85,7 @@ namespace heartCore {
 			//deltaTimer.reset();
 			m_deltaTimer.start();
 			
-			if (m_deltaTimer.count<std::chrono::milliseconds>() >= FIXED_TIMESTEP) {
+			if (m_deltaTimer.count<std::chrono::microseconds>() >= FIXED_TIMESTEP) {
 				m_jobSystem.run([this]() {
 					update();
 				});
