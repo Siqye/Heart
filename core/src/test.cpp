@@ -9,7 +9,7 @@ namespace heartCore {
 		m_mainGameLayer(m_shader),
 		m_physManager(),
 		m_playerSprite(std::make_shared<AnimatedSprite>(
-				1.0, 1.0, 5.0, 5.0,
+				25.0, 10.0, 5.0, 5.0,
 				std::vector<std::shared_ptr<Texture>>
 			{
 				std::make_shared<Texture>("test/test1.png"),
@@ -17,19 +17,20 @@ namespace heartCore {
 				std::make_shared<Texture>("test/test3.png")
 			}
 		)),
-		m_huesosSprite(std::make_shared<Sprite>(6.0, 6.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
+		m_huesosSprite(std::make_shared<Sprite>(10.0, 10.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
 		m_huesosBox(std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f)),
 		m_playerBox(std::make_shared<ColideBox2d>(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
 		m_player(m_playerSprite, m_playerBox),
 		m_jobSystem(),
-		m_accumulator(0.0f),
 		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"))),
+		upsLabel(std::make_shared<Label>("0 ups", 10, 0.1f, 28.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"))),
 		m_huesos(m_huesosSprite, m_huesosBox)
 	{
 
 		m_mainGameLayer.add(m_playerSprite);
 		m_mainGameLayer.add(fpsLabel);
 		m_mainGameLayer.add(m_huesosSprite);
+		m_mainGameLayer.add(upsLabel);
 	}
 
 	// once per second
@@ -38,6 +39,9 @@ namespace heartCore {
 	}
 	// 60 times per second
 	void Game::update() {
+		ups++;
+		
+
 		if (m_window->isKeyPressed(GLFW_KEY_W)) {
 			m_player.impulse(maths::vec2(0, 1), 0.05f);
 		}
@@ -78,18 +82,15 @@ namespace heartCore {
 		m_timer.start();
 
 		while (m_window->close()) {
-			unsigned long long deltaTime = m_deltaTimer.count<std::chrono::seconds>();
 			//deltaTimer.reset();
 			m_deltaTimer.start();
-
-			m_accumulator += deltaTime;
 			
-			if (m_accumulator >= FIXED_TIMESTEP) {
+			if (m_deltaTimer.count<std::chrono::milliseconds>() >= FIXED_TIMESTEP) {
 				m_jobSystem.run([this]() {
 					update();
 				});
-				
-				m_accumulator -= FIXED_TIMESTEP;
+
+				m_deltaTimer.reset();
 			}
 
 			m_window->clear();
@@ -102,6 +103,8 @@ namespace heartCore {
 				labelText = std::to_string(fps) + " fps";
 				fpsLabel->setText(labelText);
 				fps = 0;
+				upsLabel->setText(std::to_string(ups) + " ups");
+				ups = 0;
 				m_timer.reset();
 				m_timer.start();
 			}

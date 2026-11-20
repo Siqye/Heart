@@ -41,15 +41,14 @@ namespace heartCore {
 
 		Entity2d m_player;
 		Entity2d m_huesos;
+		int ups;
+		std::shared_ptr<Label> upsLabel;
 
 		Timer m_timer;
-		const unsigned long long FIXED_TIMESTEP = 1000 / 60000;
-		int m_updatesCount;
+		const unsigned long long FIXED_TIMESTEP = 1000 / 60;
 		Timer m_deltaTimer;
 
 		threads::JobSystem m_jobSystem;
-
-		unsigned long long m_accumulator;
 
 		// once per second
 		void tick();
