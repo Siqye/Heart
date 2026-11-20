@@ -1,8 +1,8 @@
 #pragma once
 #include "../maths/maths.hpp"
 
-#define MEDIUM_DENSITY_FLOAT 0.8f
-#define MEDIUM_DENSITY_DOUBLE 0.8
+#define MEDIUM_DENSITY_FLOAT 0.3f
+#define MEDIUM_DENSITY_DOUBLE 0.3
 #define POTENTIAL_LENGHT 3.0f
 
 namespace heartCore { namespace physics {

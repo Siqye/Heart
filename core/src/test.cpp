@@ -2,28 +2,32 @@
 #include <iostream>
 
 namespace heartCore {
-	Game::Game(int windowWidth, int windowHeight, const char* windowTitle) 
+	Game::Game(int windowWidth, int windowHeight, const char* windowTitle)
 		:
 		m_window(std::make_unique<Window>(windowWidth, windowHeight, windowTitle)),
 		m_shader(std::make_shared<Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
 		m_physManager(),
 		m_playerSprite(std::make_shared<AnimatedSprite>(
-			1.0, 1.0, 5.0, 5.0,
-			std::vector<std::shared_ptr<Texture>>{
+				1.0, 1.0, 5.0, 5.0,
+				std::vector<std::shared_ptr<Texture>>
+			{
 				std::make_shared<Texture>("test/test1.png"),
 				std::make_shared<Texture>("test/test2.png"),
 				std::make_shared<Texture>("test/test3.png")
 			}
 		)),
+		m_huesosSprite(std::make_shared<Sprite>(10.0, 10.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
 		m_player(m_playerSprite, std::make_shared<physics::ColideBox2d>(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
 		m_jobSystem(),
 		m_accumulator(0.0f),
-		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf")))
+		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"))),
+		m_huesos(m_huesosSprite, std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f))
 	{
 
 		m_mainGameLayer.add(m_playerSprite);
 		m_mainGameLayer.add(fpsLabel);
+		m_mainGameLayer.add(m_huesosSprite);
 	}
 
 	// once per second
@@ -57,6 +61,7 @@ namespace heartCore {
 
 		m_jobSystem.run([this]() {
 			m_player.update();
+			m_huesos.update();
 		});
 	}
 	// unlimited per secondw

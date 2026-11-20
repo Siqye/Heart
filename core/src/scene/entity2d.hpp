@@ -41,5 +41,6 @@ namespace heartCore {
 		maths::vec2& getPosition() { return m_position; }
 		maths::vec2& getSize() { return m_size; }
 		std::shared_ptr<graphics::StaticSprite> getVisual() { return m_visualisation; }
+		std::shared_ptr<physics::ColideBox2d> getColideBox() { return m_hitBox; }
 	};
 }

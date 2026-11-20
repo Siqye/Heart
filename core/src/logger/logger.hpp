@@ -5,10 +5,11 @@
 #include <mutex>
 #include <queue>
 #include <string_view>
+#include <condition_variable>
 
 namespace heartCore {
-    enum class LogLevel : int {
-        Trace = 0,
+    enum class LogLevel {
+        Trace,
         Debug,
         Info,
         Warn,
@@ -23,11 +24,23 @@ namespace heartCore {
 
 	class Logger {
     private:
+        std::string m_stringBuffer;
+        LogLevel m_minLevel;
+        const char* m_filePath;
+        std::condition_variable m_condtionVar;
+        std::mutex m_mutex;
+        std::queue<LogEntry> m_logQueue;
+
     public:
         Logger(const char* logFilePath, LogLevel minLevel = LogLevel::Trace);
         ~Logger();
 
-        void Log(LogEntry entry);
+        void init();
+
+        void log(LogEntry entry);
         void flush();
+
+    private:
+        std::string levelToString(LogLevel level);
 	};
 }

@@ -34,8 +34,10 @@ namespace heartCore {
 		std::shared_ptr<Label> fpsLabel;
 
 		std::shared_ptr<AnimatedSprite> m_playerSprite;
+		std::shared_ptr<Sprite> m_huesosSprite;
 
 		Entity2d m_player;
+		Entity2d m_huesos;
 
 		Timer m_timer;
 		const unsigned long long FIXED_TIMESTEP = 1000 / 60000;
