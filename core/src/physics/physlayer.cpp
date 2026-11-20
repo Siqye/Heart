@@ -31,13 +31,12 @@ namespace heartCore { namespace physics {
 	}
 
 	void PhysLayer::calculatePotential() {
-		for (size_t i = 0; i < m_potential.size(); ++i) {
-		for (size_t j = i + 1; j < m_potential.size(); ++j) {
-
-			if (m_potential[i] && m_potential[j])
-				m_potential[i]->calculateAABB(*m_potential[j]);
-		
-		} }
+		std::vector<std::pair<std::shared_ptr<ColideBox2d>, std::shared_ptr<ColideBox2d>>> pairsToUpdate;
+		for (int i = 0; i - 2 < m_objects.size();i++) {
+			for (int j = i + 1; j < m_objects.size();j++) {
+				pairsToUpdate.push_back(std::pair<std::shared_ptr<ColideBox2d>, std::shared_ptr<ColideBox2d>>(m_objects[i], m_objects[j]));
+			}
+		}
 	}
 
 	void PhysLayer::update() {
