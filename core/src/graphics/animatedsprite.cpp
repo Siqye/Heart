@@ -16,6 +16,7 @@ namespace heartCore {
 			m_deltaTimer.start();
 			m_animation.play();
 		}
+
 		void AnimatedSprite::stopAnimation() {
 			m_animation.reset();
 			m_deltaTimer.reset();

@@ -13,4 +13,5 @@ namespace heartCore { namespace graphics {
 	void Label::setScale(int scale) { m_scale = std::move(scale); }
 	void Label::setText(std::string text) { m_text = std::move(text); }
 	void Label::setFont(std::string font) { m_font = std::move(font); }
+
 } }
