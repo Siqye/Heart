@@ -1,10 +1,11 @@
 #include "font.hpp"
 
-namespace heartCore {namespace graphics {
-	Font::Font(const char* fontPath) {
+namespace heartCore { namespace graphics {
+	Font::Font(const std::string& fontPath, std::string fontName) 
+		: m_filePath(fontPath), m_name(fontName)
+	{
 		m_atlas = texture_atlas_new(512,512,4);
-		m_font = texture_font_new_from_file(m_atlas, 64, fontPath);
-		//m_fontName = name;
+		m_font = texture_font_new_from_file(m_atlas, 64, fontPath.c_str());
 	}
 	
 	Font::~Font() {}

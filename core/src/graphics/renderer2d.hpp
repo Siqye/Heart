@@ -3,7 +3,7 @@
 #include <vector>
 #include "../maths/maths.hpp"
 #include <cstddef>
-#include "font.hpp"
+#include "fontmanager.hpp"
 #include "../utils/char_loader.h"
 #include "../config.h"
 
@@ -18,6 +18,8 @@ namespace heartCore { namespace graphics {
 
 		std::vector<maths::mat4> m_transformStack;
 		const maths::mat4* m_transformBack;
+
+		FontManager m_fontManager;
 	public:
 		Renderer2D() {}
 		~Renderer2D() {}
@@ -37,7 +39,7 @@ namespace heartCore { namespace graphics {
 
 		virtual void begin() {}
 		virtual void submit(const StaticSprite* sprite) = 0;
-		virtual void submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, Font font) = 0;
+		virtual void submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, const std::string& font) = 0;
 		virtual void end() {}
 		virtual void draw() = 0;
 	};

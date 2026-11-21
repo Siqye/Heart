@@ -21,9 +21,8 @@ namespace heartCore {
 		m_huesosBox(std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f)),
 		m_playerBox(std::make_shared<ColideBox2d>(m_playerSprite->position, m_playerSprite->size, 10, 2.0f)),
 		m_player(m_playerSprite, m_playerBox),
-		m_jobSystem(),
-		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"))),
-		upsLabel(std::make_shared<Label>("0 ups", 10, 0.1f, 28.0f, maths::vec4(1, 1, 1, 1), Font("test/fonts/RobotoMono.ttf"))),
+		fpsLabel(std::make_shared<Label>("0 fps", 10, 0.1f, 29.0f, maths::vec4(1, 1, 1, 1), "RobotoMono.ttf")),
+		upsLabel(std::make_shared<Label>("0 ups", 10, 0.1f, 28.0f, maths::vec4(1, 1, 1, 1), "RobotoMono.ttf")),
 		m_huesos(m_huesosSprite, m_huesosBox)
 	{
 

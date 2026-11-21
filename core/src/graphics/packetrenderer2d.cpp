@@ -11,6 +11,8 @@ namespace heartCore { 	namespace graphics {
 
 		m_indexCount = 0;
 
+		m_fontManager = FontManager("test/fonts");
+
 		glGenBuffers(1, &VBO);
 		glGenVertexArrays(1, &VAO);
 
@@ -141,9 +143,10 @@ namespace heartCore { 	namespace graphics {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void PacketRenderer::submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, Font font) {
-		texture_atlas_t* textAtlas = font.getAtlas();
-		texture_font_t* textFont = font.getFont();
+	void PacketRenderer::submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, const std::string& fontName) {
+		std::shared_ptr<Font> font = m_fontManager.getFont(fontName);
+		texture_atlas_t* textAtlas = font->getAtlas();
+		texture_font_t* textFont = font->getFont();
 		
 		bool found = false;
 		float textureSlot = 0.0f;

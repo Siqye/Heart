@@ -26,7 +26,7 @@ namespace heartCore { namespace graphics {
 
 		void submit(const StaticSprite* sprite) override;
 		void begin() override;
-		void submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, Font font);
+		void submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, const std::string& font) override;
 		void draw()	override;
 		void end() override;
 	};

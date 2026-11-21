@@ -8,14 +8,14 @@ namespace heartCore { namespace graphics {
 	private:
 		std::string m_text;
 		int m_scale;
-		Font m_font;
+		std::string m_font;
 
 	public:
-		Label(std::string labelText, int scale, float x, float y, maths::vec4 color, Font font);
+		Label(std::string labelText, int scale, float x, float y, maths::vec4 color, std::string font);
 		void submit(Renderer2D* renderer) const override;
 
 		void setScale(int scale);
 		void setText(std::string text);
-		void setFont(Font font);
+		void setFont(std::string font);
 	};
 } }

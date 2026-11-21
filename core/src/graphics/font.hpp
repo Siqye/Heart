@@ -8,11 +8,15 @@ namespace heartCore { namespace graphics {
 		texture_atlas_t* m_atlas;
 		texture_font_t* m_font;
 		
+		std::string m_name;
+		std::string m_filePath;
+		
 	public:
-		Font(const char* fontPath);
+		Font(const std::string& fontPath, std::string fontName);
 		~Font();
 
 		texture_atlas_t* getAtlas();
 		texture_font_t* getFont();
+		inline const std::string& getName() { return m_name; }
 	};
 } }

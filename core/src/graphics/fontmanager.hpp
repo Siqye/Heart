@@ -15,10 +15,10 @@ namespace heartCore { namespace graphics {
 		FontManager();
 		FontManager(const char* fontFolder);
 		~FontManager();
-
-		void loadFontFromFile(const char* fontPath);
+		
 		void loadFontsFolder(const char* folderPath);
 
 		std::shared_ptr<Font> getFontbyID(int fontID);
+		std::shared_ptr<Font> getFont(const std::string& fontName);
 	};
 } }
