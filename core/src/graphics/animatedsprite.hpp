@@ -1,6 +1,6 @@
 #pragma once
 #include "staticsprite.hpp"
-#include "frameanimation.hpp"
+#include "animation.hpp"
 #include "../utils/cxxtimer.hpp"
 
 namespace heartCore { namespace graphics {

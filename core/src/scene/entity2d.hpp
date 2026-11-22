@@ -1,5 +1,6 @@
 #pragma once
 #include "../graphics/staticsprite.hpp"
+#include "../graphics/frameanimation.hpp"
 #include "../physics/colidebox.hpp"
 #include <memory>
 

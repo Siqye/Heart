@@ -1,16 +1,16 @@
 #include "entity2d.hpp"
-#include <stdexcept>
+#include "../logger/logger.hpp"
 
 namespace {
 	heartCore::maths::vec2& requirePosition(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
 		if (!visual)
-			throw std::invalid_argument("Entity2d requires a visualisation");
+			LOG_ERROR("Entity2d requires a visualisation");
 		return visual->position;
 	}
 
 	heartCore::maths::vec2& requireSize(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
 		if (!visual)
-			throw std::invalid_argument("Entity2d requires a visualisation");
+			LOG_ERROR("Entity2d requires a visualisation");
 		return visual->size;
 	}
 }
@@ -23,10 +23,12 @@ namespace heartCore {
 		m_size(requireSize(visual))
 	{ 
 		if (!m_hitBox)
-			throw std::invalid_argument("Entity2d requires a hitbox");
+			LOG_ERROR("Entity2d requires a hitbox");
 	}
 
 	void Entity2d::update() {
+
+
 		// added: updating before sync
 		m_hitBox->update();
 		// added: sync

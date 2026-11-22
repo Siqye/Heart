@@ -29,24 +29,24 @@ namespace heartCore {
 			maths::vec2 m_size;
 			maths::vec4 m_color;
 			std::vector<maths::vec2> m_texCoords;
-		std::shared_ptr<Texture> m_texture;
+			std::shared_ptr<Texture> m_texture;
+
 		public:
 			maths::vec2& size = m_size;
 			maths::vec2& position = m_position;
 
+			void setTC(std::vector<maths::vec2> TCs) { m_texCoords = TCs; }
+			void setTexture(std::shared_ptr<Texture> texture) { m_texture = texture; }
+
 			StaticSprite() : m_texture(nullptr) { setTC(); }
 			StaticSprite(maths::vec2 position, maths::vec2 size, maths::vec4 color)
 				: m_position(position), m_size(size), m_color(color), m_texture(nullptr)
-			{
-				setTC();
-			}
+			{ setTC(); }
 
 			StaticSprite(maths::vec2 position, maths::vec2 size, std::shared_ptr<Texture> texture)
 				: m_position(position), m_size(size), m_color(maths::vec4(1, 1, 1, 1)),
 				m_texture(texture)
-			{
-				setTC();
-			}
+			{ setTC(); }
 
 			inline ~StaticSprite()
 			{ }
