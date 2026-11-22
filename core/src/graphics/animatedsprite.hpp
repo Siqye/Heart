@@ -1,14 +1,12 @@
 #pragma once
 #include "staticsprite.hpp"
-#include "animation.hpp"
+#include "frameanimation.hpp"
 #include "../utils/cxxtimer.hpp"
 
 namespace heartCore { namespace graphics {
 	class AnimatedSprite : public StaticSprite {
 	private:
-		Animation m_animation;
-		Timer m_deltaTimer;
-		unsigned long long m_timeStep;
+		FrameAnimation m_animation;
 	public:
 		AnimatedSprite(double x, double y, double width, double height, std::vector<std::shared_ptr<Texture>> frames);
 

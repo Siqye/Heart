@@ -1,5 +1,6 @@
 #include "entity2d.hpp"
 #include "../logger/logger.hpp"
+#include <cmath>
 
 namespace {
 	heartCore::maths::vec2& requirePosition(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
@@ -27,12 +28,52 @@ namespace heartCore {
 	}
 
 	void Entity2d::update() {
+		if (m_hitBox)
+			m_hitBox->update();
 
+		EntityState nextState = EntityState::IDLE;
+		if (m_hasRequestedState) {
+			nextState = m_requestedState;
+			m_hasRequestedState = false;
+		}
+		else if (m_isAttacking) {
+			nextState = EntityState::ATTACK;
+		}
+		else if (!m_isGrounded) {
+			nextState = EntityState::JUMP;
+		}
+		else if (m_hitBox && (std::abs(m_hitBox->speed.x) > 0.01f || std::abs(m_hitBox->speed.y) > 0.01f)) {
+			nextState = EntityState::WALK;
+		}
 
-		// added: updating before sync
-		m_hitBox->update();
-		// added: sync
-		m_visualisation->update();
+		const auto animation = m_animations.find(nextState);
+		const bool stateChanged = nextState != m_entityState;
+		const bool animationMissing = !m_currentAnimation && animation != m_animations.end();
+		if (stateChanged || animationMissing) {
+			if (m_currentAnimation)
+				m_currentAnimation->pause();
+
+			m_entityState = nextState;
+			m_currentAnimation = animation == m_animations.end() ? nullptr : animation->second;
+
+			if (m_currentAnimation) {
+				m_currentAnimation->reset();
+				m_currentAnimation->nextSprite(m_visualisation);
+				m_currentAnimation->play();
+			}
+		}
+
+		if (m_currentAnimation) {
+			m_currentAnimation->update(m_visualisation);
+
+			if (m_currentAnimation->isFinished() &&
+				(m_entityState == EntityState::ATTACK || m_entityState == EntityState::JUMP)) {
+				setState(EntityState::IDLE);
+			}
+		}
+
+		if (m_visualisation)
+			m_visualisation->update();
 	}
 
 	void Entity2d::tick() {}
@@ -40,16 +81,41 @@ namespace heartCore {
 	void Entity2d::render() {}
 
 	void Entity2d::impulse(maths::vec2 direction, float power) {
-		m_hitBox->impulse(direction, power);
+		if (m_hitBox)
+			m_hitBox->impulse(direction, power);
 	}
 
+	void Entity2d::setState(EntityState state) {
+		m_requestedState = state;
+		m_hasRequestedState = true;
+	}
+
+	void Entity2d::setAnimation(EntityState state, std::shared_ptr<graphics::Animation> animation) {
+		if (animation)
+			m_animations[state] = std::move(animation);
+		else
+			m_animations.erase(state);
+
+		if (state == m_entityState) {
+			m_currentAnimation = m_animations.contains(state) ? m_animations.at(state) : nullptr;
+		}
+	}
 
 	void Entity2d::startAnimation() {
-		m_visualisation->startAnimation();
+		if (m_currentAnimation)
+			m_currentAnimation->play();
+		else if (m_visualisation)
+			m_visualisation->startAnimation();
 	}
 
 	void Entity2d::stopAnimation() {
-	
+		if (m_currentAnimation) {
+			m_currentAnimation->pause();
+			m_currentAnimation->reset();
+		}
+		else if (m_visualisation) {
+			m_visualisation->stopAnimation();
+		}
 	}
 
 }

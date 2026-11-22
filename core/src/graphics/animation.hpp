@@ -12,13 +12,16 @@ namespace heartCore { namespace graphics {
 		bool m_isPlaying;
 		unsigned long long m_duration;
 	public:
-		Animation(unsigned long long m_duration, bool looping);
+		Animation(unsigned long long duration, bool looping)
+			: m_looping(looping), m_isPlaying(false), m_duration(duration) {}
 
 		virtual void play() = 0;
 		virtual void pause() = 0;
 
 		virtual void reset() = 0;
 		virtual void nextSprite(std::shared_ptr<StaticSprite> sprite) = 0;
+		virtual void update(std::shared_ptr<StaticSprite> sprite) { (void)sprite; }
+		virtual bool isFinished() const { return false; }
 
 		inline const bool& isPlaying() { return m_isPlaying; }
 		inline const bool& isLooping() { return m_looping; }

@@ -2,7 +2,7 @@
 
 namespace heartCore { namespace graphics {
 	AtlasAnimation::AtlasAnimation(std::vector<maths::vec2> framesStart, std::shared_ptr<Texture> atlas, int offsetX, int offsetY, unsigned long long duration_ms, bool looping)
-		: Animation(duration_ms, looping), m_frameCount(framesStart.size()), 
+		: Animation(duration_ms, looping), m_frameCount(framesStart.size()), m_finished(false),
 		m_pixelWidth(atlas->getWidth()), m_pixelHeight(atlas->getHeight()), m_texture(atlas), 
 		m_offsetX(offsetX), m_offsetY(offsetY)
 	{
@@ -23,6 +23,8 @@ namespace heartCore { namespace graphics {
 	void AtlasAnimation::play() {
 		if (!m_isPlaying) {
 			m_isPlaying = true;
+			m_finished = false;
+			m_deltaTimer.start();
 		}
 	}
 
@@ -34,7 +36,9 @@ namespace heartCore { namespace graphics {
 
 	void AtlasAnimation::reset() {
 		m_isPlaying = false;
-		m_currentFrameIndex = 0;
+		m_finished = false;
+		m_currentFrameIndex = -1;
+		m_deltaTimer.reset();
 	}
 
 	void AtlasAnimation::nextSprite(std::shared_ptr<StaticSprite> sprite) {
@@ -47,7 +51,9 @@ namespace heartCore { namespace graphics {
 
 		if (m_currentFrameIndex >= m_frameCount) {
 			if (!m_looping) {
+				m_finished = true;
 				reset();
+				m_finished = true;
 				return;
 			}
 
@@ -56,6 +62,19 @@ namespace heartCore { namespace graphics {
 
 		sprite->setTC(m_framesTC[m_currentFrameIndex]);
 
+	}
+
+	void AtlasAnimation::update(std::shared_ptr<StaticSprite> sprite) {
+		if (!m_isPlaying || m_framesTC.empty() || m_duration == 0)
+			return;
+
+		const auto frameDuration = m_duration / static_cast<unsigned long long>(m_frameCount);
+		if (frameDuration == 0 || m_deltaTimer.count<ms>() < frameDuration)
+			return;
+
+		m_deltaTimer.reset();
+		m_deltaTimer.start();
+		nextSprite(std::move(sprite));
 	}
 
 } }

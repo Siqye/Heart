@@ -8,11 +8,9 @@ namespace heartCore {
 	namespace graphics {
 		class FrameAnimation : public Animation {
 		private:
-			bool m_isPlaying;
-			bool m_looping;
-
 			int m_frameCount;
 			int m_currentFrame;
+			bool m_finished;
 
 			std::shared_ptr<Texture> m_currentFrameTexture;
 			std::vector<std::shared_ptr<Texture>> m_frames;
@@ -25,6 +23,8 @@ namespace heartCore {
 
 			void reset() override;
 			void nextSprite(std::shared_ptr<StaticSprite> sprite) override;
+			void update(std::shared_ptr<StaticSprite> sprite) override;
+			bool isFinished() const override { return m_finished; }
 
 			inline const bool& isPlaying() { return m_isPlaying; }
 			inline const bool& isLooping() { return m_looping; }

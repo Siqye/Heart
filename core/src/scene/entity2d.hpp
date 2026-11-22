@@ -3,6 +3,7 @@
 #include "../graphics/frameanimation.hpp"
 #include "../physics/colidebox.hpp"
 #include <memory>
+#include <unordered_map>
 
 enum class EntityState {
 	IDLE = 0,
@@ -22,6 +23,12 @@ enum class EntityState {
 	CUSTOM_STATE8
 };
 
+struct EntityStateHash {
+	std::size_t operator()(EntityState state) const noexcept {
+		return static_cast<std::size_t>(state);
+	}
+};
+
 struct AnimationState {
 	EntityState state;
 	int clip_id;
@@ -38,12 +45,15 @@ namespace heartCore {
 		maths::vec2& m_position;
 		maths::vec2& m_size;
 			
-		std::vector<Animation> m_animations;
+		std::unordered_map<EntityState, std::shared_ptr<graphics::Animation>, EntityStateHash> m_animations;
 
-		bool m_isGrounded;
-		bool m_isAttacking;
+		bool m_isGrounded = false;
+		bool m_isAttacking = false;
 
 		EntityState m_entityState = EntityState::IDLE;
+		EntityState m_requestedState = EntityState::IDLE;
+		bool m_hasRequestedState = false;
+		std::shared_ptr<graphics::Animation> m_currentAnimation;
 
 
 		std::shared_ptr<graphics::StaticSprite> m_visualisation;
@@ -56,6 +66,12 @@ namespace heartCore {
 		virtual void render();
 		virtual void update();
 		virtual void tick();
+
+		void setState(EntityState state);
+		EntityState getState() const { return m_entityState; }
+		void setGrounded(bool grounded) { m_isGrounded = grounded; }
+		void setAttacking(bool attacking) { m_isAttacking = attacking; }
+		void setAnimation(EntityState state, std::shared_ptr<graphics::Animation> animation);
 
 		void impulse(maths::vec2 direction, float power);
 
