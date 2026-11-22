@@ -53,11 +53,19 @@ namespace heartCore {
 			if (m_currentAnimation)
 				m_currentAnimation->pause();
 
+			if (animation == m_animations.end() && m_textureBeforeAnimation && m_visualisation) {
+				m_visualisation->setTexture(m_textureBeforeAnimation);
+				m_textureBeforeAnimation.reset();
+			}
+
 			m_entityState = nextState;
 			m_currentAnimation = animation == m_animations.end() ? nullptr : animation->second;
 
 			if (m_currentAnimation) {
-				m_currentAnimation->reset();
+				if (m_visualisation && !m_textureBeforeAnimation)
+					m_textureBeforeAnimation = m_visualisation->getTexture();
+
+				//m_currentAnimation->reset();
 				m_currentAnimation->nextSprite(m_visualisation);
 				m_currentAnimation->play();
 			}
@@ -68,6 +76,10 @@ namespace heartCore {
 
 			if (m_currentAnimation->isFinished() &&
 				(m_entityState == EntityState::ATTACK || m_entityState == EntityState::JUMP)) {
+				if (m_textureBeforeAnimation && m_visualisation) {
+					m_visualisation->setTexture(m_textureBeforeAnimation);
+					m_textureBeforeAnimation.reset();
+				}
 				setState(EntityState::IDLE);
 			}
 		}
@@ -112,6 +124,10 @@ namespace heartCore {
 		if (m_currentAnimation) {
 			m_currentAnimation->pause();
 			m_currentAnimation->reset();
+			if (m_textureBeforeAnimation && m_visualisation) {
+				m_visualisation->setTexture(m_textureBeforeAnimation);
+				m_textureBeforeAnimation.reset();
+			}
 		}
 		else if (m_visualisation) {
 			m_visualisation->stopAnimation();

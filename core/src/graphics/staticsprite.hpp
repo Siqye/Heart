@@ -65,6 +65,7 @@ namespace heartCore {
 			inline const maths::vec2& getPosition() const { return m_position; }
 			inline const maths::vec4& getColor() const { return m_color; }
 			inline const std::vector<maths::vec2>& getTC() const { return m_texCoords; }
+			inline const std::shared_ptr<Texture>& getTexture() const { return m_texture; }
 			inline const GLuint getTID() const { return m_texture == nullptr ? 0 : m_texture->getTID(); }
 		};
 	}

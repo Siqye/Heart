@@ -16,7 +16,7 @@
 #include "scene/entity2d.hpp"
 #include "thread/jobsystem.h"
 #include "graphics/frameanimation.hpp"
-#include "graphics/animatedsprite.hpp"
+#include "graphics/atlasanimation.hpp"
 #include <memory>
 
 using namespace heartCore;
@@ -33,7 +33,7 @@ namespace heartCore {
 		ColideManager2d m_physManager;
 		std::shared_ptr<Label> fpsLabel;
 
-		std::shared_ptr<AnimatedSprite> m_playerSprite;
+		std::shared_ptr<Sprite> m_playerSprite;
 		std::shared_ptr<Sprite> m_huesosSprite;
 
 		std::shared_ptr<ColideBox2d> m_huesosBox;

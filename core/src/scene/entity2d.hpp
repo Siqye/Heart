@@ -54,6 +54,7 @@ namespace heartCore {
 		EntityState m_requestedState = EntityState::IDLE;
 		bool m_hasRequestedState = false;
 		std::shared_ptr<graphics::Animation> m_currentAnimation;
+		std::shared_ptr<graphics::Texture> m_textureBeforeAnimation;
 
 
 		std::shared_ptr<graphics::StaticSprite> m_visualisation;

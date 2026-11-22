@@ -8,14 +8,9 @@ namespace heartCore {
 		m_shader(std::make_shared<Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
 		m_physManager(),
-		m_playerSprite(std::make_shared<AnimatedSprite>(
+		m_playerSprite(std::make_shared<Sprite>(
 				25.0, 10.0, 5.0, 5.0,
-				std::vector<std::shared_ptr<Texture>>
-			{
-				std::make_shared<Texture>("test/test1.png"),
-				std::make_shared<Texture>("test/test2.png"),
-				std::make_shared<Texture>("test/test3.png")
-			}
+				std::make_shared<Texture>("test/test1.png")
 		)),
 		m_huesosSprite(std::make_shared<Sprite>(10.0, 10.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
 		m_huesosBox(std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f)),
@@ -26,6 +21,12 @@ namespace heartCore {
 		m_huesos(m_huesosSprite, m_huesosBox)
 	{
 
+		auto anim = std::make_shared<AtlasAnimation>(std::vector<maths::vec2>{
+			maths::vec2(0, 0), maths::vec2(32, 0), maths::vec2(64, 0)
+		},
+			std::make_shared<Texture>("test/human_walk_animation_test.png"), 32, 32, 200, true);
+
+		m_player.setAnimation(EntityState::WALK, anim);
 		m_mainGameLayer.add(m_playerSprite);
 		m_mainGameLayer.add(fpsLabel);
 		m_mainGameLayer.add(m_huesosSprite);
@@ -60,10 +61,10 @@ namespace heartCore {
 			m_window->isKeyPressed(GLFW_KEY_S) ||
 			m_window->isKeyPressed(GLFW_KEY_D) ||
 			m_window->isKeyPressed(GLFW_KEY_A)) {
-			if (!m_playerSprite->isPlaying())
-				m_player.startAnimation();
+			if (m_player.getState() != EntityState::WALK)
+				m_player.setState(EntityState::WALK);
 		} else {
-			m_player.stopAnimation();
+			m_player.setState(EntityState::IDLE);
 		}
 
 		m_jobSystem.run([this]() {

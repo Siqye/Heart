@@ -60,6 +60,8 @@ namespace heartCore { namespace graphics {
 			m_currentFrameIndex = 0;
 		}
 
+		sprite->setTexture(m_texture);
+
 		sprite->setTC(m_framesTC[m_currentFrameIndex]);
 
 	}
