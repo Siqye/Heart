@@ -1,12 +1,12 @@
-#include "packetrenderer2d.hpp"
+#include "glrenderer2d.hpp"
 #include "staticsprite.hpp"
 #include "texture.hpp"
 #include <string>
 
-namespace heartCore { 	namespace graphics {
-	namespace API {
+namespace heartCore { 	namespace graphics { 
+namespace API {
 
-	PacketRenderer::PacketRenderer() {
+	GLRenderer2d::GLRenderer2d() {
 		m_transformStack.push_back(maths::mat4::identity());
 		m_transformBack = &m_transformStack.back();
 
@@ -50,9 +50,9 @@ namespace heartCore { 	namespace graphics {
 		glBindVertexArray(0);
 	}
 
-	PacketRenderer::~PacketRenderer() {}
+	GLRenderer2d::~GLRenderer2d() {}
 
-	void PacketRenderer::submit(const StaticSprite* sprite) {
+	void GLRenderer2d::submit(const StaticSprite* sprite) {
 		const maths::vec2& position = sprite->getPosition();
 		const maths::vec2& size = sprite->getSize();
 		const maths::vec4& col = sprite->getColor();
@@ -117,12 +117,12 @@ namespace heartCore { 	namespace graphics {
 		m_indexCount += 6;
 	}
 
-	void PacketRenderer::begin() {
+	void GLRenderer2d::begin() {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		m_dataBuffer = (VertexData2d*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-	void PacketRenderer::draw() {
+	void GLRenderer2d::draw() {
 		for (int i = 0; i < m_textureSlots.size();i++) {
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, m_textureSlots[i]);
@@ -139,12 +139,12 @@ namespace heartCore { 	namespace graphics {
 		m_indexCount = 0;
 	}
 
-	void PacketRenderer::end() {
+	void GLRenderer2d::end() {
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void PacketRenderer::submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, const std::string& fontName) {
+	void GLRenderer2d::submitText(std::string text, float scale, maths::vec2 position, maths::vec4 col, const std::string& fontName) {
 		std::shared_ptr<Font> font = m_fontManager.getFont(fontName);
 		texture_atlas_t* textAtlas = font->getAtlas();
 		texture_font_t* textFont = font->getFont();

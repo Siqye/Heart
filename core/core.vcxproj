@@ -74,12 +74,12 @@
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>..\dependencies\OpenAL\lib;..\dependencies\freetype-gl\lib;..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <ExternalIncludePath>..\dependencies\OpenAL\include;..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\GorillaAudio\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\dependencies\vulkan\include;..\dependencies\OpenAL\include;..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\GorillaAudio\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)\builds\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExternalIncludePath>..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\GorillaAudio\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\dependencies\GorillaAudio\lib;..\dependencies\freetype-gl\lib;..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\dependencies\vulkan\include;..\dependencies\OpenAL\include;..\dependencies\freetype\include;..\dependencies\FreeImage\include;..\dependencies\glfw\include;..\dependencies\GorillaAudio\include;..\dependencies\glew\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\dependencies\OpenAL\lib;..\dependencies\freetype-gl\lib;..\dependencies\freetype\lib;..\dependencies\FreeImage\lib;..\dependencies\glew\lib;..\dependencies\glfw\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -158,7 +158,7 @@
     <ClCompile Include="src\graphics\layers\levellayer.cpp" />
     <ClCompile Include="src\graphics\API\mash3d.cpp" />
     <ClCompile Include="src\graphics\API\object3d.cpp" />
-    <ClCompile Include="src\graphics\API\packetrenderer2d.cpp" />
+    <ClCompile Include="src\graphics\API\glrenderer2d.cpp" />
     <ClCompile Include="src\graphics\API\renderer3d.cpp" />
     <ClCompile Include="src\graphics\API\shader.cpp" />
     <ClCompile Include="src\graphics\API\sprite.cpp" />
@@ -210,7 +210,7 @@
     <ClInclude Include="src\graphics\API\mash3d.hpp" />
     <ClInclude Include="src\graphics\API\object3d.hpp" />
     <ClInclude Include="src\graphics\API\renderer2d.hpp" />
-    <ClInclude Include="src\graphics\API\packetrenderer2d.hpp" />
+    <ClInclude Include="src\graphics\API\glrenderer2d.hpp" />
     <ClInclude Include="src\graphics\API\renderer3d.hpp" />
     <ClInclude Include="src\graphics\API\shader.hpp" />
     <ClInclude Include="src\graphics\API\sprite.hpp" />

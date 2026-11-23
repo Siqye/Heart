@@ -15,8 +15,6 @@ namespace heartCore { namespace graphics {
 
 	class Renderer2D {
 	protected:
-		GLuint VAO, VBO, IBO;
-
 		std::vector<maths::mat4> m_transformStack;
 		const maths::mat4* m_transformBack;
 

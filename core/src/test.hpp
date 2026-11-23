@@ -6,7 +6,7 @@
 #include "graphics/API/texture.hpp"
 #include "graphics/layers/group.hpp"
 #include "graphics/layers/levellayer.hpp"
-#include "graphics/API/packetrenderer2d.hpp"
+#include "graphics/API/glrenderer2d.hpp"
 #include "graphics/API/label.hpp"
 #include "graphics/API/fontmanager.hpp"
 #include "audio/sound.hpp"
