@@ -47,7 +47,7 @@ namespace heartCore {
 			
 		std::unordered_map<EntityState, std::shared_ptr<graphics::Animation>, EntityStateHash> m_animations;
 
-		bool m_isGrounded = false;
+		bool m_isGrounded = true;
 		bool m_isAttacking = false;
 
 		EntityState m_entityState = EntityState::IDLE;

@@ -23,6 +23,7 @@ namespace heartCore {
 		m_position(requirePosition(visual)),
 		m_size(requireSize(visual))
 	{ 
+		m_textureBeforeAnimation = m_visualisation->getTexture();
 		if (!m_hitBox)
 			LOG_ERROR("Entity2d requires a hitbox");
 	}
@@ -42,50 +43,39 @@ namespace heartCore {
 		else if (!m_isGrounded) {
 			nextState = EntityState::JUMP;
 		}
-		else if (m_hitBox && (std::abs(m_hitBox->speed.x) > 0.01f || std::abs(m_hitBox->speed.y) > 0.01f)) {
+		else if ((std::abs(m_hitBox->speed.x) > 0.1f || std::abs(m_hitBox->speed.y) > 0.1f)) {
 			nextState = EntityState::WALK;
 		}
 
 		const auto animation = m_animations.find(nextState);
 		const bool stateChanged = nextState != m_entityState;
-		const bool animationMissing = !m_currentAnimation && animation != m_animations.end();
+		const bool animationMissing = !m_currentAnimation;
 		if (stateChanged || animationMissing) {
 			if (m_currentAnimation)
 				m_currentAnimation->pause();
 
-			if (animation == m_animations.end() && m_textureBeforeAnimation && m_visualisation) {
-				m_visualisation->setTexture(m_textureBeforeAnimation);
-				m_textureBeforeAnimation.reset();
-			}
-
 			m_entityState = nextState;
-			m_currentAnimation = animation == m_animations.end() ? nullptr : animation->second;
+			m_currentAnimation = animation != m_animations.end()
+				? animation->second
+				: nullptr;
 
 			if (m_currentAnimation) {
-				if (m_visualisation && !m_textureBeforeAnimation)
-					m_textureBeforeAnimation = m_visualisation->getTexture();
-
-				//m_currentAnimation->reset();
+				m_currentAnimation->reset();
 				m_currentAnimation->nextSprite(m_visualisation);
 				m_currentAnimation->play();
+			}
+			else {
+				LOG_WARNING("Animation missing!");
 			}
 		}
 
 		if (m_currentAnimation) {
+			m_currentAnimation->play();
 			m_currentAnimation->update(m_visualisation);
-
-			if (m_currentAnimation->isFinished() &&
-				(m_entityState == EntityState::ATTACK || m_entityState == EntityState::JUMP)) {
-				if (m_textureBeforeAnimation && m_visualisation) {
-					m_visualisation->setTexture(m_textureBeforeAnimation);
-					m_textureBeforeAnimation.reset();
-				}
-				setState(EntityState::IDLE);
-			}
+		} else {
+			m_visualisation->setTC({ maths::vec2(0,0), maths::vec2(0,1), maths::vec2(1,1), maths::vec2(1,0) });
+			m_visualisation->setTexture(m_textureBeforeAnimation);
 		}
-
-		if (m_visualisation)
-			m_visualisation->update();
 	}
 
 	void Entity2d::tick() {}

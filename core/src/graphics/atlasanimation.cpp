@@ -61,7 +61,6 @@ namespace heartCore { namespace graphics {
 		}
 
 		sprite->setTexture(m_texture);
-
 		sprite->setTC(m_framesTC[m_currentFrameIndex]);
 
 	}
@@ -70,13 +69,11 @@ namespace heartCore { namespace graphics {
 		if (!m_isPlaying || m_framesTC.empty() || m_duration == 0)
 			return;
 
-		const auto frameDuration = m_duration / static_cast<unsigned long long>(m_frameCount);
-		if (frameDuration == 0 || m_deltaTimer.count<ms>() < frameDuration)
-			return;
-
-		m_deltaTimer.reset();
-		m_deltaTimer.start();
-		nextSprite(std::move(sprite));
+		if (m_deltaTimer.count<std::chrono::milliseconds>() >= m_duration) {
+			m_deltaTimer.reset();
+			m_deltaTimer.start();
+			nextSprite(std::move(sprite));
+		}
 	}
 
 } }

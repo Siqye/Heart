@@ -10,7 +10,7 @@ namespace heartCore {
 		m_physManager(),
 		m_playerSprite(std::make_shared<Sprite>(
 				25.0, 10.0, 5.0, 5.0,
-				std::make_shared<Texture>("test/test1.png")
+				std::make_shared<Texture>("test/human_idle_test.png")
 		)),
 		m_huesosSprite(std::make_shared<Sprite>(10.0, 10.0, 5.0, 5.0, std::make_shared<Texture>("test/test5.png"))),
 		m_huesosBox(std::make_shared<ColideBox2d>(m_huesosSprite->position, m_huesosSprite->size, 10, 2.0f)),
@@ -57,7 +57,7 @@ namespace heartCore {
 			m_player.impulse(maths::vec2(-1, 0), 0.05f);
 		}
 		
-		if (m_window->isKeyPressed(GLFW_KEY_W) ||
+		/*if (m_window->isKeyPressed(GLFW_KEY_W) ||
 			m_window->isKeyPressed(GLFW_KEY_S) ||
 			m_window->isKeyPressed(GLFW_KEY_D) ||
 			m_window->isKeyPressed(GLFW_KEY_A)) {
@@ -65,7 +65,7 @@ namespace heartCore {
 				m_player.setState(EntityState::WALK);
 		} else {
 			m_player.setState(EntityState::IDLE);
-		}
+		}*/
 
 		m_jobSystem.run([this]() {
 			m_player.update();
