@@ -22,8 +22,7 @@ namespace heartCore {
 	{
 
 		auto anim = std::make_shared<AtlasAnimation>(std::vector<maths::vec2>{
-			maths::vec2(0, 0), maths::vec2(32, 0), maths::vec2(64, 0)
-		},
+			maths::vec2(0, 0), maths::vec2(32, 0), maths::vec2(64, 0) },
 			std::make_shared<Texture>("test/human_walk_animation_test.png"), 32, 32, 200, true);
 
 		m_player.setAnimation(EntityState::WALK, anim);
