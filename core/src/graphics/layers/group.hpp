@@ -1,10 +1,11 @@
 #pragma once
 #include <vector>
-#include "../renderer2d.hpp"
-#include "../staticsprite.hpp"
+#include "../API/renderer2d.hpp"
+#include "../API/staticsprite.hpp"
 #include "../../maths/maths.hpp"
 
 namespace heartCore { namespace graphics {
+	using namespace API;
 
 	class Group : public StaticSprite {
 	private:

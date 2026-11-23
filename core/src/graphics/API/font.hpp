@@ -1,8 +1,9 @@
 #pragma once
-#include "../../ext/freetype-gl/freetype-gl.h"
+#include "../../../ext/freetype-gl/freetype-gl.h"
 #include <string>
 
 namespace heartCore { namespace graphics { 
+	namespace API {
 	class Font {
 	private:
 		texture_atlas_t* m_atlas;
@@ -19,4 +20,5 @@ namespace heartCore { namespace graphics {
 		texture_font_t* getFont();
 		inline const std::string& getName() { return m_name; }
 	};
-} }
+	}
+} } 

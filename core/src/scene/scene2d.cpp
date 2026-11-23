@@ -1,9 +1,9 @@
 #include "scene2d.hpp"
 
 namespace heartCore {
-	Scene2d::Scene2d(graphics::Window* window)
+	Scene2d::Scene2d(graphics::API::Window* window)
 		: m_window(window),
-		m_shader(std::make_shared<graphics::Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
+		m_shader(std::make_shared<graphics::API::Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_graphicLayer(m_shader)
 	{}
 

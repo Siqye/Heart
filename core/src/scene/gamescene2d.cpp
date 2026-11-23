@@ -1,7 +1,7 @@
 #include "gamescene2d.hpp"
 
 namespace heartCore {
-	GameScene2d::GameScene2d(graphics::Window* window) : Scene2d(window)
+	GameScene2d::GameScene2d(graphics::API::Window* window) : Scene2d(window)
 	{
 		m_graphicLayer.add(m_player->getVisual());
 	}

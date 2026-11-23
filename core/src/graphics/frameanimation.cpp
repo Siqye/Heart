@@ -2,6 +2,7 @@
 
 namespace heartCore {
 	namespace graphics {
+		using namespace API;
 		FrameAnimation::FrameAnimation(std::vector<std::shared_ptr<Texture>> frames, unsigned long long duration_ms, bool looping)
 			: Animation(duration_ms, looping), m_frameCount(frames.size()),
 			m_currentFrame(-1), m_finished(false), m_currentFrameTexture(nullptr), m_frames(std::move(frames))

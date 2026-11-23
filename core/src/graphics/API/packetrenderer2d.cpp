@@ -4,6 +4,7 @@
 #include <string>
 
 namespace heartCore { 	namespace graphics {
+	namespace API {
 
 	PacketRenderer::PacketRenderer() {
 		m_transformStack.push_back(maths::mat4::identity());
@@ -230,5 +231,6 @@ namespace heartCore { 	namespace graphics {
 				x += glyph->advance_x / scaleX;
 			}
 		}
+	}
 	}
 } }

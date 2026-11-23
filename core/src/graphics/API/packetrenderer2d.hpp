@@ -13,6 +13,7 @@
 #define COLOR_INDEX			3
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	
 	class PacketRenderer : public Renderer2D {
 	private:
@@ -30,4 +31,5 @@ namespace heartCore { namespace graphics {
 		void draw()	override;
 		void end() override;
 	};
+	}
 } }

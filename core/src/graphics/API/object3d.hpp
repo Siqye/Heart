@@ -1,7 +1,8 @@
 #pragma once
-#include "../maths/maths.hpp"
+#include "../../maths/maths.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	struct UnitData3d {
 		maths::vec3 vertex;
 		unsigned int color;
@@ -20,4 +21,5 @@ namespace heartCore { namespace graphics {
 		const maths::vec3& getSize() { return m_size; }
 		const maths::vec4& getColor() { return m_color; }
 	};
+	}
 } }

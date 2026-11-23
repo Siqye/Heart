@@ -2,6 +2,7 @@
 #include "animation.hpp"
 
 namespace heartCore { namespace graphics {
+	using namespace API;
 	class AtlasAnimation : public Animation {
 	private:
 		std::vector<std::vector<maths::vec2>> m_framesTC;

@@ -2,6 +2,7 @@
 
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	{
 		m_programID = glCreateProgram();
@@ -82,5 +83,6 @@ namespace heartCore { namespace graphics {
 
 	GLuint Shader::getUniformLocation(const GLchar* name) {
 		return glGetUniformLocation(m_programID, name);
+	}
 	}
 } }

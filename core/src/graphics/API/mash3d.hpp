@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../maths/mat4.hpp"
+#include "../../maths/mat4.hpp"
 #include <vector>
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	class Mash3d {
 	private:
 		struct MashData {
@@ -18,4 +19,5 @@ namespace heartCore { namespace graphics {
 		virtual const std::vector<maths::vec3>& getVertecies() { return m_vertecies; }
 		virtual const std::vector<int>& getIndecies() { return m_indecies; }
 	};
+	}
 } }

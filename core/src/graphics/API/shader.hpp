@@ -1,10 +1,11 @@
 #pragma once
 #include <glew.h>
 #include <iostream>
-#include "../maths/maths.hpp"
-#include "../utils/file_reader.hpp"
+#include "../../maths/maths.hpp"
+#include "../../utils/file_reader.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	class Shader
 	{
 	public:
@@ -30,4 +31,5 @@ namespace heartCore { namespace graphics {
 		const char* m_fragmentPath;
 		GLuint m_programID;
 	};
+	}
 } }

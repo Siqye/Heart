@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
-#include "../renderer2d.hpp"
-#include "../staticsprite.hpp"
-#include "../shader.hpp"
+#include "../API/renderer2d.hpp"
+#include "../API/staticsprite.hpp"
+#include "../API/shader.hpp"
 #include <memory>
 
 namespace heartCore { namespace graphics {
+	using namespace API;
 	class Layer {
 	protected:
 		std::shared_ptr<Renderer2D> m_renderer;

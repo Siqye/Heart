@@ -1,14 +1,14 @@
 #pragma once
 #include "config.h"
 #include "utils/cxxtimer.hpp"
-#include "graphics/window.hpp"
-#include "graphics/sprite.hpp"
-#include "graphics/texture.hpp"
+#include "graphics/API/window.hpp"
+#include "graphics/API/sprite.hpp"
+#include "graphics/API/texture.hpp"
 #include "graphics/layers/group.hpp"
 #include "graphics/layers/levellayer.hpp"
-#include "graphics/packetrenderer2d.hpp"
-#include "graphics/label.hpp"
-#include "graphics/fontmanager.hpp"
+#include "graphics/API/packetrenderer2d.hpp"
+#include "graphics/API/label.hpp"
+#include "graphics/API/fontmanager.hpp"
 #include "audio/sound.hpp"
 #include "audio/wavfile.hpp"
 #include "audio/speaker.hpp"
@@ -21,6 +21,7 @@
 
 using namespace heartCore;
 using namespace graphics;
+using namespace graphics::API;
 using namespace audio;
 using namespace physics;
 

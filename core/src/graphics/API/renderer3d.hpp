@@ -14,6 +14,7 @@
 
 namespace heartCore {
 	namespace graphics {
+		namespace API {
 		class Renderer3d {
 		private:
 			GLuint VBO, VAO, IBO;
@@ -28,5 +29,6 @@ namespace heartCore {
 			void end();
 			void draw();
 		};
+		}
 	}
 }

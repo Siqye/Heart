@@ -1,7 +1,7 @@
 #pragma once
 #include "entity2d.hpp"
 #include "camera2d.hpp"
-#include "../graphics/window.hpp"
+#include "../graphics/API/window.hpp"
 #include "../physics/boxmanager.hpp"
 #include "../graphics/layers/levellayer.hpp"
 #include <vector>
@@ -12,14 +12,14 @@ namespace heartCore {
 	protected:
 		std::vector<Entity2d*> m_objects;
 		Camera2d m_camera;
-		std::shared_ptr<graphics::Shader> m_shader;
-		graphics::Window* m_window;
+		std::shared_ptr<graphics::API::Shader> m_shader;
+		graphics::API::Window* m_window;
 		
 		graphics::LevelLayer m_graphicLayer;
 		physics::ColideManager2d m_physManager;
 		
 	public:
-		Scene2d(graphics::Window* window);
+		Scene2d(graphics::API::Window* window);
 
 		void addObject(Entity2d* entity);
 	

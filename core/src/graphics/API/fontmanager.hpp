@@ -8,6 +8,7 @@
 #include <memory>
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	class FontManager {
 	private:
 		std::vector<std::shared_ptr<Font>> m_fontsLib;
@@ -21,4 +22,5 @@ namespace heartCore { namespace graphics {
 		std::shared_ptr<Font> getFontbyID(int fontID);
 		std::shared_ptr<Font> getFont(const std::string& fontName);
 	};
+	}
 } }

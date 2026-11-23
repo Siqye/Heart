@@ -1,9 +1,10 @@
 #pragma once
 #include <glew.h>
-#include "../utils/image_loader.hpp"
+#include "../../utils/image_loader.hpp"
 #include <string>
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	class Texture {
 	private:
 		std::string m_texturePath;
@@ -23,4 +24,5 @@ namespace heartCore { namespace graphics {
 		inline const unsigned int getHeight() const { return m_height; }
 		inline const GLuint getTID() const { return m_texID; }
 	};
+	}
 } }

@@ -1,13 +1,14 @@
 #pragma once
 #include <glew.h>
 #include <vector>
-#include "../maths/maths.hpp"
+#include "../../maths/maths.hpp"
 #include <cstddef>
 #include "fontmanager.hpp"
-#include "../utils/char_loader.h"
-#include "../config.h"
+#include "../../utils/char_loader.h"
+#include "../../config.h"
 
 namespace heartCore { namespace graphics { 
+	namespace API {
 	class StaticSprite;
 	struct VertexData2d;
 	class Texture;
@@ -43,4 +44,5 @@ namespace heartCore { namespace graphics {
 		virtual void end() {}
 		virtual void draw() = 0;
 	};
+	}
 } }

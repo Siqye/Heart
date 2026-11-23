@@ -1,6 +1,7 @@
 #include "group.hpp"
 
 namespace heartCore { namespace graphics {
+	using namespace API;
 
 	Group::Group(const maths::mat4 matrix) 
 		: StaticSprite(), m_projectionMatrix(matrix)

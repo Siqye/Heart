@@ -1,6 +1,7 @@
 #include "font.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	Font::Font(const std::string& fontPath, std::string fontName) 
 		: m_filePath(fontPath), m_name(fontName)
 	{
@@ -13,4 +14,5 @@ namespace heartCore { namespace graphics {
 	texture_atlas_t* Font::getAtlas() { return m_atlas; }
 	texture_font_t* Font::getFont() { return m_font; }
 	//std::string Font::getName() { return m_fontName;  }
+	}
 } }

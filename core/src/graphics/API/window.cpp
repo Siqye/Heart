@@ -1,7 +1,8 @@
 #include "window.hpp"
-#include "../logger/logger.hpp"
+#include "../../logger/logger.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 
 	Window::Window(int width, int height, const char* title) 
 		: m_width(width), m_height(height), m_title(title)
@@ -111,5 +112,6 @@ namespace heartCore { namespace graphics {
 		Window* win = (Window*)glfwGetWindowUserPointer(window);
 		win->m_mouseX = xpos;
 		win->m_mouseY = ypos;
+	}
 	}
 } }

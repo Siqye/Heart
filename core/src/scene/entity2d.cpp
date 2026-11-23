@@ -3,13 +3,13 @@
 #include <cmath>
 
 namespace {
-	heartCore::maths::vec2& requirePosition(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
+	heartCore::maths::vec2& requirePosition(const std::shared_ptr<heartCore::graphics::API::StaticSprite>& visual) {
 		if (!visual)
 			LOG_ERROR("Entity2d requires a visualisation");
 		return visual->position;
 	}
 
-	heartCore::maths::vec2& requireSize(const std::shared_ptr<heartCore::graphics::StaticSprite>& visual) {
+	heartCore::maths::vec2& requireSize(const std::shared_ptr<heartCore::graphics::API::StaticSprite>& visual) {
 		if (!visual)
 			LOG_ERROR("Entity2d requires a visualisation");
 		return visual->size;
@@ -17,7 +17,7 @@ namespace {
 }
 
 namespace heartCore {
-	Entity2d::Entity2d(std::shared_ptr<graphics::StaticSprite> visual, std::shared_ptr<physics::ColideBox2d> hitBox)
+	Entity2d::Entity2d(std::shared_ptr<graphics::API::StaticSprite> visual, std::shared_ptr<physics::ColideBox2d> hitBox)
 		: m_visualisation(visual),
 		m_hitBox(hitBox),
 		m_position(requirePosition(visual)),

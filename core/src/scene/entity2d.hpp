@@ -1,5 +1,5 @@
 #pragma once
-#include "../graphics/staticsprite.hpp"
+#include "../graphics/API/staticsprite.hpp"
 #include "../graphics/frameanimation.hpp"
 #include "../physics/colidebox.hpp"
 #include <memory>
@@ -54,15 +54,15 @@ namespace heartCore {
 		EntityState m_requestedState = EntityState::IDLE;
 		bool m_hasRequestedState = false;
 		std::shared_ptr<graphics::Animation> m_currentAnimation;
-		std::shared_ptr<graphics::Texture> m_textureBeforeAnimation;
+		std::shared_ptr<graphics::API::Texture> m_textureBeforeAnimation;
 
 
-		std::shared_ptr<graphics::StaticSprite> m_visualisation;
+		std::shared_ptr<graphics::API::StaticSprite> m_visualisation;
 		std::shared_ptr<physics::ColideBox2d> m_hitBox;
 
 	public:
 		// 1 entity = 1 sprite
-		Entity2d(std::shared_ptr<graphics::StaticSprite> atlas, std::shared_ptr<physics::ColideBox2d> hitBox);
+		Entity2d(std::shared_ptr<graphics::API::StaticSprite> atlas, std::shared_ptr<physics::ColideBox2d> hitBox);
 
 		virtual void render();
 		virtual void update();
@@ -81,7 +81,7 @@ namespace heartCore {
 
 		maths::vec2& getPosition() { return m_position; }
 		maths::vec2& getSize() { return m_size; }
-		std::shared_ptr<graphics::StaticSprite> getVisual() { return m_visualisation; }
+		std::shared_ptr<graphics::API::StaticSprite> getVisual() { return m_visualisation; }
 		std::shared_ptr<physics::ColideBox2d> getColideBox() { return m_hitBox; }
 	};
 }

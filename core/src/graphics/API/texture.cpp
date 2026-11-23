@@ -1,6 +1,7 @@
 #include "texture.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 
 	Texture::Texture(const char* texturePath) 
 		: m_texturePath(texturePath) 
@@ -32,5 +33,6 @@ namespace heartCore { namespace graphics {
 
 	void Texture::unbind() const {
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 	}
 } }

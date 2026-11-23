@@ -1,6 +1,7 @@
 #include "atlasanimation.hpp"
 
 namespace heartCore { namespace graphics {
+	using namespace API;
 	AtlasAnimation::AtlasAnimation(std::vector<maths::vec2> framesStart, std::shared_ptr<Texture> atlas, int offsetX, int offsetY, unsigned long long duration_ms, bool looping)
 		: Animation(duration_ms, looping), m_frameCount(framesStart.size()), m_finished(false),
 		m_pixelWidth(atlas->getWidth()), m_pixelHeight(atlas->getHeight()), m_texture(atlas), 

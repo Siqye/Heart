@@ -9,7 +9,7 @@ namespace heartCore {
 		Player2d* m_player;
 
 	public:
-		GameScene2d(graphics::Window* window);
+		GameScene2d(graphics::API::Window* window);
 
 		void render() override; // no limit per second
 		void update() override; // 60 times per second

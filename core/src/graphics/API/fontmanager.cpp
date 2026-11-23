@@ -1,6 +1,7 @@
 #include "fontmanager.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	FontManager::FontManager() {}
 	
 	FontManager::FontManager(const char* fontFolder) {
@@ -36,4 +37,5 @@ namespace heartCore { namespace graphics {
 		}
 		return NULL;
 	}
+	} 
 } }

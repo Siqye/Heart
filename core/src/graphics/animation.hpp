@@ -1,9 +1,10 @@
 #pragma once
 #include "../utils/cxxtimer.hpp"
-#include "staticsprite.hpp"
+#include "API/staticsprite.hpp"
 #include "../logger/logger.hpp"
 
 namespace heartCore { namespace graphics {
+	using namespace API;
 	class Animation {
 	protected:
 		Timer m_deltaTimer;
@@ -19,7 +20,7 @@ namespace heartCore { namespace graphics {
 		virtual void pause() = 0;
 
 		virtual void reset() = 0;
-		virtual void nextSprite(std::shared_ptr<StaticSprite> sprite) = 0;
+		virtual void nextSprite(std::shared_ptr<API::StaticSprite> sprite) = 0;
 		virtual void update(std::shared_ptr<StaticSprite> sprite) { (void)sprite; }
 		virtual bool isFinished() const { return false; }
 

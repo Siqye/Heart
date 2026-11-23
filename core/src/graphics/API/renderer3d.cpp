@@ -1,6 +1,7 @@
 #include "renderer3d.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	Renderer3d::Renderer3d() {
 		m_indexCount = 0;
 
@@ -162,5 +163,6 @@ namespace heartCore { namespace graphics {
 		glBindVertexArray(0);
 
 		m_indexCount = 0;
+	}
 	}
 } }

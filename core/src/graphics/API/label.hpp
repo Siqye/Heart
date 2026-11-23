@@ -4,6 +4,7 @@
 #include "font.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	class Label : public StaticSprite {
 	private:
 		std::string m_text;
@@ -18,4 +19,5 @@ namespace heartCore { namespace graphics {
 		void setText(std::string text);
 		void setFont(std::string font);
 	};
-} }
+	}
+} } 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../maths/maths.hpp"
+#include "../../maths/maths.hpp"
 #include "renderer2d.hpp"
 #include "texture.hpp"
 #include <vector>
@@ -8,6 +8,7 @@
 
 namespace heartCore {
 	namespace graphics {
+		namespace API {
 
 		struct VertexData2d {
 			maths::vec2 vertex;
@@ -68,5 +69,6 @@ namespace heartCore {
 			inline const std::shared_ptr<Texture>& getTexture() const { return m_texture; }
 			inline const GLuint getTID() const { return m_texture == nullptr ? 0 : m_texture->getTID(); }
 		};
+		}
 	}
 }

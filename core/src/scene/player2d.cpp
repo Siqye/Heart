@@ -1,7 +1,7 @@
 #include "player2d.hpp"
 
 namespace heartCore {
-	Player2d::Player2d(std::shared_ptr<graphics::StaticSprite> visual, std::shared_ptr<physics::ColideBox2d> hitBox) 
+	Player2d::Player2d(std::shared_ptr<graphics::API::StaticSprite> visual, std::shared_ptr<physics::ColideBox2d> hitBox) 
 		: Entity2d(visual, hitBox)
 	{}
 

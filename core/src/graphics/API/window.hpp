@@ -7,6 +7,7 @@
 #define MAX_MOUSE_BUTTONS 32
 //
 namespace heartCore { namespace graphics {
+	namespace API {
 	class Window
 	{
 	public:
@@ -33,4 +34,5 @@ namespace heartCore { namespace graphics {
 		bool m_keyboardArrayKeys[MAX_KEYS], m_mouseArrayButtons[MAX_MOUSE_BUTTONS];
 		GLFWwindow* m_window;
 	};
+	}
 } }

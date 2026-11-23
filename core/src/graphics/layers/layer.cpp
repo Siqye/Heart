@@ -2,6 +2,7 @@
 #include <stdexcept>
 
 namespace heartCore {namespace graphics {
+	using namespace API;
 	Layer::Layer(std::shared_ptr<Shader> shader, std::shared_ptr<Renderer2D> renderer, maths::mat4 projectionMatrix)
 		: m_shader(shader), m_renderer(renderer), m_projectionMatrix(projectionMatrix)
 	{

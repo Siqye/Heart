@@ -1,11 +1,13 @@
 #pragma once
 #include "../utils/cxxtimer.hpp"
-#include "staticsprite.hpp"
+#include "API/staticsprite.hpp"
+#include "API/texture.hpp"
 #include "animation.hpp"
 #include <memory>
 
 namespace heartCore {
 	namespace graphics {
+		using namespace API;
 		class FrameAnimation : public Animation {
 		private:
 			int m_frameCount;

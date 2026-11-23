@@ -1,6 +1,7 @@
 #include "sprite.hpp"
 
 namespace heartCore { namespace graphics {
+	namespace API {
 	Sprite::Sprite(double x, double y, double width, double height, maths::vec4 color) 
 		: StaticSprite(maths::vec2(x, y), maths::vec2(width, height), color)
 	{ }
@@ -8,4 +9,5 @@ namespace heartCore { namespace graphics {
 	Sprite::Sprite(double x, double y, double width, double height, std::shared_ptr<Texture> texture)
 		: StaticSprite(maths::vec2(x , y), maths::vec2(width, height), texture)
 	{ }
+	}
 } }
