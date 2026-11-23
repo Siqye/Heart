@@ -55,16 +55,6 @@ namespace heartCore {
 		else if (m_window->isKeyPressed(GLFW_KEY_A)) {
 			m_player.impulse(maths::vec2(-1, 0), 0.05f);
 		}
-		
-		/*if (m_window->isKeyPressed(GLFW_KEY_W) ||
-			m_window->isKeyPressed(GLFW_KEY_S) ||
-			m_window->isKeyPressed(GLFW_KEY_D) ||
-			m_window->isKeyPressed(GLFW_KEY_A)) {
-			if (m_player.getState() != EntityState::WALK)
-				m_player.setState(EntityState::WALK);
-		} else {
-			m_player.setState(EntityState::IDLE);
-		}*/
 
 		m_jobSystem.run([this]() {
 			m_player.update();
@@ -82,16 +72,26 @@ namespace heartCore {
 		std::string labelText;
 		m_timer.start();
 
+		constexpr unsigned long long MAX_FRAME_TIME = 250000;
+		unsigned long long accumulator = 0;
+
+		m_deltaTimer.start();
+
 		while (m_window->close()) {
-			//deltaTimer.reset();
+			unsigned long long frameTime = static_cast<unsigned long long>(m_deltaTimer.count<us>());
+			m_deltaTimer.reset();
 			m_deltaTimer.start();
-			
-			if (m_deltaTimer.count<std::chrono::microseconds>() >= FIXED_TIMESTEP) {
+
+			if (frameTime > MAX_FRAME_TIME)
+				frameTime = MAX_FRAME_TIME;
+
+			accumulator += frameTime;
+
+			while (accumulator >= FIXED_TIMESTEP) {
 				m_jobSystem.run([this]() {
 					update();
-				});
-
-				m_deltaTimer.reset();
+					});
+				accumulator -= FIXED_TIMESTEP;
 			}
 
 			m_window->clear();

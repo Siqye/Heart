@@ -2,7 +2,7 @@
 #include "../logger/logger.hpp"
 #include <cmath>
 
-namespace {
+namespace heartCore {
 	heartCore::maths::vec2& requirePosition(const std::shared_ptr<heartCore::graphics::API::StaticSprite>& visual) {
 		if (!visual)
 			LOG_ERROR("Entity2d requires a visualisation");
@@ -14,9 +14,7 @@ namespace {
 			LOG_ERROR("Entity2d requires a visualisation");
 		return visual->size;
 	}
-}
 
-namespace heartCore {
 	Entity2d::Entity2d(std::shared_ptr<graphics::API::StaticSprite> visual, std::shared_ptr<physics::ColideBox2d> hitBox)
 		: m_visualisation(visual),
 		m_hitBox(hitBox),
