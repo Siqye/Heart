@@ -26,8 +26,14 @@ namespace heartCore { namespace graphics {
 
 	void Window::clear() const
 	{
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClear(GL_COLOR_BUFFER_BIT);
+		switch (m_renderAPI) {
+		case RenderAPI::OpenGL:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		case RenderAPI::Vulkan:
+			return;
+		case RenderAPI::DirectX:
+			return;
+		}
 	}
 
 	void Window::update() const
@@ -113,5 +119,4 @@ namespace heartCore { namespace graphics {
 		win->m_mouseX = xpos;
 		win->m_mouseY = ypos;
 	}
-	}
-} }
+} } }
