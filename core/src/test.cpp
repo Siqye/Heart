@@ -4,7 +4,7 @@
 namespace heartCore {
 	Game::Game(int windowWidth, int windowHeight, const char* windowTitle)
 		:
-		m_window(std::make_unique<Window>(windowWidth, windowHeight, windowTitle)),
+		m_window(std::make_unique<Window>(windowWidth, windowHeight, windowTitle, graphics::API::RenderAPI::OpenGL)),
 		m_shader(std::make_shared<Shader>("src/shader/basic.vert", "src/shader/basic.frag")),
 		m_mainGameLayer(m_shader),
 		m_physManager(),

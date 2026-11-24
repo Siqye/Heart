@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\API\vulkancontext.cpp" />
     <ClCompile Include="src\graphics\atlasanimation.cpp" />
     <ClCompile Include="src\graphics\frameanimation.cpp" />
     <ClCompile Include="src\logger\logger.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="src\audio\speaker.hpp" />
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\graphics\API\vulkancontext.hpp" />
     <ClInclude Include="src\graphics\atlasanimation.hpp" />
     <ClInclude Include="src\graphics\frameanimation.hpp" />
     <ClInclude Include="src\logger\logger.hpp" />

@@ -6,6 +6,9 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 #include <iostream>
+#include <set>
+#include <cstring>
+#include "../../logger/logger.hpp"
 
 #define MAX_KEYS 1024
 #define MAX_MOUSE_BUTTONS 32
@@ -31,8 +34,19 @@ namespace API {
 		bool m_keyboardArrayKeys[MAX_KEYS], m_mouseArrayButtons[MAX_MOUSE_BUTTONS];
 		RenderAPI m_renderAPI;
 
-		VkInstance m_vkInstance;
-		vk::raii::SurfaceKHR m_vkSurface;
+		// vulkan stuff
+		vk::raii::Context m_vkContext;
+
+		std::unique_ptr<vk::raii::Instance> m_vkInstance;
+		std::unique_ptr<vk::raii::DebugUtilsMessengerEXT> m_vkDebugMessenger;
+		std::unique_ptr<vk::raii::SurfaceKHR> m_vkSurface;
+		std::unique_ptr<vk::raii::PhysicalDevice> m_vkPhysicalDevice;
+		std::unique_ptr<vk::raii::Device> m_vkDevice;
+		std::unique_ptr<vk::raii::Queue> m_vkGraphicsQueue;
+		std::unique_ptr<vk::raii::Queue> m_vkPresentQueue;
+
+		std::uint32_t m_graphicsFamily = 0;
+		std::uint32_t m_presentFamily = 0;
 
 	public:
 		Window(int width, int height, const char* title, RenderAPI api);
@@ -53,8 +67,12 @@ namespace API {
 		static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 		bool init();
 
-		vk::SurfaceFormatKHR vkChooseSwapFormat(std::vector<vk::SurfaceFormatKHR> const& avaibleFormats);
-
-		void createVkSurface();
+		//vk::SurfaceFormatKHR vkChooseSwapFormat(std::vector<vk::SurfaceFormatKHR> const& avaibleFormats);
+		
+		bool initVulkan();
+		bool createVkInstance();
+		bool createVkSurface();
+		bool pickVkPhysicalDevice();
+		bool createVkDevice();
 	};
 } } }

@@ -1,6 +1,6 @@
-//#define TEST3D
+#define VULKAN
 
-#ifndef TEST3D
+#ifndef VULKAN
 #include "src/test.hpp"
 
 int main()
@@ -13,33 +13,17 @@ int main()
 
 #else
 
-#include "src/graphics/window.hpp"
-#include "src/graphics/renderer3d.hpp"
-#include "src/graphics/shader.hpp"
+#include "src/graphics/API/window.hpp"
 
 using namespace heartCore;
 using namespace graphics;
 
 int main() {
-	Window window(800, 600, "3dtest");
-
-	Shader shader("src/shader/basic3d.vert", "src/shader/basic3d.frag");
-
-	shader.bind();
-	shader.setUniformMat4f("projection", maths::mat4::perspective(90, 4.0f / 3.0f, 0.1f, 50.0f));
-
-	Renderer3d renderer;
-
-	Object3d object(maths::vec3(-2.5f, -2.5f, -5.0f), maths::vec3(1.0f, 1.0f, 1.0f), maths::vec4(1, 0, 1, 1));
+	API::Window window(800, 600, "vulkan test", API::RenderAPI::Vulkan);
 	
 	while (window.close()) {
 		window.clear();
-
-		renderer.begin();
-		renderer.submit(&object);
-		renderer.end();
-		renderer.draw();
-
+		
 		window.update();
 	}
 }
