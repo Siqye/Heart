@@ -1,6 +1,9 @@
 #pragma once
+#define VULKAN_HPP_NO_STRUCT_CONSTRUCTORS
 #include <vulkan/vulkan.hpp>
 #include <vulkan/vulkan_raii.hpp>
+#include <glfw3.h>
+#include "../../logger/logger.hpp"
 #include <memory>
 #include <vector>
 #include <set>
@@ -9,8 +12,7 @@
 namespace heartCore { namespace graphics {
 namespace API {
 
-	class VulkanContext {
-	private:
+	struct VulkanContext {
 		vk::raii::Context m_vkContext;
 		
 		std::unique_ptr<vk::raii::Instance> m_vkInstance;
@@ -24,12 +26,8 @@ namespace API {
 		std::uint32_t m_graphicsFamily = 0;
 		std::uint32_t m_presentFamily = 0;
 		
-	public:
-		VulkanContext();
-
-		bool initVulkan();
 		bool createVkInstance();
-		bool createVkSurface();
+		bool createVkSurface(GLFWwindow* window);
 		bool pickVkPhysicalDevice();
 		bool createVkDevice();
 	};
