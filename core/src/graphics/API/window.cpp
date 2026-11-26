@@ -42,13 +42,22 @@ namespace API {
 
 	void Window::update() const
 	{
-		glViewport(0, 0, m_width, m_height);
-		glfwSwapBuffers(m_window);
-		glfwPollEvents();
+		switch (m_renderAPI) {
+		case RenderAPI::OpenGL: 
+			glViewport(0, 0, m_width, m_height);
+			glfwSwapBuffers(m_window);
+			return;
+		case RenderAPI::Vulkan:
+			m_vkContext.swapBuffer(m_window);
+			return;
+		case RenderAPI::DirectX:
+			return;
+		}
 	}
 
 	bool Window::close()
 	{
+		glfwPollEvents();
 		m_closed = glfwWindowShouldClose(m_window);
 		return !m_closed;
 	}
@@ -114,15 +123,19 @@ namespace API {
 			if (!m_vkContext.createVkSurface(m_window))
 				return false;
 			
-			if (m_vkContext.pickVkPhysicalDevice())
+			if (!m_vkContext.pickVkPhysicalDevice())
 				return false;
 			
-			if (m_vkContext.createVkDevice())
+			if (!m_vkContext.createVkDevice())
+				return false;
+			
+			if (!m_vkContext.createSwapBuffer(m_window))
 				return false;
 
 			return true;
 
 		case RenderAPI::DirectX:
+			LOG_FATAL("DirectX rendering is not supported");
 			return false;
 		}
 		
