@@ -1,6 +1,8 @@
 #pragma once
 #include <glew.h>
 #include <iostream>
+#include <string>
+#include <unordered_map>
 #include "../../maths/maths.hpp"
 #include "../../utils/file_reader.hpp"
 
@@ -25,7 +27,9 @@ namespace heartCore { namespace graphics {
 		void setUniformMat4f(const GLchar* name, const maths::mat4& matrix);
 	private:
 		GLuint compileShader(const char* source, GLenum type);
-		GLuint getUniformLocation(const GLchar* name);
+		GLint getUniformLocation(const GLchar* name);
+
+		std::unordered_map<std::string, GLint> m_uniformCache;
 
 		const char* m_vertexPath;
 		const char* m_fragmentPath;

@@ -22,17 +22,16 @@ namespace API {
 		}
 	}
 
-	Window::~Window()
-	{
+	Window::~Window() {
 		glfwDestroyWindow(m_window);
 		glfwTerminate();
 	}
 
-	void Window::clear() const
-	{
+	void Window::clear() const {
 		switch (m_renderAPI) {
 		case RenderAPI::OpenGL:
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			return;
 		case RenderAPI::Vulkan:
 			return;
 		case RenderAPI::DirectX:
@@ -40,15 +39,24 @@ namespace API {
 		}
 	}
 
-	void Window::update() const
-	{
-		glViewport(0, 0, m_width, m_height);
-		glfwSwapBuffers(m_window);
+	void Window::update() {
+		switch (m_renderAPI) {
+		case RenderAPI::OpenGL:
+			glViewport(0, 0, m_width, m_height);
+			glfwSwapBuffers(m_window);
+			break;
+		case RenderAPI::Vulkan:
+			m_vkContext.acquireNextImage(imageIndex);
+			break;
+		case RenderAPI::DirectX:
+			break;
+		}
+
+		imageIndex++;
 		glfwPollEvents();
 	}
 
-	bool Window::close()
-	{
+	bool Window::close() {
 		m_closed = glfwWindowShouldClose(m_window);
 		return !m_closed;
 	}
@@ -114,10 +122,13 @@ namespace API {
 			if (!m_vkContext.createVkSurface(m_window))
 				return false;
 			
-			if (m_vkContext.pickVkPhysicalDevice())
+			if (!m_vkContext.pickVkPhysicalDevice())
 				return false;
 			
-			if (m_vkContext.createVkDevice())
+			if (!m_vkContext.createVkDevice())
+				return false;
+
+			if (!m_vkContext.createVkSwapchain())
 				return false;
 
 			return true;

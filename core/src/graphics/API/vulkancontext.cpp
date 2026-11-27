@@ -1,9 +1,8 @@
 #include "vulkancontext.hpp"
+#include <algorithm>
 
 namespace heartCore { namespace graphics {
 namespace API {
-
-
 
 	bool VulkanContext::createVkInstance() {
 		vk::ApplicationInfo appInfo{};
@@ -43,6 +42,7 @@ namespace API {
 	}
 
 	bool VulkanContext::createVkSurface(GLFWwindow* window) {
+		m_window = window;
 		VkSurfaceKHR rawSurface = VK_NULL_HANDLE;
 		if (glfwCreateWindowSurface(static_cast<VkInstance>(**m_vkInstance),
 			window, nullptr, &rawSurface) != VK_SUCCESS) {
@@ -118,9 +118,134 @@ namespace API {
 		info.pEnabledFeatures = &features;
 
 		m_vkDevice = std::make_unique<vk::raii::Device>(*m_vkPhysicalDevice, info);
-		m_vkGraphicsQueue = std::make_unique<vk::raii::Queue>(*m_vkDevice, m_graphicsFamily, 0);
-		m_vkPresentQueue = std::make_unique<vk::raii::Queue>(*m_vkDevice, m_presentFamily, 0);
 		return true;
+	}
+
+	bool VulkanContext::createVkSwapchain() {
+		if (!m_vkPhysicalDevice || !m_vkDevice || !m_vkSurface) {
+			LOG_FATAL("Cannot create swapchain before Vulkan device and surface");
+			return false;
+		}
+
+		const vk::SurfaceCapabilitiesKHR capabilities =
+			m_vkPhysicalDevice->getSurfaceCapabilitiesKHR(**m_vkSurface);
+		const std::vector<vk::SurfaceFormatKHR> formats =
+			m_vkPhysicalDevice->getSurfaceFormatsKHR(**m_vkSurface);
+		const std::vector<vk::PresentModeKHR> presentModes =
+			m_vkPhysicalDevice->getSurfacePresentModesKHR(**m_vkSurface);
+
+		if (formats.empty() || presentModes.empty()) {
+			LOG_FATAL("Surface does not provide swapchain formats or present modes");
+			return false;
+		}
+
+		vk::SurfaceFormatKHR surfaceFormat = formats.front();
+		for (const auto& format : formats) {
+			if (format.format == vk::Format::eB8G8R8A8Srgb &&
+				format.colorSpace == vk::ColorSpaceKHR::eSrgbNonlinear) {
+				surfaceFormat = format;
+				break;
+			}
+		}
+
+		vk::PresentModeKHR presentMode = vk::PresentModeKHR::eFifo;
+		for (const auto mode : presentModes) {
+			if (mode == vk::PresentModeKHR::eMailbox) {
+				presentMode = mode;
+				break;
+			}
+		}
+
+		vk::Extent2D extent = capabilities.currentExtent;
+		if (extent.width == std::numeric_limits<std::uint32_t>::max()) {
+			int width = 0;
+			int height = 0;
+			glfwGetFramebufferSize(m_window, &width, &height);
+			extent.width = std::clamp(static_cast<std::uint32_t>(width),
+				capabilities.minImageExtent.width, capabilities.maxImageExtent.width);
+			extent.height = std::clamp(static_cast<std::uint32_t>(height),
+				capabilities.minImageExtent.height, capabilities.maxImageExtent.height);
+		}
+
+		std::uint32_t imageCount = capabilities.minImageCount + 1;
+		if (capabilities.maxImageCount > 0 && imageCount > capabilities.maxImageCount)
+			imageCount = capabilities.maxImageCount;
+
+		vk::SwapchainCreateInfoKHR info{};
+		info.surface = **m_vkSurface;
+		info.minImageCount = imageCount;
+		info.imageFormat = surfaceFormat.format;
+		info.imageColorSpace = surfaceFormat.colorSpace;
+		info.imageExtent = extent;
+		info.imageArrayLayers = 1;
+		info.imageUsage = vk::ImageUsageFlagBits::eColorAttachment;
+
+		const std::uint32_t queueFamilies[] = { m_graphicsFamily, m_presentFamily };
+		if (m_graphicsFamily != m_presentFamily) {
+			info.imageSharingMode = vk::SharingMode::eConcurrent;
+			info.queueFamilyIndexCount = 2;
+			info.pQueueFamilyIndices = queueFamilies;
+		} else {
+			info.imageSharingMode = vk::SharingMode::eExclusive;
+		}
+		info.preTransform = capabilities.currentTransform;
+		info.compositeAlpha = vk::CompositeAlphaFlagBitsKHR::eOpaque;
+		info.presentMode = presentMode;
+		info.clipped = VK_TRUE;
+		if (m_vkSwapchain)
+			info.oldSwapchain = **m_vkSwapchain;
+
+		vk::raii::SwapchainKHR newSwapchain(*m_vkDevice, info);
+		std::vector<vk::Image> newImages = newSwapchain.getImages();
+		std::vector<vk::raii::ImageView> newImageViews;
+		newImageViews.reserve(newImages.size());
+
+		for (const vk::Image image : newImages) {
+			vk::ImageViewCreateInfo viewInfo{};
+			viewInfo.image = image;
+			viewInfo.viewType = vk::ImageViewType::e2D;
+			viewInfo.format = surfaceFormat.format;
+			viewInfo.components = vk::ComponentMapping{};
+			viewInfo.subresourceRange.aspectMask = vk::ImageAspectFlagBits::eColor;
+			viewInfo.subresourceRange.baseMipLevel = 0;
+			viewInfo.subresourceRange.levelCount = 1;
+			viewInfo.subresourceRange.baseArrayLayer = 0;
+			viewInfo.subresourceRange.layerCount = 1;
+			newImageViews.emplace_back(*m_vkDevice, viewInfo);
+		}
+
+		m_vkSwapchain = std::make_unique<vk::raii::SwapchainKHR>(std::move(newSwapchain));
+		m_swapchainImages = std::move(newImages);
+		m_swapchainImageViews = std::move(newImageViews);
+		m_swapchainImageFormat = surfaceFormat.format;
+		m_swapchainExtent = extent;
+		return true;
+	}
+
+	bool VulkanContext::recreateVkSwapchain() {
+		if (!m_vkDevice)
+			return false;
+		m_vkDevice->waitIdle();
+		return createVkSwapchain();
+	}
+
+	bool VulkanContext::acquireNextImage(std::uint32_t& imageIndex) {
+		if (!m_vkSwapchain)
+			return false;
+
+		try {
+			auto result = m_vkSwapchain->acquireNextImage(
+				std::numeric_limits<std::uint64_t>::max(), {}, {});
+			if (result.result == vk::Result::eErrorOutOfDateKHR)
+				return recreateVkSwapchain() && acquireNextImage(imageIndex);
+			if (result.result != vk::Result::eSuccess && result.result != vk::Result::eSuboptimalKHR)
+				return false;
+			imageIndex = result.value;
+			return true;
+		} catch (const vk::SystemError& error) {
+			LOG_ERROR(error.what());
+			return false;
+		}
 	}
 
 } } }

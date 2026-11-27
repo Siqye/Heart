@@ -1,4 +1,5 @@
 #include "file_reader.hpp"
+#include <fstream>
 
 namespace heartCore {
 	std::string readFile(const char* file_path)
@@ -19,5 +20,17 @@ namespace heartCore {
 		delete[] data;
 
 		return result;
+	}
+
+	std::vector<char> readFileBinary(const char* file_path)
+	{
+		std::ifstream file(file_path, std::ios::ate | std::ios::binary);
+		if (!file.is_open()) {
+			return {};
+		}
+		std::vector<char> data(static_cast<size_t>(file.tellg()));
+		file.seekg(0);
+		file.read(data.data(), static_cast<std::streamsize>(data.size()));
+		return data;
 	}
 }

@@ -8,6 +8,8 @@
 #include <vector>
 #include <set>
 #include <cstring>
+#include <cstdint>
+#include <limits>
 
 namespace heartCore { namespace graphics {
 namespace API {
@@ -20,9 +22,13 @@ namespace API {
 		std::unique_ptr<vk::raii::SurfaceKHR> m_vkSurface;
 		std::unique_ptr<vk::raii::PhysicalDevice> m_vkPhysicalDevice;
 		std::unique_ptr<vk::raii::Device> m_vkDevice;
-		std::unique_ptr<vk::raii::Queue> m_vkGraphicsQueue;
-		std::unique_ptr<vk::raii::Queue> m_vkPresentQueue;
+		std::unique_ptr<vk::raii::SwapchainKHR> m_vkSwapchain;
+		std::vector<vk::Image> m_swapchainImages;
+		std::vector<vk::raii::ImageView> m_swapchainImageViews;
+		GLFWwindow* m_window = nullptr;
 
+		vk::Format m_swapchainImageFormat = vk::Format::eUndefined;
+		vk::Extent2D m_swapchainExtent{};
 		std::uint32_t m_graphicsFamily = 0;
 		std::uint32_t m_presentFamily = 0;
 		
@@ -30,6 +36,13 @@ namespace API {
 		bool createVkSurface(GLFWwindow* window);
 		bool pickVkPhysicalDevice();
 		bool createVkDevice();
+		bool createVkSwapchain();
+		bool recreateVkSwapchain();
+		bool acquireNextImage(std::uint32_t& imageIndex);
+
+		const std::vector<vk::raii::ImageView>& getSwapchainImageViews() const { return m_swapchainImageViews; }
+		vk::Format getSwapchainImageFormat() const { return m_swapchainImageFormat; }
+		vk::Extent2D getSwapchainExtent() const { return m_swapchainExtent; }
 	};
 
 } } }

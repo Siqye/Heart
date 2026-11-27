@@ -24,6 +24,8 @@ namespace API {
 	private:
 		GLFWwindow* m_window;
 		const char* m_title;
+
+		std::uint32_t imageIndex = 0;
 		
 		bool m_closed;
 		int m_width, m_height;
@@ -38,7 +40,7 @@ namespace API {
 		Window(int width, int height, const char* title, RenderAPI api);
 		~Window();
 		void clear() const;
-		void update() const;
+		void update();
 		bool close();
 
 		bool isKeyPressed(int keycode) const;

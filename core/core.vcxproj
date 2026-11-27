@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\API\vulkancontext.cpp" />
+    <ClCompile Include="src\graphics\API\vulkanshader.cpp" />
     <ClCompile Include="src\graphics\atlasanimation.cpp" />
     <ClCompile Include="src\graphics\frameanimation.cpp" />
     <ClCompile Include="src\logger\logger.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="src\audio\wavfile.hpp" />
     <ClInclude Include="src\config.h" />
     <ClInclude Include="src\graphics\API\vulkancontext.hpp" />
+    <ClInclude Include="src\graphics\API\vulkanshader.hpp" />
     <ClInclude Include="src\graphics\atlasanimation.hpp" />
     <ClInclude Include="src\graphics\frameanimation.hpp" />
     <ClInclude Include="src\logger\logger.hpp" />
@@ -267,8 +269,18 @@
     <None Include="src\shader\basic.vert" />
     <None Include="src\shader\basic3d.frag" />
     <None Include="src\shader\basic3d.vert" />
+    <None Include="src\shader\vulkan\basic.vert" />
+    <None Include="src\shader\vulkan\basic.frag" />
+    <None Include="src\shader\vulkan\basic3d.vert" />
+    <None Include="src\shader\vulkan\basic3d.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemGroup>
+    <VulkanShaderSource Include="src\shader\vulkan\*.vert;src\shader\vulkan\*.frag" />
+  </ItemGroup>
+  <Target Name="CompileVulkanShaders" BeforeTargets="Link" Condition="'$(VULKAN_SDK)' != ''">
+    <Exec Command="&quot;$(VULKAN_SDK)\Bin\glslc.exe&quot; &quot;%(VulkanShaderSource.FullPath)&quot; -o &quot;%(VulkanShaderSource.FullPath).spv&quot;" />
+  </Target>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>

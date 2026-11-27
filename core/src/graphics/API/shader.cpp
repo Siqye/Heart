@@ -1,5 +1,5 @@
 #include "shader.hpp"
-
+#include "../../logger/logger.hpp"
 
 namespace heartCore { namespace graphics {
 	namespace API {
@@ -14,11 +14,13 @@ namespace heartCore { namespace graphics {
 		GLint ok;
 		glLinkProgram(m_programID);glGetProgramiv(m_programID, GL_LINK_STATUS, &ok);
 		if (!ok) {
-			GLint len; glGetProgramiv(m_programID, GL_INFO_LOG_LENGTH, &len);
-			std::string log(len, '\0'); glGetProgramInfoLog(m_programID, len, nullptr, &log[0]);
-			std::cerr << "Program link error: " << log << std::endl;
+			GLint len = 0; glGetProgramiv(m_programID, GL_INFO_LOG_LENGTH, &len);
+			std::string log(len > 0 ? len : 1, '\0'); glGetProgramInfoLog(m_programID, len, nullptr, &log[0]);
+			LOG_ERROR("Program link error: " + glGetError());
 		}
 
+		glDetachShader(m_programID, vertexShader);
+		glDetachShader(m_programID, fragmentShader);
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 
@@ -35,9 +37,9 @@ namespace heartCore { namespace graphics {
 		GLint success;
 		glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
 		if (!success) {
-			GLint len; glGetProgramiv(m_programID, GL_INFO_LOG_LENGTH, &len);
-			std::string log(len, '\0'); glGetProgramInfoLog(m_programID, len, nullptr, &log[0]);
-			std::cerr << "Program link error: " << log << std::endl;
+			GLint len = 0; glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &len);
+			std::string log(len > 0 ? len : 1, '\0'); glGetShaderInfoLog(shaderID, len, nullptr, &log[0]);
+			std::cerr << (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment") << " shader compile error (" << shaderPath << "): " << log << std::endl;
 		}
 		return shaderID;
 	}
@@ -81,8 +83,13 @@ namespace heartCore { namespace graphics {
 		glUniformMatrix4fv(getUniformLocation(name),1, GL_FALSE, matrix.elements);
 	}
 
-	GLuint Shader::getUniformLocation(const GLchar* name) {
-		return glGetUniformLocation(m_programID, name);
+	GLint Shader::getUniformLocation(const GLchar* name) {
+		auto it = m_uniformCache.find(name);
+		if (it != m_uniformCache.end()) return it->second;
+		GLint location = glGetUniformLocation(m_programID, name);
+		if (location == -1) std::cerr << "Warning: uniform '" << name << "' not found" << std::endl;
+		m_uniformCache[name] = location;
+		return location;
 	}
 	}
 } }
